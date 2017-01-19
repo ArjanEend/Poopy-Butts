@@ -1,0 +1,3 @@
+[submodule "Assets/framework"]
+	path = Assets/framework
+	url = https://www.bitbucket.org/acordia/framework
