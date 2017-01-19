@@ -51,7 +51,7 @@ public class MoveUpdateSystem : SystemBase
                 TestComponent test = playerGroup[i].GetComponent<TestComponent>(testComp);
                 Vector3 pos = test.visuals.position;
 
-                pos += (Vector3)playerBindings[id] * Time.deltaTime;
+                pos += (Vector3)playerBindings[id] * 20f * Time.deltaTime;
 
                 test.visuals.position = pos;
             }
