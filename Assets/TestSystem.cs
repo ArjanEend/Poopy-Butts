@@ -22,11 +22,16 @@ public class TestSystem : SystemBase {
 		float time = Time.time;
 		for (int i = 0; i < movingGroup.Count; i++) {
             TestComponent comp = movingGroup[i].GetComponent<TestComponent>(compIndex);
-			float offsetTime = time + comp.Offset;
-			Vector3 pos = comp.visuals.position;
-			pos.y = Mathf.Sin (offsetTime) * 5f;
-			comp.visuals.position = pos;
-		}
+            float offsetTime = time + comp.Offset;
+            for (int j = 0; j < movingGroup.Count; j++)
+            {
+                TestComponent comp2 = movingGroup[j].GetComponent<TestComponent>(compIndex);
+                offsetTime += comp2.visuals.transform.position.x;
+            }
+            Vector3 pos = comp.visuals.position;
+            pos.y = Mathf.Sin(offsetTime) * 5f;
+            comp.visuals.position = pos;
+        }
 	}
 
 	override public void Destroy()

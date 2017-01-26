@@ -17,7 +17,7 @@ public class PoopyGame : GameBase {
         systemManager.AddSystem(new MoveInputSystem(0));
         systemManager.AddSystem(new MoveUpdateSystem());
         
-		for (int i = 0; i < 600; i++) 
+		for (int i = 0; i < 100; i++) 
 		{
 			Entity ent = entityPool.GetObject ();
 			TestComponent comp = ent.AddComponent<TestComponent> (new TestComponent());
