@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 70638b462d3554f40a11335046f9ebd9
+timeCreated: 1484835656
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Work Sans
+  fontNames:
+  - Work Sans
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 29919680f37148743bd0e56e0f0595be, type: 3}
+  - {fileID: 12800000, guid: 680abd96c6dfb264b8106fbfcdd97a13, type: 3}
+  - {fileID: 12800000, guid: 36390d1c52c0cfb4da58e867176dc44e, type: 3}
+  - {fileID: 12800000, guid: 399995acf330fc142a597119867fdee3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

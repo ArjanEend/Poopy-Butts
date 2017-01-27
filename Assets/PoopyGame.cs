@@ -16,6 +16,13 @@ public class PoopyGame : GameBase {
 		systemManager.AddSystem (system);
         systemManager.AddSystem(new MoveInputSystem(0));
         systemManager.AddSystem(new MoveUpdateSystem());
+
+        MessageController controller = GameObject.FindObjectOfType<MessageController>();
+        controller.Init(entityPool, 0);
+
+        MessageSystem messageSystem = new MessageSystem();
+        systemManager.AddSystem(messageSystem);
+        messageSystem.OnMessageReceived += controller.OnNewMessage;
         
 		for (int i = 0; i < 100; i++) 
 		{
