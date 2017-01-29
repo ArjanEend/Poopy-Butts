@@ -2,6 +2,8 @@
 using System.Collections;
 using RocketWorks.Base;
 using RocketWorks.Entities;
+using RocketWorks.Networking;
+using System;
 
 public class PoopyGame : GameBase {
 
@@ -17,10 +19,13 @@ public class PoopyGame : GameBase {
         systemManager.AddSystem(new MoveInputSystem(0));
         systemManager.AddSystem(new MoveUpdateSystem());
 
+        NetworkController network = GameObject.FindObjectOfType<NetworkController>();
+        network.EntityPool = entityPool;
+        network.OnUserConnected += OnUserConnected;
+        
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
-        controller.Init(entityPool, 0);
-
         MessageSystem messageSystem = new MessageSystem();
+        messageSystem.Network = network;
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
         
@@ -41,4 +46,9 @@ public class PoopyGame : GameBase {
 
     }
 
+    private void OnUserConnected(int userId)
+    {
+        MessageController controller = GameObject.FindObjectOfType<MessageController>();
+        controller.Init(entityPool, userId);
+    }
 }

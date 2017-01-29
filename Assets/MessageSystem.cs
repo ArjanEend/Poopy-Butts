@@ -6,6 +6,7 @@ using RocketWorks.Pooling;
 using System;
 using RocketWorks.Grouping;
 using RocketWorks.Entities;
+using RocketWorks.Networking;
 
 public class MessageSystem : SystemBase
 {
@@ -16,9 +17,15 @@ public class MessageSystem : SystemBase
     public event MessageEvent OnMessageReceived = delegate { };
 
     private int messageIndex;
+    private NetworkController network;
+    public NetworkController Network
+    {
+        set { network = value; }
+    }
 
     public override void Initialize(EntityPool pool)
     {
+        this.network = network;
         messageIndex = pool.GetIndexOf(typeof(MessageComponent));
         group = pool.GetGroup(typeof(MessageComponent));
         userGroup = pool.GetGroup(typeof(PlayerIdComponent));
@@ -41,6 +48,7 @@ public class MessageSystem : SystemBase
         for (int i = 0; i < messages.Count; i++)
         {
             OnNewMessage(messages[i]);
+            network.SendSocketMessage(new CreateEntityCommand(messages[i]));
         }
     }
 
