@@ -4,6 +4,7 @@ using RocketWorks.Base;
 using RocketWorks.Entities;
 using RocketWorks.Networking;
 using System;
+using RocketWorks.Commands;
 
 public class PoopyGame : GameBase {
 
@@ -14,24 +15,27 @@ public class PoopyGame : GameBase {
 
     public PoopyGame() : base()
 	{	
-		TestSystem system = new TestSystem ();
+		/*TestSystem system = new TestSystem ();
 		systemManager.AddSystem (system);
         systemManager.AddSystem(new MoveInputSystem(0));
-        systemManager.AddSystem(new MoveUpdateSystem());
+        systemManager.AddSystem(new MoveUpdateSystem());*/
 
-        NetworkController network = GameObject.FindObjectOfType<NetworkController>();
-        network.EntityPool = entityPool;
-        network.OnUserConnected += OnUserConnected;
+        Commander commander = new Commander();
+        commander.AddObject(entityPool);
+
+        SocketController socket = new SocketController(commander);
+        socket.SetupSocket();
         
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
+        controller.Network = socket;
         MessageSystem messageSystem = new MessageSystem();
-        messageSystem.Network = network;
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
-        
-		for (int i = 0; i < 100; i++) 
+        controller.Init(entityPool, socket.UserId);
+
+        for (int i = 0; i < 100; i++) 
 		{
-			Entity ent = entityPool.GetObject ();
+			/*Entity ent = entityPool.GetObject ();
 			TestComponent comp = ent.AddComponent<TestComponent> (new TestComponent());
 			comp.Offset = i * 1.5f;
 			GameObject go = GameObject.CreatePrimitive (PrimitiveType.Cube);
@@ -41,7 +45,7 @@ public class PoopyGame : GameBase {
             {
                 var playerComp = ent.AddComponent<PlayerIdComponent>(new PlayerIdComponent());
                 playerComp.id = 0;
-            }
+            }*/
 		}
 
     }

@@ -1,4 +1,6 @@
-﻿using RocketWorks.Entities;
+﻿using RocketWorks.Commands;
+using RocketWorks.Entities;
+using RocketWorks.Networking;
 using RocketWorks.Pooling;
 using System;
 using System.Collections;
@@ -20,6 +22,12 @@ public class MessageController : MonoBehaviour {
     private EntityPool entityPool;
     private int userId;
 
+    private SocketController network;
+    public SocketController Network
+    {
+        set { network = value; }
+    }
+
     private void Start()
     {
         button.onClick.AddListener(SubmitMessage);
@@ -39,6 +47,9 @@ public class MessageController : MonoBehaviour {
         comp.userId = userId;
         comp.timeStamp = DateTime.Now;
         entity.AddComponent<MessageComponent>(comp);
+
+        network.WriteSocket<EntityPool>(new CreateEntityCommand(entity));
+
         messageField.text = "";
     }
 
