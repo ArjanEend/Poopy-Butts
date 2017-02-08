@@ -1,22 +1,29 @@
-﻿using RocketWorks.Systems;
+﻿using RocketWorks.Commands;
+using RocketWorks.Entities;
+using RocketWorks.Grouping;
+using RocketWorks.Networking;
+using RocketWorks.Pooling;
+using RocketWorks.Systems;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RocketWorks.Pooling;
-using System;
-using RocketWorks.Grouping;
-using RocketWorks.Entities;
-using RocketWorks.Networking;
 
-public class MessageSystem : SystemBase
-{
+public class MessageRelaySystem : SystemBase {
     private Group group;
     private Group userGroup;
-    
+
     public delegate void MessageEvent(int user, string message, DateTime time);
     public event MessageEvent OnMessageReceived = delegate { };
 
     private int messageIndex;
+
+    private SocketController controller;
+
+    public MessageRelaySystem(SocketController controller)
+    {
+        this.controller = controller;
+    }
 
     public override void Initialize(EntityPool pool)
     {
@@ -33,7 +40,6 @@ public class MessageSystem : SystemBase
 
     public override void Destroy()
     {
-        throw new NotImplementedException();
     }
 
     public override void Execute()
@@ -41,9 +47,7 @@ public class MessageSystem : SystemBase
         List<Entity> messages = group.NewEntities;
         for (int i = 0; i < messages.Count; i++)
         {
-            OnNewMessage(messages[i]);
+            controller.WriteSocket(new CreateEntityCommand(messages[i]));
         }
     }
-
-    
 }

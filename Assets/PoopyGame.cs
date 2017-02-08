@@ -6,7 +6,7 @@ using RocketWorks.Networking;
 using System;
 using RocketWorks.Commands;
 
-public class PoopyGame : GameBase {
+public class PoopyGame : UnityGameBase {
 
     [RuntimeInitializeOnLoadMethod]
 	private static void Main () {
@@ -20,12 +20,14 @@ public class PoopyGame : GameBase {
         systemManager.AddSystem(new MoveInputSystem(0));
         systemManager.AddSystem(new MoveUpdateSystem());*/
 
-        Commander commander = new Commander();
+        NetworkCommander commander = new NetworkCommander();
         commander.AddObject(entityPool);
 
         SocketController socket = new SocketController(commander);
-        socket.SetupSocket();
-        
+
+        NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
+        networkController.Init(socket);
+
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
         controller.Network = socket;
         MessageSystem messageSystem = new MessageSystem();

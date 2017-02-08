@@ -46,9 +46,9 @@ public class MessageController : MonoBehaviour {
         comp.message = messageField.text;
         comp.userId = userId;
         comp.timeStamp = DateTime.Now;
-        entity.AddComponent<MessageComponent>(comp);
+        entity.AddComponent(comp);
 
-        network.WriteSocket<EntityPool>(new CreateEntityCommand(entity));
+        network.WriteSocket(new CreateEntityCommand(entity));
 
         messageField.text = "";
     }
