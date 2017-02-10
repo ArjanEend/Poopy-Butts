@@ -37,9 +37,20 @@ namespace RocketWorks.Networking
            
         }
 
+        private void Update()
+        {
+            controller.Update();
+        }
+
         private void StartServer()
         {
             controller.SetupSocket();
+        }
+
+
+        private void OnDestroy()
+        {
+            controller.CloseSocket();
         }
     }
 }

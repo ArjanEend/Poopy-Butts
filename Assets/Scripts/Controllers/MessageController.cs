@@ -41,7 +41,7 @@ public class MessageController : MonoBehaviour {
 
     public void SubmitMessage()
     {
-        Entity entity = entityPool.GetObject();
+        Entity entity = entityPool.GetObject(true);
         MessageComponent comp = new MessageComponent();
         comp.message = messageField.text;
         comp.userId = userId;

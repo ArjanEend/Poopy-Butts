@@ -30,9 +30,9 @@ public class MoveInputSystem : SystemBase
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         Entity entity = pool.GetObject();
-        PlayerIdComponent component = entity.AddComponent<PlayerIdComponent>(new PlayerIdComponent ());
+        PlayerIdComponent component = entity.AddComponent(new PlayerIdComponent ());
         component.id = playerId;
-        AxisComponent aComponent = entity.AddComponent<AxisComponent>(new AxisComponent());
+        AxisComponent aComponent = entity.AddComponent(new AxisComponent());
         aComponent.input = input;
     }
 
