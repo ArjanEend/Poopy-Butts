@@ -57,6 +57,7 @@
     <Compile Include="Assets\framework\RocketWorks\Grouping\Group.cs" />
     <Compile Include="Assets\framework\RocketWorks\Loading\ILoadable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Loading\WaitForLoad.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Logging\RocketLog.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Mathf.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Transform.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Vector2.cs" />
@@ -77,8 +78,13 @@
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

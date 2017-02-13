@@ -12,12 +12,11 @@ namespace TexTastic
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter 'server' to start in server mode or press enter for press enter for client.");
+            Console.WriteLine("Server started.");
             
-            PoopyGame game = new PoopyGame(Console.ReadLine() == "server");
+            PoopyGameServer game = new PoopyGameServer();
 
             float limitFrameTime = 1000f / 60f;
-#if !UNITY
             do
             {
                 string line = Console.ReadLine();
@@ -48,7 +47,6 @@ namespace TexTastic
                     }
                 }
             } while (true);
-#endif
         }
     }
 }
