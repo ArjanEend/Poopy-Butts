@@ -50,6 +50,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EqualityComparer.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\framework\RocketWorks\State\StateMachine.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystemManager.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Systems\SendComponentsSystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />

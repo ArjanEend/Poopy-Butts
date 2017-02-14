@@ -108,8 +108,6 @@ public class PoopyGameServer :
     {
         base.UpdateGame(deltaTime);
         socket.Update();
-        if (Input.GetKey(KeyCode.Escape))
-            socket.CloseSocket();
     }
 
     private void OnUserConnected(uint obj)
