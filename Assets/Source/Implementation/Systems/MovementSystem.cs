@@ -17,7 +17,6 @@ namespace Implementation.Systems
         {
             mId = pool.GetIndexOf(typeof(MovementComponent));
             tId = pool.GetIndexOf(typeof(TransformComponent));
-
             group = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent));
         }
 

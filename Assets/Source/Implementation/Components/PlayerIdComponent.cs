@@ -3,5 +3,5 @@ using System;
 
 [Serializable]
 public class PlayerIdComponent : IComponent {
-    public int id;
+    public uint id;
 }

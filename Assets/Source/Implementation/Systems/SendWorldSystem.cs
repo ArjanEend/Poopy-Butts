@@ -6,6 +6,7 @@ using Implementation.Components;
 using System.Collections.Generic;
 using RocketWorks.Entities;
 using RocketWorks.Networking;
+using RocketWorks.Commands;
 
 namespace Implementation.Systems
 {
@@ -40,9 +41,10 @@ namespace Implementation.Systems
             List<Entity> users = userGroup.NewEntities;
             for(int i = 0; i < users.Count; i++)
             {
-                for(int j = 0; j < itemGroup.Count j++)
+                RocketLog.Log("User: " + i, this);
+                for(int j = 0; j < itemGroup.Count; j++)
                 {
-
+                    controller.WriteSocket(new CreateEntityCommand(itemGroup[j]), (int)users[i].GetComponent<PlayerIdComponent>(pId).id);
                 }
             }
         }

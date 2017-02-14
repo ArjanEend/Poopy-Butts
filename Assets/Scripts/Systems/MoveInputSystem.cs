@@ -31,7 +31,7 @@ public class MoveInputSystem : SystemBase
 
         Entity entity = pool.GetObject();
         PlayerIdComponent component = entity.AddComponent(new PlayerIdComponent ());
-        component.id = playerId;
+        component.id = (uint)playerId;
         AxisComponent aComponent = entity.AddComponent(new AxisComponent());
         aComponent.input = input;
     }
