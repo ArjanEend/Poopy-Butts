@@ -33,8 +33,11 @@ class VisualizationSystem : UnitySystemBase
         {
             VisualizationComponent vComp = group[i].GetComponent<VisualizationComponent>(vId);
             TransformComponent tComp = group[i].GetComponent<TransformComponent>(tId);
-            GameObject go = visBindings[vComp];
-            go.transform.position = new Vector3(tComp.position.x, 0f, tComp.position.y);
+            if (visBindings.ContainsKey(vComp))
+            {
+                GameObject go = visBindings[vComp];
+                go.transform.position = new Vector3(tComp.position.x, 0f, tComp.position.y);
+            }
         }
     }
 

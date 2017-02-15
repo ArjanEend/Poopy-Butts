@@ -95,11 +95,11 @@ public class PoopyGameServer :
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new SendComponentsSystem<TransformComponent>(socket));
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 25; i++)
         {
             Entity ent = entityPool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
-            ent.AddComponent<MovementComponent>().velocity = new RocketWorks.Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
+            ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
             ent.AddComponent<VisualizationComponent>();
         }
     }
