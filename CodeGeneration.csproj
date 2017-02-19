@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{732A1977-C599-4117-BEA7-234AF2B77A01}</ProjectGuid>
+    <ProjectGuid>{3BD4942F-29C8-4D46-972B-EB7B5BF51E93}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TexTastic</RootNamespace>
@@ -84,11 +84,7 @@
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
-    <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
-    <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
-    <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
-    <Compile Include="Assets\Source\PoopyGame.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CodeGeneration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +94,7 @@
   <ItemGroup>
     <Content Include="Assets\framework\.gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Source\Generated\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
