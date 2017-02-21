@@ -11,6 +11,7 @@ namespace TexTastic
     {
         static void Main(string[] args)
         {
+            Directory.Delete("../../Assets/Source/Generated");
             for(int i = 0; i < 10; i++)
             {
                 FileStream fStream = new FileStream("../../Assets/Source/Generated/" + i + ".cs", FileMode.Create);
