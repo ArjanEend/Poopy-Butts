@@ -9,7 +9,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MessageController : MonoBehaviour {
-
     [SerializeField]
     private InputField messageField;
 

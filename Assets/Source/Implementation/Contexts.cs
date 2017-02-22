@@ -1,15 +1,17 @@
 ﻿using Implementation.Components;
 using RocketWorks.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Source.Implementation
+public partial class Contexts
 {
-    class Contexts
+    private EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent> mainContext;
+
+    public EntityContext MainContext { get { return mainContext; } }
+
+    public Contexts()
     {
-        public EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent> mainContext;
+        contexts = new List<EntityContext>();
+        mainContext = new EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent>();
+        contexts.Add(mainContext);
     }
 }

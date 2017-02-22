@@ -41,11 +41,12 @@ class VisualizationSystem : UnitySystemBase
         }
     }
 
-    public override void Initialize(EntityPool pool)
+    public override void Initialize(Contexts contexts)
     {
+        EntityPool pool = contexts.MainContext.Pool;
         visBindings = new Dictionary<VisualizationComponent, GameObject>();
         vId = pool.GetIndexOf(typeof(VisualizationComponent));
         tId = pool.GetIndexOf(typeof(TransformComponent));
-        group = pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
+        group = contexts.MainContext.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
     }
 }

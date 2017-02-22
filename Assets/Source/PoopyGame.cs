@@ -27,11 +27,11 @@ public class PoopyGame : UnityGameBase {
     private SocketController socket;
 
     public PoopyGame() : base()
-	{	
+	{
         NetworkCommander commander = new NetworkCommander();
-        commander.AddObject(entityPool);
+        commander.AddObject(contexts.MainContext.Pool);
 
-        systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(entityPool));
+        systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         
 
         socket = new SocketController(commander);
@@ -44,7 +44,7 @@ public class PoopyGame : UnityGameBase {
         MessageSystem messageSystem = new MessageSystem();
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
-        controller.Init(entityPool, socket.UserId);
+        controller.Init(contexts.MainContext.Pool, socket.UserId);
 
         /*for (int i = 0; i < 100f; i++)
         {
@@ -64,7 +64,7 @@ public class PoopyGame : UnityGameBase {
     private void OnUserConnected(int userId)
     {
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
-        controller.Init(entityPool, userId);
+        controller.Init(contexts.MainContext.Pool, userId);
     }
 }
 #endif
@@ -80,7 +80,7 @@ public class PoopyGameServer :
         public PoopyGameServer() : base()
         {
             NetworkCommander commander = new NetworkCommander();
-            commander.AddObject(entityPool);
+            commander.AddObject(contexts.MainContext.Pool);
 
             socket = new SocketController(commander);
             socket.SetupSocket();
@@ -93,11 +93,12 @@ public class PoopyGameServer :
             MessageSystem messageSystem = new MessageSystem();
             systemManager.AddSystem(messageSystem);
         systemManager.AddSystem(new MovementSystem());
-        systemManager.AddSystem(new SendComponentsSystem<TransformComponent>(socket));
+        systemManager.AddSystem(new SendComponentsSystem<TransformComponent,
+            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent>>(socket));
 
         for (int i = 0; i < 25; i++)
         {
-            Entity ent = entityPool.GetObject();
+            Entity ent = contexts.MainContext.Pool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
             ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
             ent.AddComponent<VisualizationComponent>();
@@ -113,7 +114,7 @@ public class PoopyGameServer :
     private void OnUserConnected(uint obj)
         {
         RocketLog.Log("User: " + obj, this);
-            Entity ent = entityPool.GetObject();
+            Entity ent = contexts.MainContext.Pool.GetObject();
             ent.AddComponent<PlayerIdComponent>().id = obj;
         }
 

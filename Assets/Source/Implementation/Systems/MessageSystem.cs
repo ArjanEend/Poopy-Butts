@@ -15,8 +15,9 @@ public class MessageSystem : SystemBase
 
     private int messageIndex;
 
-    public override void Initialize(EntityPool pool)
+    public override void Initialize(Contexts context)
     {
+        EntityPool pool = context.MainContext.Pool;
         messageIndex = pool.GetIndexOf(typeof(MessageComponent));
         group = pool.GetGroup(typeof(MessageComponent));
         userGroup = pool.GetGroup(typeof(PlayerIdComponent));

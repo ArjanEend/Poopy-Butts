@@ -29,8 +29,9 @@ namespace Implementation.Systems
             throw new NotImplementedException();
         }
 
-        public override void Initialize(EntityPool pool)
+        public override void Initialize(Contexts contexts)
         {
+            EntityPool pool = contexts.MainContext.Pool;
             pId = pool.GetIndexOf(typeof(PlayerIdComponent));
             userGroup = pool.GetGroup(typeof(PlayerIdComponent));
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
