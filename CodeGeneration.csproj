@@ -47,6 +47,7 @@
     <Compile Include="Assets\framework\RocketWorks\Base\GameBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Base\UnityEvents.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ClassBuilder.cs" />
+    <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ComponentBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextGenerator.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CommandBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
@@ -101,7 +102,9 @@
   <ItemGroup>
     <Content Include="Assets\framework\.gitignore" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\framework\RocketWorks\CodeGeneration\Template\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
