@@ -4,8 +4,7 @@ using System;
 
 namespace Implementation.Components
 {
-    [Serializable]
-    class MovementComponent : IComponent
+    public partial class MovementComponent : IComponent
     {
         public Vector2 velocity;
         public float friction;

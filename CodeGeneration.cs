@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RocketWorks.CodeGeneration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace TexTastic
     {
         static void Main(string[] args)
         {
-            Directory.Delete("../../Assets/Source/Generated");
+            ContextGenerator generator = new ContextGenerator();
+            /*Directory.Delete("../../Assets/Source/Generated");
             for(int i = 0; i < 10; i++)
             {
                 FileStream fStream = new FileStream("../../Assets/Source/Generated/" + i + ".cs", FileMode.Create);
@@ -21,6 +23,9 @@ namespace TexTastic
                 writer.Flush();
                 writer.Dispose();
                 fStream.Dispose();
+            }*/
+            while (!Console.KeyAvailable)
+            {
             }
         }
     }
