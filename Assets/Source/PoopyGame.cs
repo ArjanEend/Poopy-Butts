@@ -12,6 +12,7 @@ using Implementation.Components;
 using Implementation.Systems;
 using RocketWorks;
 using Vector2 = RocketWorks.Vector2;
+using RocketWorks.Serialization;
 
 #if UNITY_EDTIOR || UNITY_STANDALONE
 public class PoopyGame : UnityGameBase {
@@ -29,12 +30,13 @@ public class PoopyGame : UnityGameBase {
     public PoopyGame() : base()
 	{
         NetworkCommander commander = new NetworkCommander();
+        Rocketizer rocketizer = new Rocketizer();
         commander.AddObject(contexts.MainContext.Pool);
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         
 
-        socket = new SocketController(commander);
+        socket = new SocketController(commander, rocketizer);
 
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
@@ -80,9 +82,10 @@ public class PoopyGameServer :
         public PoopyGameServer() : base()
         {
             NetworkCommander commander = new NetworkCommander();
+            Rocketizer rocketizer = new Rocketizer();
             commander.AddObject(contexts.MainContext.Pool);
 
-            socket = new SocketController(commander);
+            socket = new SocketController(commander, rocketizer);
             socket.SetupSocket();
 
         SendWorldSystem sendWorld = new SendWorldSystem(socket);

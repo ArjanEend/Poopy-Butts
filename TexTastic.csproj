@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\framework\RocketWorks\Base\Contexts.cs" />
     <Compile Include="Assets\framework\RocketWorks\Base\GameBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Base\UnityEvents.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ClassBuilder.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Entities\EntityContext.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EqualityComparer.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\IComponent.cs" />
     <Compile Include="Assets\framework\RocketWorks\Grouping\Group.cs" />
@@ -68,6 +70,9 @@
     <Compile Include="Assets\framework\RocketWorks\Pooling\IPoolable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\ObjectPool.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\PoolBase.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Serialization\EntitySerialization.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Serialization\IRocketable.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Serialization\Rocketizer.cs" />
     <Compile Include="Assets\framework\RocketWorks\Serialization\UnityBinder.cs" />
     <Compile Include="Assets\framework\RocketWorks\State\IState.cs" />
     <Compile Include="Assets\framework\RocketWorks\State\StateBase.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Contexts.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
@@ -100,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Source\Generated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="CodeGeneration.csproj">
+      <Project>{3BD4942F-29C8-4D46-972B-EB7B5BF51E93}</Project>
+      <Name>CodeGeneration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

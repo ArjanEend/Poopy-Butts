@@ -49,6 +49,7 @@
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ClassBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ComponentBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextGenerator.cs" />
+    <Compile Include="Assets\framework\RocketWorks\CodeGeneration\RocketizerBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CommandBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
@@ -104,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\framework\RocketWorks\CodeGeneration\Template\" />
+    <Folder Include="Assets\Source\Generated\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
