@@ -31,10 +31,10 @@ public class PoopyGame : UnityGameBase {
 	{
         NetworkCommander commander = new NetworkCommander();
         Rocketizer rocketizer = new Rocketizer();
+        rocketizer.Pool = contexts.MainContext.Pool;
         commander.AddObject(contexts.MainContext.Pool);
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
-        
 
         socket = new SocketController(commander, rocketizer);
 
@@ -83,7 +83,9 @@ public class PoopyGameServer :
         {
             NetworkCommander commander = new NetworkCommander();
             Rocketizer rocketizer = new Rocketizer();
-            commander.AddObject(contexts.MainContext.Pool);
+            rocketizer.Pool = contexts.MainContext.Pool;
+
+        commander.AddObject(contexts.MainContext.Pool);
 
             socket = new SocketController(commander, rocketizer);
             socket.SetupSocket();

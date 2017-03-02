@@ -46,7 +46,6 @@
     <Compile Include="Assets\framework\RocketWorks\Base\Contexts.cs" />
     <Compile Include="Assets\framework\RocketWorks\Base\GameBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Base\UnityEvents.cs" />
-    <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ClassBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CommandBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
@@ -83,6 +82,16 @@
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
+    <Compile Include="Assets\Source\Generated\AxisComponent.cs" />
+    <Compile Include="Assets\Source\Generated\CreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
+    <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
+    <Compile Include="Assets\Source\Generated\Rocketizer.cs" />
+    <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
+    <Compile Include="Assets\Source\Generated\UpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\Vector2.cs" />
+    <Compile Include="Assets\Source\Generated\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
@@ -104,9 +113,7 @@
   <ItemGroup>
     <Content Include="Assets\framework\.gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Source\Generated\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="CodeGeneration.csproj">
       <Project>{3BD4942F-29C8-4D46-972B-EB7B5BF51E93}</Project>
