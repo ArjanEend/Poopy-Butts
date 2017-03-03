@@ -35,6 +35,7 @@ public class PoopyGame : UnityGameBase {
         commander.AddObject(contexts.MainContext.Pool);
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
+        systemManager.AddSystem(new MovementSystem());
 
         socket = new SocketController(commander, rocketizer);
 
@@ -105,7 +106,7 @@ public class PoopyGameServer :
         {
             Entity ent = contexts.MainContext.Pool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
-            ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
+            ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
             ent.AddComponent<VisualizationComponent>();
         }
     }
