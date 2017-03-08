@@ -54,6 +54,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />

@@ -33,7 +33,7 @@ namespace Implementation.Systems
         {
             EntityPool pool = contexts.MainContext.Pool;
             pId = pool.GetIndexOf(typeof(PlayerIdComponent));
-            userGroup = pool.GetGroup(typeof(PlayerIdComponent));
+            userGroup = pool.GetGroup(typeof(PlayerIdComponent), typeof(PingComponent));
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
         }
 
@@ -45,7 +45,12 @@ namespace Implementation.Systems
                 RocketLog.Log("User: " + i, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {
-                    controller.WriteSocket(new CreateEntityCommand(itemGroup[j]), (int)users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    for(int k = 0; k < users.Count; k++)
+                    {
+                        controller.WriteSocket(new CreateEntityCommand(users[i]), users[k].GetComponent<PlayerIdComponent>(pId).id);
+                        controller.WriteSocket(new CreateEntityCommand(users[k]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    }
+                    controller.WriteSocket(new CreateEntityCommand(itemGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
                 }
             }
         }

@@ -43,7 +43,7 @@ public class MessageController : MonoBehaviour {
         Entity entity = entityPool.GetObject(true);
         MessageComponent comp = new MessageComponent();
         comp.message = messageField.text;
-        comp.userId = userId;
+        comp.userId = network.UserId;
         comp.timeStamp = DateTime.Now;
         entity.AddComponent(comp);
 
@@ -54,6 +54,7 @@ public class MessageController : MonoBehaviour {
 
     public void OnNewMessage(int user, string message, DateTime time)
     {
+        Debug.Log(time.Millisecond + " : " + DateTime.Now.Millisecond);
         messageContainer.text += time.ToString("hh:mm") + " - " + user + ": " + message + " \n";
     }
 }

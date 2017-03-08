@@ -2,5 +2,10 @@
 using System;
 
 public partial class PlayerIdComponent : IComponent {
-    public uint id;
+    public int id;
+    public bool isServer;
+    public bool IsLocal
+    {
+        get { return id == 0; }
+    }
 }

@@ -33,7 +33,7 @@ namespace Source.Implementation
 
             Entity entity = pool.GetObject();
             PlayerIdComponent component = entity.AddComponent(new PlayerIdComponent());
-            component.id = (uint)playerId;
+            component.id = playerId;
             AxisComponent aComponent = entity.AddComponent(new AxisComponent());
             aComponent.input = input;
         }

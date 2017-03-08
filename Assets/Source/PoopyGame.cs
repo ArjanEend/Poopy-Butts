@@ -42,6 +42,10 @@ public class PoopyGame : UnityGameBase {
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
 
+        PingSystem pingSystem = new PingSystem();
+        systemManager.AddSystem(pingSystem);
+        GameObject.FindObjectOfType<PingView>().Initialize(pingSystem);
+
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
         controller.Network = socket;
         MessageSystem messageSystem = new MessageSystem();
@@ -100,7 +104,7 @@ public class PoopyGameServer :
             systemManager.AddSystem(messageSystem);
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new SendComponentsSystem<TransformComponent,
-            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent>>(socket));
+            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent>>(socket));
 
         for (int i = 0; i < 25; i++)
         {
@@ -109,6 +113,10 @@ public class PoopyGameServer :
             ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
             ent.AddComponent<VisualizationComponent>();
         }
+
+        Entity newEnt = contexts.MainContext.Pool.GetObject();
+        newEnt.AddComponent<PlayerIdComponent>().id = -1;
+        newEnt.AddComponent<PingComponent>();
     }
 
     public override void UpdateGame(float deltaTime)
@@ -117,12 +125,13 @@ public class PoopyGameServer :
         socket.Update();
     }
 
-    private void OnUserConnected(uint obj)
-        {
+    private void OnUserConnected(int obj)
+    {
         RocketLog.Log("User: " + obj, this);
-            Entity ent = contexts.MainContext.Pool.GetObject();
-            ent.AddComponent<PlayerIdComponent>().id = obj;
-        }
+        Entity ent = contexts.MainContext.Pool.GetObject(true);
+        ent.AddComponent<PlayerIdComponent>().id = obj;
+        ent.AddComponent<PingComponent>();
+    }
 
         public void SendMessage(string message)
         {
