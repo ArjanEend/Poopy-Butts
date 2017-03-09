@@ -42,7 +42,7 @@ public class PoopyGame : UnityGameBase {
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
 
-        PingSystem pingSystem = new PingSystem();
+        PingSystem pingSystem = new PingSystem(socket);
         systemManager.AddSystem(pingSystem);
         GameObject.FindObjectOfType<PingView>().Initialize(pingSystem);
 
@@ -98,13 +98,16 @@ public class PoopyGameServer :
         SendWorldSystem sendWorld = new SendWorldSystem(socket);
         systemManager.AddSystem(sendWorld);
 
+        PingSystem pingSystem = new PingSystem(socket);
+        systemManager.AddSystem(pingSystem);
+
         socket.UserConnectedEvent += OnUserConnected;
 
             MessageSystem messageSystem = new MessageSystem();
             systemManager.AddSystem(messageSystem);
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new SendComponentsSystem<TransformComponent,
-            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent>>(socket));
+            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent>>(socket));
 
         for (int i = 0; i < 25; i++)
         {
@@ -116,7 +119,8 @@ public class PoopyGameServer :
 
         Entity newEnt = contexts.MainContext.Pool.GetObject();
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
-        newEnt.AddComponent<PingComponent>();
+        newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+        newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
     }
 
     public override void UpdateGame(float deltaTime)
@@ -128,9 +132,10 @@ public class PoopyGameServer :
     private void OnUserConnected(int obj)
     {
         RocketLog.Log("User: " + obj, this);
-        Entity ent = contexts.MainContext.Pool.GetObject(true);
+        Entity ent = contexts.MainContext.Pool.GetObject(true, obj);
         ent.AddComponent<PlayerIdComponent>().id = obj;
         ent.AddComponent<PingComponent>();
+        ent.AddComponent<PongComponent>();
     }
 
         public void SendMessage(string message)

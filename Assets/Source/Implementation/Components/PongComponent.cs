@@ -3,7 +3,7 @@ using System;
 
 namespace Implementation.Components
 {
-    public partial class PingComponent : IComponent
+    public partial class PongComponent : IComponent
     {
         public long toTicks;
 
