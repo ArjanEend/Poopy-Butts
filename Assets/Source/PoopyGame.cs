@@ -21,11 +21,12 @@ public class PoopyGame : UnityGameBase {
 	private static void Main () {
         PoopyGame game = new PoopyGame();
 #if UNITY_EDITOR
-        PoopyGameServer server = new PoopyGameServer();
+        //PoopyGameServer server = new PoopyGameServer();
 #endif
     }
 
     private SocketController socket;
+    private PingView pingView;
 
     public PoopyGame() : base()
 	{
@@ -34,17 +35,17 @@ public class PoopyGame : UnityGameBase {
         rocketizer.Pool = contexts.MainContext.Pool;
         commander.AddObject(contexts.MainContext.Pool);
 
+        pingView = GameObject.FindObjectOfType<PingView>();
+
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(new MovementSystem());
 
         socket = new SocketController(commander, rocketizer);
+        socket.UserConnectedEvent += OnUserConnected;
+        socket.UserIDSetEvent += OnUserID;
 
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
-
-        PingSystem pingSystem = new PingSystem(socket);
-        systemManager.AddSystem(pingSystem);
-        GameObject.FindObjectOfType<PingView>().Initialize(pingSystem);
 
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
         controller.Network = socket;
@@ -60,6 +61,13 @@ public class PoopyGame : UnityGameBase {
             ent.AddComponent<VisualizationComponent>();
             ent.AddComponent<MovementComponent>().velocity = new RocketWorks.Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
         }*/
+    }
+
+    private void OnUserID(int id)
+    {
+        PingSystem pingSystem = new PingSystem(socket);
+        systemManager.AddSystem(pingSystem);
+        pingView.Initialize(pingSystem);
     }
 
     public override void UpdateGame(float deltaTime)
@@ -119,8 +127,8 @@ public class PoopyGameServer :
 
         Entity newEnt = contexts.MainContext.Pool.GetObject();
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
-        newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+        //newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+        //newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
     }
 
     public override void UpdateGame(float deltaTime)
@@ -132,10 +140,10 @@ public class PoopyGameServer :
     private void OnUserConnected(int obj)
     {
         RocketLog.Log("User: " + obj, this);
-        Entity ent = contexts.MainContext.Pool.GetObject(true, obj);
+        Entity ent = contexts.MainContext.Pool.GetObject(true);
         ent.AddComponent<PlayerIdComponent>().id = obj;
-        ent.AddComponent<PingComponent>();
-        ent.AddComponent<PongComponent>();
+        //ent.AddComponent<PingComponent>();
+        //ent.AddComponent<PongComponent>();
     }
 
         public void SendMessage(string message)

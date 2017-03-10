@@ -11,15 +11,17 @@ using RocketWorks.Commands;
 
 public class PingSystem : SystemBase
 {
-    private Group userGroup;
-    private Entity serverEntity;
+    private Group pingGroup;
+    private Group pongGroup;
 
     public delegate void PingEvent(long ping);
     public event PingEvent OnPingUpdated = delegate { };
 
     private SocketController socket;
 
-    private long lastPongRecieve;
+    private Contexts contexts;
+
+    private Entity pingEntity;
 
     public PingSystem(SocketController socket)
     {
@@ -28,66 +30,55 @@ public class PingSystem : SystemBase
 
     public override void Initialize(Contexts context)
     {
-        tickRate = 1f;
+        this.contexts = context;
+        tickRate = 3f;
         EntityPool pool = context.MainContext.Pool;
-        userGroup = pool.GetGroup(typeof(PlayerIdComponent), typeof(PingComponent), typeof(PongComponent));
-        userGroup.OnEntityAdded += OnNewEntity;
+        pingGroup = pool.GetGroup(typeof(PingComponent));
+        pingGroup.OnEntityAdded += OnNewEntity;
+        pongGroup = pool.GetGroup(typeof(PongComponent));
+        pongGroup.OnEntityAdded += OnNewPong;
+
+        pingEntity = contexts.MainContext.Pool.GetObject();
+
+        if (socket.UserId == -1)
+            pingEntity.AddComponent<PongComponent>();
+        else
+            pingEntity.AddComponent<PingComponent>();
+
+        socket.WriteSocket(new CreateEntityCommand(pingEntity));
+    }
+
+    private void OnNewPong(Entity obj)
+    {
+        RocketLog.Log("Pong! " + obj.CreationIndex);
+        if (socket.UserId == -1)
+            return;
+        if (pingEntity == null || pingEntity.GetComponent<PingComponent>() == null)
+            return;
+        long lastPongRecieve = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+        OnPingUpdated(pingEntity.GetComponent<PingComponent>().toTicks - lastPongRecieve);
     }
 
     private void OnNewEntity(Entity obj)
     {
-        if (socket.UserId == -1 && obj != serverEntity)
-        {
-            obj.GetComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-            socket.WriteSocket(new UpdateComponentCommand(obj.GetComponent<PongComponent>(), obj.CreationIndex));
-        }
-        if (obj.GetComponent<PlayerIdComponent>().id == socket.UserId)
-        {
-            lastPongRecieve = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        }
-    }
-
-    private void OnNewMessage(Entity obj)
-    {
-        if (obj == serverEntity)
+        if (socket.UserId != -1)
             return;
-
-        if (socket.UserId != -1 && obj.GetComponent<PlayerIdComponent>().id == socket.UserId)
-        {
-            obj.GetComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-            socket.WriteSocket(new UpdateComponentCommand(obj.GetComponent<PingComponent>(), obj.CreationIndex));
-        }
-
-        PingComponent ping = obj.GetComponent<PingComponent>();
-        if (obj.GetComponent<PlayerIdComponent>().id == socket.UserId)
-        {
-            OnPingUpdated(lastPongRecieve - ping.toTicks);
-        }
+        pingEntity.GetComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+        socket.WriteSocket(new UpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex));
+        RocketLog.Log("Send Pong");
     }
 
     public override void Destroy()
     {
-        throw new NotImplementedException();
     }
 
     public override void Execute()
     {
-        List<Entity> messages = userGroup.Entities;
-
-        for (int i = 0; i < messages.Count; i++)
+        if(socket.UserId != -1)
         {
-            
-                if (serverEntity == null)
-            {
-                RocketLog.Log("Check server Entity " + messages[i].GetComponent<PlayerIdComponent>().id);
-                if (messages[i].GetComponent<PlayerIdComponent>().id == -1)
-                {
-                    serverEntity = messages[i];
-                    RocketLog.Log("server entity found");
-                }
-            }
-            else
-                OnNewMessage(messages[i]);
+            RocketLog.Log("Update ping");
+            pingEntity.GetComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+            socket.WriteSocket(new UpdateComponentCommand(pingEntity.GetComponent<PingComponent>(), pingEntity.CreationIndex));
         }
     }
 

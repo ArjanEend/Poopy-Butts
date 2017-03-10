@@ -50,6 +50,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
@@ -86,8 +87,11 @@
     <Compile Include="Assets\Source\Generated\CreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
     <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PingComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PongComponent.cs" />
     <Compile Include="Assets\Source\Generated\Rocketizer.cs" />
+    <Compile Include="Assets\Source\Generated\SetUserIDCommand.cs" />
     <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
     <Compile Include="Assets\Source\Generated\UpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
@@ -97,11 +101,13 @@
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\PongComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />
