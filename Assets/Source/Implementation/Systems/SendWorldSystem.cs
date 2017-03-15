@@ -17,6 +17,7 @@ namespace Implementation.Systems
         private Group userGroup;
         private Group itemGroup;
         private Group pingGroup;
+        private Group messageGroup;
 
         private SocketController controller;
 
@@ -36,6 +37,7 @@ namespace Implementation.Systems
             pId = pool.GetIndexOf(typeof(PlayerIdComponent));
             userGroup = pool.GetGroup(typeof(PlayerIdComponent));
             pingGroup = pool.GetGroup(typeof(PongComponent));
+            messageGroup = pool.GetGroup(typeof(MessageComponent));
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
         }
 
@@ -48,19 +50,24 @@ namespace Implementation.Systems
                     continue;
                 for (int k = 0; k < userGroup.Count; k++)
                 {
-                    controller.WriteSocket(new CreateEntityCommand(users[i]), userGroup[k].GetComponent<PlayerIdComponent>(pId).id);
-                    controller.WriteSocket(new CreateEntityCommand(userGroup[k]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    controller.WriteSocket(new MainContextCTXCreateEntityComman(users[i]), userGroup[k].GetComponent<PlayerIdComponent>(pId).id);
+                    controller.WriteSocket(new MainContextCTXCreateEntityComman(userGroup[k]), users[i].GetComponent<PlayerIdComponent>(pId).id);
                 }
                 RocketLog.Log("User: " + i, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {
                     RocketLog.Log("Send generic object" + itemGroup[j].CreationIndex, this);
-                    controller.WriteSocket(new CreateEntityCommand(itemGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    controller.WriteSocket(new MainContextCTXCreateEntityComman(itemGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                }
+                for (int j = 0; j < messageGroup.Count; j++)
+                {
+                    RocketLog.Log("Send message object" + messageGroup[j].CreationIndex, this);
+                    controller.WriteSocket(new MainContextCTXCreateEntityComman(messageGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
                 }
                 for (int j = 0; j < pingGroup.Count; j++)
                 {
                     RocketLog.Log("Send pong object", this);
-                    controller.WriteSocket(new CreateEntityCommand(pingGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    controller.WriteSocket(new MainContextCTXCreateEntityComman(pingGroup[j]), users[i].GetComponent<PlayerIdComponent>(pId).id);
                 }
             }
         }

@@ -1,6 +1,7 @@
 ﻿using Implementation.Components;
 using RocketWorks.Entities;
 using System.Collections.Generic;
+using System;
 
 public partial class Contexts
 {
@@ -8,10 +9,9 @@ public partial class Contexts
 
     public EntityContext MainContext { get { return mainContext; } }
 
-    public Contexts()
+    partial void Populate()
     {
-        contexts = new List<EntityContext>();
-        mainContext = new EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent>();
-        contexts.Add(mainContext);
+        throw new NotImplementedException();
     }
+
 }

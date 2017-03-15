@@ -19,13 +19,13 @@ namespace TexTastic
             float limitFrameTime = 1000f / 60f;
             do
             {
-                string line = Console.ReadLine();
+                //string line = Console.ReadLine();
                 Stopwatch FPSTimer = Stopwatch.StartNew();
 
-                if(!string.IsNullOrEmpty(line))
-                {
-                    game.SendMessage(line);
-                }
+                //if(!string.IsNullOrEmpty(line))
+                //{
+                //    game.SendMessage(line);
+                //}
 
                 while (!Console.KeyAvailable)
                 {

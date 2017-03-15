@@ -113,6 +113,7 @@ public class PoopyGameServer :
 
             MessageSystem messageSystem = new MessageSystem();
             systemManager.AddSystem(messageSystem);
+        messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new SendComponentsSystem<TransformComponent,
             EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent>>(socket));
@@ -129,6 +130,11 @@ public class PoopyGameServer :
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
         //newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
         //newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+    }
+
+    private void OnNewMessage(Entity obj)
+    {
+        socket.WriteSocket(new MainContextCTXCreateEntityComman(obj));
     }
 
     public override void UpdateGame(float deltaTime)

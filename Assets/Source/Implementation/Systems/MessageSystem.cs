@@ -12,6 +12,7 @@ public class MessageSystem : SystemBase
     
     public delegate void MessageEvent(int user, string message, DateTime time);
     public event MessageEvent OnMessageReceived = delegate { };
+    public Action<Entity> OnNewEntity = delegate { };
 
     private int messageIndex;
 
@@ -40,6 +41,7 @@ public class MessageSystem : SystemBase
         for (int i = 0; i < messages.Count; i++)
         {
             OnNewMessage(messages[i]);
+            OnNewEntity(messages[i]);
         }
     }
 

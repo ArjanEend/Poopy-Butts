@@ -45,7 +45,7 @@ public class PingSystem : SystemBase
         else
             pingEntity.AddComponent<PingComponent>();
 
-        socket.WriteSocket(new CreateEntityCommand(pingEntity));
+        socket.WriteSocket(new MainContextCTXCreateEntityComman(pingEntity));
     }
 
     private void OnNewPong(Entity obj)
