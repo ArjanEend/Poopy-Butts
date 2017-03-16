@@ -7,11 +7,8 @@ public partial class Contexts
 {
     private EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent> mainContext;
 
-    public EntityContext MainContext { get { return mainContext; } }
-
-    partial void Populate()
-    {
-        throw new NotImplementedException();
-    }
+    public EntityContext Main { get { return mainContext == null ? 
+                new EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent>() :
+                mainContext; } }
 
 }

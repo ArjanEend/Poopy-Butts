@@ -6,6 +6,8 @@ using System;
 using RocketWorks.Entities;
 using RocketWorks.Grouping;
 
+using Vector2 = RocketWorks.Vector2;
+
 namespace Source.Implementation
 {
     public class MoveInputSystem : SystemBase
@@ -22,7 +24,7 @@ namespace Source.Implementation
 
         public override void Initialize(Contexts contexts)
         {
-            this.pool = contexts.MainContext.Pool;
+            this.pool = contexts.Main.Pool;
             this.group = pool.GetGroup(typeof(AxisComponent));
 
         }

@@ -88,7 +88,6 @@
     <Compile Include="Assets\framework\RocketWorks\State\StateMachine.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystemManager.cs" />
-    <Compile Include="Assets\framework\RocketWorks\Systems\SendComponentsSystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />

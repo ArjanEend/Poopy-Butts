@@ -15,7 +15,7 @@ namespace Implementation.Systems
 
         public override void Initialize(Contexts contexts)
         {
-            EntityPool pool = contexts.MainContext.Pool;
+            EntityPool pool = contexts.Main.Pool;
             mId = pool.GetIndexOf(typeof(MovementComponent));
             tId = pool.GetIndexOf(typeof(TransformComponent));
             group = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent));

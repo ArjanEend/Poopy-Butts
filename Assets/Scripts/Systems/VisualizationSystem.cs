@@ -43,10 +43,10 @@ class VisualizationSystem : UnitySystemBase
 
     public override void Initialize(Contexts contexts)
     {
-        EntityPool pool = contexts.MainContext.Pool;
+        EntityPool pool = contexts.Main.Pool;
         visBindings = new Dictionary<VisualizationComponent, GameObject>();
         vId = pool.GetIndexOf(typeof(VisualizationComponent));
         tId = pool.GetIndexOf(typeof(TransformComponent));
-        group = contexts.MainContext.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
+        group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
     }
 }
