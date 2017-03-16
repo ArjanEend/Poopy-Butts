@@ -1,4 +1,4 @@
-﻿#if UNITY_EDTIOR || UNITY_STANDALONE
+﻿#if UNITY_EDTIOR || UNITY_5
 using UnityEngine;
 #endif
 using System.Collections;
@@ -14,7 +14,7 @@ using RocketWorks;
 using Vector2 = RocketWorks.Vector2;
 using RocketWorks.Serialization;
 
-#if UNITY_EDTIOR || UNITY_STANDALONE
+#if UNITY_EDTIOR || UNITY_5
 public class PoopyGame : UnityGameBase {
 
     [RuntimeInitializeOnLoadMethod]
