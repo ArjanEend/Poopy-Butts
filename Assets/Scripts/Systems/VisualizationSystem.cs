@@ -28,6 +28,10 @@ class VisualizationSystem : UnitySystemBase
         {
             VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
             visBindings.Add(comp, Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId)));
+            if(newEntities[i].GetComponent<PlayerIdComponent>() != null)
+            {
+                GameObject.FindObjectOfType<CameraController>().Initialize(visBindings[comp].transform);
+            }
         }
         for(int i = 0; i < group.Count; i++)
         {

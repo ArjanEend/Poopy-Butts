@@ -8,6 +8,6 @@ namespace Implementation.Components
     {
         public Vector2 velocity;
         public float friction;
-        public float acceleration;
+        public Vector2 acceleration;
     }
 }

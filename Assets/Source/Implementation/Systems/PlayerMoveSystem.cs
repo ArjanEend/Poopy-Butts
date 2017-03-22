@@ -2,6 +2,7 @@
 using RocketWorks.Systems;
 using RocketWorks.Grouping;
 using Implementation.Components;
+using RocketWorks;
 
 namespace Implementation.Systems
 {
@@ -25,9 +26,12 @@ namespace Implementation.Systems
                 {
                     if(newInput[i].GetComponent<PlayerIdComponent>().id == playerGroup[j].GetComponent<PlayerIdComponent>().id)
                     {
-                        playerGroup[j].GetComponent<MovementComponent>().velocity = newInput[i].GetComponent<AxisComponent>().input * .1f;
+                        Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
+                        RocketLog.Log("Set speed to: " + input.ToString());
+                        playerGroup[j].GetComponent<MovementComponent>().acceleration = input * .01f;
                     }
                 }
+                newInput[i].Reset();
             }
         }
 
