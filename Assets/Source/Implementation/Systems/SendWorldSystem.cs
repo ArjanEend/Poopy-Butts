@@ -46,7 +46,7 @@ namespace Implementation.Systems
             List<Entity> users = userGroup.NewEntities;
             for(int i = 0; i < users.Count; i++)
             {
-                if (users[i].GetComponent<PlayerIdComponent>().id == -1)
+                if (users[i].GetComponent<PlayerIdComponent>().id == -1 || users[i].GetComponent<AxisComponent>() != null)
                     continue;
                 for (int k = 0; k < userGroup.Count; k++)
                 {

@@ -32,7 +32,7 @@ public class PoopyGame : UnityGameBase {
 	{
         NetworkCommander commander = new NetworkCommander();
         Rocketizer rocketizer = new Rocketizer();
-        rocketizer.Pool = contexts.Main.Pool;
+        rocketizer.AddProvider(contexts.Main.Pool);
         commander.AddObject(contexts.Main);
 
         pingView = GameObject.FindObjectOfType<PingView>();
@@ -53,14 +53,6 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
         controller.Init(contexts.Main.Pool, socket.UserId);
-
-        /*for (int i = 0; i < 100f; i++)
-        {
-            Entity ent = entityPool.GetObject();
-            ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
-            ent.AddComponent<VisualizationComponent>();
-            ent.AddComponent<MovementComponent>().velocity = new RocketWorks.Vector2(new System.Random(i).Next(-50, 50) * .02f, 0f);
-        }*/
     }
 
     private void OnUserID(int id)
@@ -68,6 +60,9 @@ public class PoopyGame : UnityGameBase {
         PingSystem pingSystem = new PingSystem(socket);
         systemManager.AddSystem(pingSystem);
         pingView.Initialize(pingSystem);
+
+        systemManager.AddSystem(new MoveInputSystem(id));
+        systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, MainContext>(socket));
     }
 
     public override void UpdateGame(float deltaTime)
@@ -96,7 +91,8 @@ public class PoopyGameServer :
         {
             NetworkCommander commander = new NetworkCommander();
             Rocketizer rocketizer = new Rocketizer();
-            rocketizer.Pool = contexts.Main.Pool;
+
+        rocketizer.AddProvider(contexts.Main.Pool);
 
         commander.AddObject(contexts.Main);
 
@@ -109,6 +105,7 @@ public class PoopyGameServer :
         PingSystem pingSystem = new PingSystem(socket);
         systemManager.AddSystem(pingSystem);
 
+        systemManager.AddSystem(new PlayerMoveSystem());
         socket.UserConnectedEvent += OnUserConnected;
 
             MessageSystem messageSystem = new MessageSystem();
@@ -123,6 +120,7 @@ public class PoopyGameServer :
             Entity ent = contexts.Main.Pool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
             ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
+            ent.GetComponent<MovementComponent>().friction = .0005f;
             ent.AddComponent<VisualizationComponent>();
         }
 
@@ -148,6 +146,13 @@ public class PoopyGameServer :
         RocketLog.Log("User: " + obj, this);
         Entity ent = contexts.Main.Pool.GetObject(true);
         ent.AddComponent<PlayerIdComponent>().id = obj;
+
+        Entity playerObj = contexts.Main.Pool.GetObject();
+        playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
+        playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
+        playerObj.GetComponent<MovementComponent>().friction = .5f;
+        playerObj.AddComponent<VisualizationComponent>();
+        playerObj.AddComponent<PlayerIdComponent>().id = obj;
         //ent.AddComponent<PingComponent>();
         //ent.AddComponent<PongComponent>();
     }

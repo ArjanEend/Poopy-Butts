@@ -67,6 +67,7 @@
     <Compile Include="Assets\framework\RocketWorks\Math\Vector3.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketController.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\EntityPool.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Pooling\IInstanceProvider.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\IPoolable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\ObjectPool.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\PoolBase.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Source\Generated\MainContext.cs" />
     <Compile Include="Assets\Source\Generated\MainContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MainEntity.cs" />
     <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
     <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
     <Compile Include="Assets\Source\Generated\PingComponent.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\PlayerMoveSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />

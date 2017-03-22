@@ -51,6 +51,7 @@
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextGenerator.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextGenericBuilder.cs" />
+    <Compile Include="Assets\framework\RocketWorks\CodeGeneration\EntityBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ExtensionBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\RocketizerBuilder.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\TypeExtensions.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\framework\RocketWorks\Math\Vector3.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketController.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\EntityPool.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Pooling\IInstanceProvider.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\IPoolable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\ObjectPool.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\PoolBase.cs" />
