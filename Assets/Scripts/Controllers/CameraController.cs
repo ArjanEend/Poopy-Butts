@@ -18,6 +18,6 @@ public class CameraController : MonoBehaviour {
         if (target == null)
             return;
         transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * 4f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), Time.deltaTime * .7f);	
+        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), Time.deltaTime * .7f);	
 	}
 }

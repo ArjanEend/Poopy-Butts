@@ -35,7 +35,7 @@ namespace Implementation.Systems
         {
             EntityPool pool = contexts.Main.Pool;
             pId = pool.GetIndexOf(typeof(PlayerIdComponent));
-            userGroup = pool.GetGroup(typeof(PlayerIdComponent));
+            userGroup = pool.GetGroup(typeof(PlayerIdComponent)).SetMatching(true);
             pingGroup = pool.GetGroup(typeof(PongComponent));
             messageGroup = pool.GetGroup(typeof(MessageComponent));
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));

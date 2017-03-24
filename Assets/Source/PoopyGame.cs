@@ -21,7 +21,7 @@ public class PoopyGame : UnityGameBase {
 	private static void Main () {
         PoopyGame game = new PoopyGame();
 #if UNITY_EDITOR
-        PoopyGameServer server = new PoopyGameServer();
+        //PoopyGameServer server = new PoopyGameServer();
 #endif
     }
 
@@ -117,7 +117,7 @@ public class PoopyGameServer :
 
         systemManager.AddSystem(new SendComponentsSystem<MovementComponent, MainContext>(socket));
 
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 0; i++)
         {
             Entity ent = contexts.Main.Pool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
@@ -152,8 +152,8 @@ public class PoopyGameServer :
         Entity playerObj = contexts.Main.Pool.GetObject();
         playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
         playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
-        playerObj.GetComponent<MovementComponent>().friction = .03f;
-        playerObj.AddComponent<VisualizationComponent>();
+        playerObj.GetComponent<MovementComponent>().friction = .3f;
+        playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         //ent.AddComponent<PingComponent>();
         //ent.AddComponent<PongComponent>();

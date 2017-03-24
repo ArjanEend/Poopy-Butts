@@ -65,12 +65,15 @@
     <Compile Include="Assets\framework\RocketWorks\Math\Transform.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Vector2.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Vector3.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Networking\SocketConnection.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketController.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\EntityPool.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\IInstanceProvider.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\IPoolable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\ObjectPool.cs" />
     <Compile Include="Assets\framework\RocketWorks\Pooling\PoolBase.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Promises\IPromise.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Promises\Promise.cs" />
     <Compile Include="Assets\framework\RocketWorks\Serialization\EntitySerialization.cs" />
     <Compile Include="Assets\framework\RocketWorks\Serialization\IRocketable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Serialization\Rocketizer.cs" />
