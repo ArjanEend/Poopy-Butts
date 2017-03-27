@@ -17,7 +17,7 @@ namespace Implementation.Systems
             playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(TransformComponent));
         }
 
-        public override void Execute()
+        public override void Execute(float deltaTime)
         {
             var newInput = inputGroup.NewEntities;
             for(int i = 0; i < newInput.Count; i++)
@@ -27,8 +27,7 @@ namespace Implementation.Systems
                     if(newInput[i].GetComponent<PlayerIdComponent>().id == playerGroup[j].GetComponent<PlayerIdComponent>().id)
                     {
                         Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
-                        RocketLog.Log("Set speed to: " + input.ToString());
-                        playerGroup[j].GetComponent<MovementComponent>().acceleration = input * .01f;
+                        playerGroup[j].GetComponent<MovementComponent>().acceleration = input * 4f;
                     }
                 }
                 newInput[i].Reset();

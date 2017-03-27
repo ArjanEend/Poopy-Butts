@@ -21,7 +21,7 @@ class VisualizationSystem : UnitySystemBase
         throw new NotImplementedException();
     }
 
-    public override void Execute()
+    public override void Execute(float deltaTime)
     {
         List<Entity> newEntities = group.NewEntities;
         for(int i = 0; i < newEntities.Count; i++)

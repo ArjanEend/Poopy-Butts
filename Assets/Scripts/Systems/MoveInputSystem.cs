@@ -7,6 +7,7 @@ using RocketWorks.Entities;
 using RocketWorks.Grouping;
 
 using Vector2 = RocketWorks.Vector2;
+using Implementation.Components;
 
 public class MoveInputSystem : SystemBase
 {
@@ -14,12 +15,13 @@ public class MoveInputSystem : SystemBase
 
     private EntityPool pool;
     private Group group;
+    private Group playerGroup;
 
     private Vector2 prevInput;
 
     public MoveInputSystem(int playerId) : base()
     {
-        tickRate = .1f;
+        //tickRate = .1f;
         this.playerId = playerId;
     }
 
@@ -27,10 +29,11 @@ public class MoveInputSystem : SystemBase
     {
         this.pool = contexts.Main.Pool;
         this.group = pool.GetGroup(typeof(AxisComponent));
+        playerGroup = pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(TransformComponent));
 
     }
 
-    public override void Execute()
+    public override void Execute(float deltaTime)
     {
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -44,6 +47,14 @@ public class MoveInputSystem : SystemBase
         component.id = playerId;
         AxisComponent aComponent = entity.AddComponent(new AxisComponent());
         aComponent.input = input;
+
+        for (int i = 0; i < playerGroup.Count; i++)
+        {
+            if (playerGroup[i].GetComponent<PlayerIdComponent>().id == playerId)
+            {
+                playerGroup[i].GetComponent<MovementComponent>().acceleration = input * 4f;
+            }
+        }
     }
 
     public override void Cleanup()

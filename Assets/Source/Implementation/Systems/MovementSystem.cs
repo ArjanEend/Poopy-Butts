@@ -26,15 +26,15 @@ namespace Implementation.Systems
         {
         }
 
-        public override void Execute()
+        public override void Execute(float deltaTime)
         {
             for(int i = 0; i < group.Count; i++)
             {
                 var t = group[i].GetComponent<TransformComponent>(tId);
                 var m = group[i].GetComponent<MovementComponent>(mId);
-                m.velocity += m.acceleration;
-                m.velocity -= m.velocity * m.friction;
-                t.position += m.velocity;
+                m.velocity += m.acceleration * deltaTime;
+                m.velocity -= m.velocity * m.friction * deltaTime;
+                t.position += m.velocity * deltaTime;
             }
         }
 

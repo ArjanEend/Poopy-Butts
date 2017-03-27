@@ -27,7 +27,7 @@ namespace TexTastic
                 //    game.SendMessage(line);
                 //}
 
-                while (!Console.KeyAvailable)
+                while (true)
                 {
                     //Start of Tick
                     Stopwatch SW = Stopwatch.StartNew();

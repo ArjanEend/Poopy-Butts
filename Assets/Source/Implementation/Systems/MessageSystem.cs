@@ -35,7 +35,7 @@ public class MessageSystem : SystemBase
         throw new NotImplementedException();
     }
 
-    public override void Execute()
+    public override void Execute(float deltaTime)
     {
         List<Entity> messages = group.NewEntities;
         for (int i = 0; i < messages.Count; i++)

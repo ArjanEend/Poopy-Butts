@@ -41,7 +41,7 @@ namespace Implementation.Systems
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
         }
 
-        public override void Execute()
+        public override void Execute(float deltaTime)
         {
             List<Entity> users = userGroup.NewEntities;
             for(int i = 0; i < users.Count; i++)

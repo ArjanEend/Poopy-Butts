@@ -72,7 +72,7 @@ public class PingSystem : SystemBase
     {
     }
 
-    public override void Execute()
+    public override void Execute(float deltaTime)
     {
         if(socket.UserId != -1)
         {
