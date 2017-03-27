@@ -27,7 +27,8 @@ namespace Implementation.Systems
                     if(newInput[i].GetComponent<PlayerIdComponent>().id == playerGroup[j].GetComponent<PlayerIdComponent>().id)
                     {
                         Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
-                        playerGroup[j].GetComponent<MovementComponent>().acceleration = input * 4f;
+                        input.Normalize();
+                        playerGroup[j].GetComponent<MovementComponent>().acceleration = input * 32f;
                     }
                 }
                 newInput[i].Reset();

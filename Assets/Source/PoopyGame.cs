@@ -21,7 +21,7 @@ public class PoopyGame : UnityGameBase {
 	private static void Main () {
         PoopyGame game = new PoopyGame();
 #if UNITY_EDITOR
-        PoopyGameServer server = new PoopyGameServer();
+        //PoopyGameServer server = new PoopyGameServer();
 #endif
     }
 
@@ -113,8 +113,8 @@ public class PoopyGameServer :
             systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
-        systemManager.AddSystem(new SendComponentsSystem<TransformComponent,
-            EntityContext<AxisComponent, MessageComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, PingComponent, PongComponent>>(socket));
+        systemManager.AddSystem(new EstimateComponentsSystem<TransformComponent,
+            MainContext>(socket));
 
         systemManager.AddSystem(new SendComponentsSystem<MovementComponent, MainContext>(socket));
 
@@ -122,7 +122,7 @@ public class PoopyGameServer :
         {
             Entity ent = contexts.Main.Pool.GetObject();
             ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
-            ent.AddComponent<MovementComponent>().velocity = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
+            ent.AddComponent<MovementComponent>().acceleration = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
             ent.GetComponent<MovementComponent>().friction = .0005f;
             ent.AddComponent<VisualizationComponent>();
         }
@@ -153,7 +153,7 @@ public class PoopyGameServer :
         Entity playerObj = contexts.Main.Pool.GetObject();
         playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
         playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
-        playerObj.GetComponent<MovementComponent>().friction = 7f;
+        playerObj.GetComponent<MovementComponent>().friction = 12f;
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         //ent.AddComponent<PingComponent>();

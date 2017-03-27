@@ -49,6 +49,8 @@ public class MessageController : MonoBehaviour {
 
         network.WriteSocket(new MainContextCreateEntityCommand(entity));
 
+        entity.Reset();
+
         messageField.text = "";
     }
 

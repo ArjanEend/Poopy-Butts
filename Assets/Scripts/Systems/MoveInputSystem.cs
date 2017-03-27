@@ -52,7 +52,7 @@ public class MoveInputSystem : SystemBase
         {
             if (playerGroup[i].GetComponent<PlayerIdComponent>().id == playerId)
             {
-                playerGroup[i].GetComponent<MovementComponent>().acceleration = input * 4f;
+                playerGroup[i].GetComponent<MovementComponent>().acceleration = input.Normalized() * 32f;
             }
         }
     }

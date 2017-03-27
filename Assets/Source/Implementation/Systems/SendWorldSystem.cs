@@ -16,6 +16,7 @@ namespace Implementation.Systems
 
         private Group userGroup;
         private Group itemGroup;
+        private Group playerGroup;
         private Group pingGroup;
         private Group messageGroup;
 
@@ -36,6 +37,7 @@ namespace Implementation.Systems
             EntityPool pool = contexts.Main.Pool;
             pId = pool.GetIndexOf(typeof(PlayerIdComponent));
             userGroup = pool.GetGroup(typeof(PlayerIdComponent)).SetMatching(true);
+            playerGroup = pool.GetGroup(typeof(PlayerIdComponent), typeof(TransformComponent));
             pingGroup = pool.GetGroup(typeof(PongComponent));
             messageGroup = pool.GetGroup(typeof(MessageComponent));
             itemGroup = pool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
@@ -52,7 +54,12 @@ namespace Implementation.Systems
                 {
                     controller.WriteSocket(new MainContextCreateEntityCommand(users[i]), userGroup[k].GetComponent<PlayerIdComponent>(pId).id);
                     controller.WriteSocket(new MainContextCreateEntityCommand(userGroup[k]), users[i].GetComponent<PlayerIdComponent>(pId).id);
+                    for (int j = 0; j < playerGroup.Count; j++)
+                    {
+                        controller.WriteSocket(new MainContextCreateEntityCommand(playerGroup[j]), userGroup[k].GetComponent<PlayerIdComponent>().id);
+                    }
                 }
+                
                 RocketLog.Log("User: " + i, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {

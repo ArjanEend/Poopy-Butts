@@ -49,6 +49,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\CommandBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\EstimateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Assets\framework\RocketWorks\Entities\EntityContext.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EqualityComparer.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\IComponent.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Entities\IEstimatable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Grouping\Group.cs" />
     <Compile Include="Assets\framework\RocketWorks\Loading\ILoadable.cs" />
     <Compile Include="Assets\framework\RocketWorks\Loading\WaitForLoad.cs" />
@@ -65,6 +67,7 @@
     <Compile Include="Assets\framework\RocketWorks\Math\Transform.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Vector2.cs" />
     <Compile Include="Assets\framework\RocketWorks\Math\Vector3.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Networking\IPingResolver.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\KeepAlive.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketConnection.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketController.cs" />
@@ -82,17 +85,21 @@
     <Compile Include="Assets\framework\RocketWorks\State\IState.cs" />
     <Compile Include="Assets\framework\RocketWorks\State\StateBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\State\StateMachine.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Systems\EstimateComponentsSystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\ISystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SendComponentsSystem.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Systems\SendEntitiesSystem.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
     <Compile Include="Assets\Source\Generated\AxisComponent.cs" />
     <Compile Include="Assets\Source\Generated\Contexts.cs" />
     <Compile Include="Assets\Source\Generated\CreateEntityCommand`1.cs" />
+    <Compile Include="Assets\Source\Generated\EstimateComponentCommmand`1.cs" />
     <Compile Include="Assets\Source\Generated\MainContext.cs" />
     <Compile Include="Assets\Source\Generated\MainContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MainContextEstimateComponentCommmand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainEntity.cs" />
     <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
