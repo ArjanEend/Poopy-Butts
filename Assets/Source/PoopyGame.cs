@@ -116,7 +116,7 @@ public class PoopyGameServer :
         systemManager.AddSystem(new EstimateComponentsSystem<TransformComponent,
             MainContext>(socket));
 
-        systemManager.AddSystem(new SendComponentsSystem<MovementComponent, MainContext>(socket));
+        systemManager.AddSystem(new EstimateComponentsSystem<MovementComponent, MainContext>(socket));
 
         for (int i = 0; i < 3; i++)
         {
@@ -153,7 +153,7 @@ public class PoopyGameServer :
         Entity playerObj = contexts.Main.Pool.GetObject();
         playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
         playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
-        playerObj.GetComponent<MovementComponent>().friction = 12f;
+        //playerObj.GetComponent<MovementComponent>().friction = 12f;
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         //ent.AddComponent<PingComponent>();

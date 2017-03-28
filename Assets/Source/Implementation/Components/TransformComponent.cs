@@ -11,9 +11,11 @@ namespace Implementation.Components
         public void Estimate(TransformComponent against, float deltaTime)
         {
             Vector2 delta = against.position - position;
-            if (delta.Magnitude() > 1f)
-                position = against.position;
-            //position += delta * deltaTime;
+            if (delta.Magnitude() > .5f)
+            {
+                //position = against.position;
+                position += delta * deltaTime * .5f;
+            }
         }
 
         public void Estimate(object against, float deltaTime)

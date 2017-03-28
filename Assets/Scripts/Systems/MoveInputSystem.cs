@@ -35,7 +35,7 @@ public class MoveInputSystem : SystemBase
 
     public override void Execute(float deltaTime)
     {
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).Normalized();
 
         if (input == prevInput)
             return;
@@ -52,7 +52,8 @@ public class MoveInputSystem : SystemBase
         {
             if (playerGroup[i].GetComponent<PlayerIdComponent>().id == playerId)
             {
-                playerGroup[i].GetComponent<MovementComponent>().acceleration = input.Normalized() * 32f;
+                //At half server speed
+                playerGroup[i].GetComponent<MovementComponent>().velocity = input.Normalized() * .5f;
             }
         }
     }

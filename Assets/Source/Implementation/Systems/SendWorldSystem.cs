@@ -60,7 +60,7 @@ namespace Implementation.Systems
                     }
                 }
                 
-                RocketLog.Log("User: " + i, this);
+                RocketLog.Log("User: " + users[i].GetComponent<PlayerIdComponent>().id, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {
                     RocketLog.Log("Send generic object" + itemGroup[j].CreationIndex, this);
