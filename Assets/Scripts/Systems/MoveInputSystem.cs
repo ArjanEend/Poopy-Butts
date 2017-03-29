@@ -53,7 +53,8 @@ public class MoveInputSystem : SystemBase
             if (playerGroup[i].GetComponent<PlayerIdComponent>().id == playerId)
             {
                 //At half server speed
-                playerGroup[i].GetComponent<MovementComponent>().velocity = input.Normalized() * .5f;
+                playerGroup[i].GetComponent<MovementComponent>().velocity = input.Normalized() * .8f;
+                playerGroup[i].IsLocal = true;
             }
         }
     }

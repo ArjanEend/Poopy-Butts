@@ -8,19 +8,19 @@ namespace Implementation.Components
     {
         public Vector2 position;
 
-        public void Estimate(TransformComponent against, float deltaTime)
+        public void Estimate(TransformComponent against, float deltaTime, bool local)
         {
             Vector2 delta = against.position - position;
-            if (delta.Magnitude() > .5f)
+            if (delta.Magnitude() > .1f || !local)
             {
-                //position = against.position;
-                position += delta * deltaTime * .5f;
+                position = Vector2.Lerp(position, against.position, deltaTime * 10f * delta.Magnitude());
+                //position += delta * deltaTime * .5f;
             }
         }
 
-        public void Estimate(object against, float deltaTime)
+        public void Estimate(object against, float deltaTime, bool local)
         {
-            Estimate((TransformComponent)against, deltaTime);
+            Estimate((TransformComponent)against, deltaTime, local);
         }
     }
 }

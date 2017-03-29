@@ -10,19 +10,19 @@ namespace Implementation.Components
         public float friction;
         public Vector2 acceleration;
 
-        public void Estimate(MovementComponent against, float deltaTime)
+        public void Estimate(MovementComponent against, float deltaTime, bool local)
         {
             Vector2 delta = against.velocity - velocity;
-            if (delta.Magnitude() > .5f)
+            if (delta.Magnitude() > .8f || !local)
             {
-                velocity = against.velocity;
-                velocity += delta * deltaTime;
+                velocity = against.velocity;//Vector2.Lerp(velocity, against.velocity, deltaTime * 10f);
+                //velocity += delta * deltaTime;
             }
         }
 
-        public void Estimate(object against, float deltaTime)
+        public void Estimate(object against, float deltaTime, bool local)
         {
-            Estimate((MovementComponent)against, deltaTime);
+            Estimate((MovementComponent)against, deltaTime, local);
         }
     }
 }

@@ -58,10 +58,10 @@ namespace Implementation.Systems
                         Vector2 prevAcc = move.acceleration;
 
                         Vector2 prevVel = move.velocity;
-                        move.velocity = input * .5f;
+                        move.velocity = input * .8f;
                         //move.velocity += (move.acceleration - prevAcc) * timeDiff;
                         //move.velocity -= move.friction * move.velocity * timeDiff;
-                        trans.position += (move.velocity - prevVel) * timeDiff;
+                        trans.position += (move.velocity - prevVel) * timeDiff * .5f;
 
                         //Processed
                         newInput[i].Reset();
