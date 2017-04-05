@@ -32,20 +32,20 @@ public class PingSystem : SystemBase
     {
         this.contexts = context;
         tickRate = 3f;
-        EntityPool pool = context.Main.Pool;
+        EntityPool pool = context.Meta.Pool;
         pingGroup = pool.GetGroup(typeof(PingComponent));
         pingGroup.OnEntityAdded += OnNewEntity;
         pongGroup = pool.GetGroup(typeof(PongComponent));
         pongGroup.OnEntityAdded += OnNewPong;
 
-        pingEntity = contexts.Main.Pool.GetObject();
+        pingEntity = contexts.Meta.Pool.GetObject();
 
         if (socket.UserId == -1)
             pingEntity.AddComponent<PongComponent>();
         else
             pingEntity.AddComponent<PingComponent>();
 
-        socket.WriteSocket(new MainContextCreateEntityCommand(pingEntity));
+        socket.WriteSocket(new MetaContextCreateEntityCommand(pingEntity));
     }
 
     private void OnNewPong(Entity obj)
@@ -64,7 +64,7 @@ public class PingSystem : SystemBase
         if (socket.UserId != -1)
             return;
         pingEntity.GetComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        socket.WriteSocket(new MainContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex));
+        socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex));
         RocketLog.Log("Send Pong");
     }
 
@@ -78,7 +78,7 @@ public class PingSystem : SystemBase
         {
             RocketLog.Log("Update ping");
             pingEntity.GetComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-            socket.WriteSocket(new MainContextUpdateComponentCommand(pingEntity.GetComponent<PingComponent>(), pingEntity.CreationIndex));
+            socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PingComponent>(), pingEntity.CreationIndex));
         }
     }
 

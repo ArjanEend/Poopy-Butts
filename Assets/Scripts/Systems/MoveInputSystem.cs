@@ -37,7 +37,7 @@ public class MoveInputSystem : SystemBase
     {
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).Normalized();
 
-        if (input == prevInput)
+        if (input == prevInput || Vector2.Distance(prevInput, input) < .3f)
             return;
 
         prevInput = input;

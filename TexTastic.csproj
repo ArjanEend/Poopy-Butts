@@ -103,6 +103,16 @@
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainEntity.cs" />
     <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContext.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageEntity.cs" />
+    <Compile Include="Assets\Source\Generated\MetaContext.cs" />
+    <Compile Include="Assets\Source\Generated\MetaContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MetaContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MetaContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MetaEntity.cs" />
     <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
     <Compile Include="Assets\Source\Generated\PingComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />

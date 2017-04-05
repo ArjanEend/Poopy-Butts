@@ -33,7 +33,12 @@ public class PoopyGame : UnityGameBase {
         NetworkCommander commander = new NetworkCommander();
         Rocketizer rocketizer = new Rocketizer();
         rocketizer.AddProvider(contexts.Main.Pool);
+        rocketizer.AddProvider(contexts.Message.Pool);
+        rocketizer.AddProvider(contexts.Meta.Pool);
+
         commander.AddObject(contexts.Main);
+        commander.AddObject(contexts.Message);
+        commander.AddObject(contexts.Meta);
 
         pingView = GameObject.FindObjectOfType<PingView>();
 
@@ -53,7 +58,7 @@ public class PoopyGame : UnityGameBase {
         MessageSystem messageSystem = new MessageSystem();
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
-        controller.Init(contexts.Main.Pool, socket.UserId);
+        controller.Init(contexts.Message.Pool, socket.UserId);
     }
 
     private void OnUserID(int id)
@@ -75,7 +80,7 @@ public class PoopyGame : UnityGameBase {
     private void OnUserConnected(int userId)
     {
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
-        controller.Init(contexts.Main.Pool, userId);
+        controller.Init(contexts.Message.Pool, userId);
     }
 }
 #endif
@@ -94,11 +99,19 @@ public class PoopyGameServer :
             Rocketizer rocketizer = new Rocketizer();
 
         rocketizer.AddProvider(contexts.Main.Pool);
+        rocketizer.AddProvider(contexts.Message.Pool);
+        rocketizer.AddProvider(contexts.Meta.Pool);
 
         commander.AddObject(contexts.Main);
+        commander.AddObject(contexts.Message);
+        commander.AddObject(contexts.Meta);
 
             socket = new SocketController(commander, rocketizer);
-            socket.SetupSocket();
+            socket.SetupSocket(true, "127.0.0.1", 9001
+#if !UNITY_EDITOR
+                ,true
+#endif
+                );
 
         SendWorldSystem sendWorld = new SendWorldSystem(socket);
         systemManager.AddSystem(sendWorld);
@@ -127,7 +140,7 @@ public class PoopyGameServer :
             ent.AddComponent<VisualizationComponent>();
         }
 
-        Entity newEnt = contexts.Main.Pool.GetObject();
+        Entity newEnt = contexts.Meta.Pool.GetObject();
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
         //newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
         //newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
@@ -135,7 +148,7 @@ public class PoopyGameServer :
 
     private void OnNewMessage(Entity obj)
     {
-        socket.WriteSocket(new MainContextCreateEntityCommand(obj));
+        socket.WriteSocket(new MessageContextCreateEntityCommand(obj));
     }
 
     public override void UpdateGame(float deltaTime)
@@ -147,7 +160,7 @@ public class PoopyGameServer :
     private void OnUserConnected(int obj)
     {
         RocketLog.Log("User: " + obj, this);
-        Entity ent = contexts.Main.Pool.GetObject(true);
+        Entity ent = contexts.Meta.Pool.GetObject(true);
         ent.AddComponent<PlayerIdComponent>().id = obj;
 
         Entity playerObj = contexts.Main.Pool.GetObject();

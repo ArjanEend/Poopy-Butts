@@ -14,6 +14,8 @@ class VisualizationSystem : UnitySystemBase
     private int vId;
     private int tId;
 
+    private int localUser;
+
     private Dictionary<VisualizationComponent, GameObject> visBindings;
 
     public override void Destroy()

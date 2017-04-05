@@ -12,9 +12,9 @@ namespace TexTastic
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Server started.");
-            
             PoopyGameServer game = new PoopyGameServer();
+            
+            Console.WriteLine("Server started.");
 
             float limitFrameTime = 1000f / 60f;
             do

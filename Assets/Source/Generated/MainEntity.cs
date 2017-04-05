@@ -11,32 +11,20 @@ public AxisComponent AxisComponent()
 {
 return (AxisComponent)components[0];
 }
-public MessageComponent MessageComponent()
-{
-return (MessageComponent)components[1];
-}
 public MovementComponent MovementComponent()
 {
-return (MovementComponent)components[2];
+return (MovementComponent)components[1];
 }
 public PlayerIdComponent PlayerIdComponent()
 {
-return (PlayerIdComponent)components[3];
+return (PlayerIdComponent)components[2];
 }
 public TransformComponent TransformComponent()
 {
-return (TransformComponent)components[4];
+return (TransformComponent)components[3];
 }
 public VisualizationComponent VisualizationComponent()
 {
-return (VisualizationComponent)components[5];
-}
-public PingComponent PingComponent()
-{
-return (PingComponent)components[6];
-}
-public PongComponent PongComponent()
-{
-return (PongComponent)components[7];
+return (VisualizationComponent)components[4];
 }
 }
