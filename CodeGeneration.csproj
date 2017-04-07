@@ -101,6 +101,7 @@
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />

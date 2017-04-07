@@ -27,4 +27,8 @@ public VisualizationComponent VisualizationComponent()
 {
 return (VisualizationComponent)components[4];
 }
+public LerpToComponent LerpToComponent()
+{
+return (LerpToComponent)components[5];
+}
 }

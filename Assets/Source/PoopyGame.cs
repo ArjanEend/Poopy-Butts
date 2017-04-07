@@ -43,6 +43,7 @@ public class PoopyGame : UnityGameBase {
         pingView = GameObject.FindObjectOfType<PingView>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
+        systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
 
         socket = new SocketController(commander, rocketizer);
@@ -126,10 +127,11 @@ public class PoopyGameServer :
             systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
-        systemManager.AddSystem(new EstimateComponentsSystem<TransformComponent,
+        systemManager.AddSystem(new LerpSystem(true));
+        systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
 
-        systemManager.AddSystem(new EstimateComponentsSystem<MovementComponent, MainContext>(socket));
+        //systemManager.AddSystem(new EstimateComponentsSystem<MovementComponent, MainContext>(socket));
 
         for (int i = 0; i < 3; i++)
         {
@@ -138,6 +140,7 @@ public class PoopyGameServer :
             ent.AddComponent<MovementComponent>().acceleration = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
             ent.GetComponent<MovementComponent>().friction = .0005f;
             ent.AddComponent<VisualizationComponent>();
+            ent.AddComponent<LerpToComponent>();
         }
 
         Entity newEnt = contexts.Meta.Pool.GetObject();
@@ -169,6 +172,7 @@ public class PoopyGameServer :
         //playerObj.GetComponent<MovementComponent>().friction = 12f;
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
+        playerObj.AddComponent<LerpToComponent>();
         //ent.AddComponent<PingComponent>();
         //ent.AddComponent<PongComponent>();
     }

@@ -5,8 +5,8 @@ using System;
 
 public partial class Contexts
 {
-    private EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent> mainContext = 
-        new EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent>();
+    private EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent> mainContext = 
+        new EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent>();
 
     private EntityContext<PlayerIdComponent, PingComponent, PongComponent> metaContext =
         new EntityContext<PlayerIdComponent, PingComponent, PongComponent>();
