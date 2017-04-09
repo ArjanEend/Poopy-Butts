@@ -41,6 +41,8 @@ namespace Implementation.Systems
                     Entity ent = group[i];
                     ent.GetComponent<LerpToComponent>().position = ent.GetComponent<TransformComponent>().position;
                     ent.GetComponent<LerpToComponent>().velocity = ent.GetComponent<MovementComponent>().velocity;
+                  ///  if (ent.GetComponent<PlayerIdComponent>() != null)
+                   //     RocketLog.Log(ent.GetComponent<LerpToComponent>().position.ToString(), this);
                 }
             }
             else
@@ -48,8 +50,8 @@ namespace Implementation.Systems
                 for (int i = 0; i < group.Count; i++)
                 {
                     Entity ent = group[i];
-                    ent.GetComponent<TransformComponent>().position = Vector2.Lerp(ent.GetComponent<TransformComponent>().position, ent.GetComponent<LerpToComponent>().position, deltaTime * 5f);
-                    ent.GetComponent<MovementComponent>().velocity = Vector2.Lerp(ent.GetComponent<MovementComponent>().velocity, ent.GetComponent<LerpToComponent>().velocity, deltaTime * 5f);
+                    ent.GetComponent<TransformComponent>().position = Vector2.Lerp(ent.GetComponent<TransformComponent>().position, ent.GetComponent<LerpToComponent>().position, deltaTime * 1f);
+                    ent.GetComponent<MovementComponent>().velocity = Vector2.Lerp(ent.GetComponent<MovementComponent>().velocity, ent.GetComponent<LerpToComponent>().velocity, deltaTime * 1f);
                 }
             }
         }

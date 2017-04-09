@@ -39,14 +39,14 @@ public class MoveInputSystem : SystemBase
 
         if (input == prevInput || Vector2.Distance(prevInput, input) < .3f)
             return;
-
         prevInput = input;
 
         Entity entity = pool.GetObject();
         PlayerIdComponent component = entity.AddComponent(new PlayerIdComponent());
         component.id = playerId;
-        AxisComponent aComponent = entity.AddComponent(new AxisComponent());
+        AxisComponent aComponent = new AxisComponent();
         aComponent.input = input;
+        entity.AddComponent(aComponent);
 
         for (int i = 0; i < playerGroup.Count; i++)
         {
