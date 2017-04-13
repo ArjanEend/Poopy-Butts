@@ -14,7 +14,7 @@ namespace Implementation.Components
             Vector2 delta = against.position - position;
             if (delta.Magnitude() > .1f || !local)
             {
-                position = Vector2.Lerp(position, against.position, deltaTime * 10f * delta.Magnitude());
+                position = against.position + delta * .5f;
             }
 
             velocity = against.velocity;
