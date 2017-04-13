@@ -21,7 +21,7 @@ public class PoopyGame : UnityGameBase {
 	private static void Main () {
         PoopyGame game = new PoopyGame();
 #if UNITY_EDITOR
-        PoopyGameServer server = new PoopyGameServer();
+        //PoopyGameServer server = new PoopyGameServer();
 #endif
     }
 

@@ -9,13 +9,18 @@ public class FootMovement : MonoBehaviour {
 
     [SerializeField]
     private Transform targetTransform;
-    
+
+    [SerializeField]
+    private Transform hip;
+
+    private Vector3 hipPosition;
 
     private static Coroutine animationRoutine;
 
 	// Use this for initialization
 	void Start () {
         transform.parent = null;
+        hipPosition = hip.localPosition;
 	}
 	
 
@@ -39,11 +44,13 @@ public class FootMovement : MonoBehaviour {
             transform.position = Vector3.Lerp(start, targetTransform.position, currentTime / animationTime);
             transform.position += Vector3.up * .05f * Mathf.Sin(Mathf.PI * (currentTime / animationTime));
             transform.rotation = Quaternion.Lerp(startRot, targetTransform.rotation, currentTime / animationTime);
+            hip.localPosition = hipPosition + hip.InverseTransformVector((targetTransform.position - transform.position) * .01f);
             currentTime += Time.deltaTime;
             yield return null;
         }
         transform.position = targetTransform.position;
         transform.rotation = targetTransform.rotation;
+        hip.localPosition = hipPosition;
         animationRoutine = null;
     }
 

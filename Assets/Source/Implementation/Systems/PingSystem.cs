@@ -64,8 +64,8 @@ public class PingSystem : SystemBase
         if (socket.UserId != -1)
             return;
         pingEntity.GetComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex));
-        RocketLog.Log("Send Pong");
+        socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex), obj.Owner);
+        RocketLog.Log("Send Pong to: " + pingEntity.Owner);
     }
 
     public override void Destroy()
