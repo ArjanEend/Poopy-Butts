@@ -8,6 +8,9 @@ public class FootMovement : MonoBehaviour {
     private float maxDistance;
 
     [SerializeField]
+    private FootMovement[] otherFeet;
+
+    [SerializeField]
     private Transform targetTransform;
 
     [SerializeField]
@@ -15,7 +18,11 @@ public class FootMovement : MonoBehaviour {
 
     private Vector3 hipPosition;
 
-    private static Coroutine animationRoutine;
+    public bool IsMoving {
+        get { return animationRoutine != null; }
+    }
+
+    private Coroutine animationRoutine;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +34,11 @@ public class FootMovement : MonoBehaviour {
 	void Update () {
         if (animationRoutine != null)
             return;
+        for(int i = 0; i < otherFeet.Length; i++)
+        {
+            if (otherFeet[i].IsMoving)
+                return;
+        }
 		if(Vector3.Distance(transform.position, targetTransform.position) > maxDistance)
         {
             animationRoutine = StartCoroutine(AnimateTowards());

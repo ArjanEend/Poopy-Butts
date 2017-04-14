@@ -12,7 +12,6 @@ namespace Implementation.Systems
 {
     public class LerpSystem : SystemBase
     {
-
         private Group group;
 
         public bool writeData = false;

@@ -2,6 +2,7 @@
 using RocketWorks.Entities;
 using RocketWorks;
 using System;
+using RocketWorks.Networking;
 
 public partial class AxisComponent : IComponent {
 
@@ -9,7 +10,7 @@ public partial class AxisComponent : IComponent {
     public DateTime time;
 
     public AxisComponent(){
-        this.time = DateTime.UtcNow;
+        this.time = ServerTimeStamp.ServerNow;
     }
 	
 }
