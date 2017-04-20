@@ -27,7 +27,7 @@ public class IKLimb: MonoBehaviour {
 	//hold last positions so recalculation is only done if needed
 	private Vector3 lastUpperArmPosition, lastTargetPosition, lastElbowTargetPosition;
 	
-	void Start(){
+	void Awake(){
 		upperArmStartRotation = upperArm.rotation;
 		forearmStartRotation = forearm.rotation;
 		handStartRotation = hand.rotation;
@@ -43,9 +43,9 @@ public class IKLimb: MonoBehaviour {
 		upperArmAxisCorrection.transform.parent = transform;
 		forearmAxisCorrection.transform.parent = upperArmAxisCorrection.transform;
 		handAxisCorrection.transform.parent = forearmAxisCorrection.transform;
-		
-		//guarantee first-frame update
-		lastUpperArmPosition = upperArm.position + 5*Vector3.up;
+
+        //guarantee first-frame update
+        lastUpperArmPosition = upperArm.position;// + 5*Vector3.up;
 	}
 	
 	void LateUpdate () {
