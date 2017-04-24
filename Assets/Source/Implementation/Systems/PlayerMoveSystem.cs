@@ -61,7 +61,7 @@ namespace Implementation.Systems
                         move.velocity = input * .8f;
                         //move.velocity += (move.acceleration - prevAcc) * timeDiff;
                         //move.velocity -= move.friction * move.velocity * timeDiff;
-                        trans.position += (move.velocity - prevVel) * timeDiff * .5f;
+                        trans.position += (move.velocity - prevVel) * timeDiff;
 
                         //Processed
                         newInput[i].Reset();

@@ -53,7 +53,7 @@ namespace Implementation.Systems
                     controller.WriteSocket(new MetaContextCreateEntityCommand(userGroup[k]), users[i].GetComponent<PlayerIdComponent>().id);
                     for (int j = 0; j < playerGroup.Count; j++)
                     {
-                        //controller.WriteSocket(new MainContextCreateEntityCommand(playerGroup[j]), userGroup[k].GetComponent<PlayerIdComponent>().id);
+                        controller.WriteSocket(new MainContextCreateEntityCommand(playerGroup[j]), userGroup[k].GetComponent<PlayerIdComponent>().id);
                     }
                 }
                 

@@ -55,17 +55,17 @@ public class PingSystem : SystemBase
             return;
         if (pingEntity == null || pingEntity.GetComponent<PingComponent>() == null)
             return;
-        long lastPongRecieve = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        OnPingUpdated(pingEntity.GetComponent<PingComponent>().toTicks - lastPongRecieve);
+        long lastPongRecieve = (long)(ServerTimeStamp.ServerNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+        OnPingUpdated(lastPongRecieve - pingEntity.GetComponent<PingComponent>().toTicks);
     }
 
     private void OnNewEntity(Entity obj)
     {
         if (socket.UserId != -1)
             return;
-        pingEntity.GetComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex));
-        RocketLog.Log("Send Pong");
+        pingEntity.GetComponent<PongComponent>().toTicks = (long)(ServerTimeStamp.ServerNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+        socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PongComponent>(), pingEntity.CreationIndex), obj.Owner);
+        RocketLog.Log("Send Pong to: " + pingEntity.Owner);
     }
 
     public override void Destroy()
@@ -77,7 +77,7 @@ public class PingSystem : SystemBase
         if(socket.UserId != -1)
         {
             RocketLog.Log("Update ping");
-            pingEntity.GetComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
+            pingEntity.GetComponent<PingComponent>().toTicks = (long)(ServerTimeStamp.ServerNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
             socket.WriteSocket(new MetaContextUpdateComponentCommand(pingEntity.GetComponent<PingComponent>(), pingEntity.CreationIndex));
         }
     }
