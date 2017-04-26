@@ -24,7 +24,10 @@ namespace TexTastic
             {
                 FileStream fStream = new FileStream("../../Assets/Source/Generated/" + generator.Builders[i].Name + ".cs", FileMode.Create);
                 StreamWriter writer = new StreamWriter(fStream);
-                writer.Write(generator.Builders[i].StringBuilder.ToString());
+                string codeString = generator.Builders[i].StringBuilder.ToString();
+                //Replace newlines, there's some ambiguity but I'm using \n everywhere so this is the most safe
+                codeString = codeString.Replace("\n", "\r\n");
+                writer.Write(codeString);
 
                 writer.Flush();
                 writer.Dispose();

@@ -46,8 +46,13 @@ public class LookingAnimation : MonoBehaviour {
     }
 
     void Update () {
-		for(int i = 0; i < pointsOfInterest.Count; i++)
+		for(int i = pointsOfInterest.Count - 1; i >= 0; i--)
         {
+            if (!pointsOfInterest[i].isActiveAndEnabled)
+            {
+                pointsOfInterest.RemoveAt(i);
+                continue;
+            }
             Vector3 lookDir = pointsOfInterest[i].transform.position - transform.position;
             if (Vector3.Dot(transform.forward, lookDir.normalized) >= maxDotLook)
             {
@@ -66,7 +71,7 @@ public class LookingAnimation : MonoBehaviour {
         {
             currentDir = currentPoint.transform.position - eyes[i].position;
             Quaternion lookRotation = Quaternion.LookRotation(i == 1 ? -currentDir : currentDir, upVectors[i]);
-            eyes[i].transform.rotation = lookRotation;
+            eyes[i].transform.rotation = Quaternion.Lerp(eyes[i].transform.rotation, lookRotation, Time.deltaTime * 2f);
         }
 
 	}
