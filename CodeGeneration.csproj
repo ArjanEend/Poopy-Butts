@@ -66,6 +66,7 @@
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EntityContext.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Entities\EntityReference.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EqualityComparer.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\IComponent.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\IEstimatable.cs" />
