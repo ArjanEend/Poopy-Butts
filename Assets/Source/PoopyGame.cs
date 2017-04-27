@@ -13,6 +13,8 @@ using Implementation.Systems;
 using RocketWorks;
 using Vector2 = RocketWorks.Vector2;
 using RocketWorks.Serialization;
+using PoopyButts.Components;
+using Assets.Source.Implementation.Systems;
 
 #if UNITY_EDTIOR || UNITY_5
 public class PoopyGame : UnityGameBase {
@@ -21,7 +23,7 @@ public class PoopyGame : UnityGameBase {
 	private static void Main () {
         PoopyGame game = new PoopyGame();
 #if UNITY_EDITOR
-        PoopyGameServer server = new PoopyGameServer();
+        //PoopyGameServer server = new PoopyGameServer();
 #endif
     }
 
@@ -45,6 +47,7 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
+        systemManager.AddSystem(new CircleCollisionSystem());
 
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
@@ -127,6 +130,7 @@ public class PoopyGameServer :
             systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
+        systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
@@ -173,6 +177,7 @@ public class PoopyGameServer :
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
+        playerObj.AddComponent<CircleCollider>().radius = .15f;
         //ent.AddComponent<PingComponent>();
         //ent.AddComponent<PongComponent>();
     }

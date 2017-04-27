@@ -7,7 +7,7 @@ Shader "Custom/VertexColorReplace" {
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-			_Curvate("Curvature", Float) = 0.1
+			_Curvature("Curvature", Float) = 0.1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -28,8 +28,7 @@ Shader "Custom/VertexColorReplace" {
 			float4 vertexColor : COLOR;
 		};
 
-		void vert(inout appdata_full v, out Input o) {
-			UNITY_INITIALIZE_OUTPUT(Input, o);
+		void vert(inout appdata_full v) {
 			// Transform the vertex coordinates from model space into world space
 			float4 vv = mul(unity_ObjectToWorld, v.vertex);
 
@@ -41,6 +40,7 @@ Shader "Custom/VertexColorReplace" {
 			// by the chosen curvature factor
 			vv = float4(0.0f, ((vv.x * vv.x) + (vv.z * vv.z)) * -_Curvature, 0.0f, 0.0f);
 
+			//v.vertex.xyz += v.normal * .1;
 			// Now apply the offset back to the vertices in model space
 			v.vertex += mul(unity_WorldToObject, vv);
 		}

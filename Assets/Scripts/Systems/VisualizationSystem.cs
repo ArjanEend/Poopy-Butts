@@ -16,8 +16,6 @@ class VisualizationSystem : UnitySystemBase
 
     private int localUser;
 
-    private Dictionary<VisualizationComponent, GameObject> visBindings;
-
     public override void Destroy()
     {
         throw new NotImplementedException();
@@ -29,19 +27,19 @@ class VisualizationSystem : UnitySystemBase
         for(int i = 0; i < newEntities.Count; i++)
         {
             VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
-            visBindings.Add(comp, Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId)));
+            comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId));
             if(newEntities[i].GetComponent<PlayerIdComponent>() != null)
             {
-                GameObject.FindObjectOfType<CameraController>().Initialize(visBindings[comp].transform);
+                GameObject.FindObjectOfType<CameraController>().Initialize(comp.go.transform);
             }
         }
         for(int i = 0; i < group.Count; i++)
         {
             VisualizationComponent vComp = group[i].GetComponent<VisualizationComponent>(vId);
             TransformComponent tComp = group[i].GetComponent<TransformComponent>(tId);
-            if (visBindings.ContainsKey(vComp))
+            if (vComp.go != null)
             {
-                GameObject go = visBindings[vComp];
+                GameObject go = vComp.go;
                 go.transform.position = new Vector3(tComp.position.x, 0f, tComp.position.y);
                 RocketWorks.Vector2 velocity = group[i].GetComponent<MovementComponent>().velocity;
                 Quaternion oldRot = go.transform.rotation;
@@ -57,7 +55,6 @@ class VisualizationSystem : UnitySystemBase
     public override void Initialize(Contexts contexts)
     {
         EntityPool pool = contexts.Main.Pool;
-        visBindings = new Dictionary<VisualizationComponent, GameObject>();
         vId = pool.GetIndexOf(typeof(VisualizationComponent));
         tId = pool.GetIndexOf(typeof(TransformComponent));
         group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));

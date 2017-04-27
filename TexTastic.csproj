@@ -96,6 +96,7 @@
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
     <Compile Include="Assets\Source\Generated\AxisComponent.cs" />
+    <Compile Include="Assets\Source\Generated\CircleCollider.cs" />
     <Compile Include="Assets\Source\Generated\Contexts.cs" />
     <Compile Include="Assets\Source\Generated\CreateEntityCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\EstimateComponentCommmand`1.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
     <Compile Include="Assets\Source\Generated\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\CircleCollider.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\CircleCollisionSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
