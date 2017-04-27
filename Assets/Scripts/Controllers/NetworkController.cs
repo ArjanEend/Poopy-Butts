@@ -34,7 +34,7 @@ namespace RocketWorks.Networking
         {
             controller.SetupSocket(false);
             controller.Connect(ipInput.text, 9001);
-           
+            gameObject.SetActive(false);
         }
 
         private void Update()
@@ -44,9 +44,8 @@ namespace RocketWorks.Networking
 
         private void StartServer()
         {
-            controller.SetupSocket();
+            new PoopyGameServer();
         }
-
 
         private void OnDestroy()
         {
