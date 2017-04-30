@@ -37,5 +37,13 @@ public CircleCollider CircleCollider()
 {
 return (CircleCollider)components[6];
 }
+public PickupComponent PickupComponent()
+{
+return (PickupComponent)components[7];
+}
+public Stomach Stomach()
+{
+return (Stomach)components[8];
+}
 }
 #pragma warning restore

@@ -6,8 +6,8 @@ using PoopyButts.Components;
 
 public partial class Contexts
 {
-    private EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, CircleCollider> mainContext = 
-        new EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, CircleCollider>();
+    private EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, CircleCollider, PickupComponent, Stomach> mainContext = 
+        new EntityContext<AxisComponent, MovementComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, CircleCollider, PickupComponent, Stomach>();
 
     private EntityContext<PlayerIdComponent, PingComponent, PongComponent> metaContext =
         new EntityContext<PlayerIdComponent, PingComponent, PongComponent>();

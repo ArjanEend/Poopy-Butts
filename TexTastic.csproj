@@ -118,11 +118,13 @@
     <Compile Include="Assets\Source\Generated\MetaContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaEntity.cs" />
     <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PickupComponent.cs" />
     <Compile Include="Assets\Source\Generated\PingComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Generated\PongComponent.cs" />
     <Compile Include="Assets\Source\Generated\Rocketizer.cs" />
     <Compile Include="Assets\Source\Generated\SetUserIDCommand.cs" />
+    <Compile Include="Assets\Source\Generated\Stomach.cs" />
     <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
     <Compile Include="Assets\Source\Generated\UpdateComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
@@ -132,9 +134,11 @@
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\PickupComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PongComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\Stomach.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
@@ -142,9 +146,11 @@
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\PickupSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PlayerMoveSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\SpawnPickupSystem.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
