@@ -41,7 +41,10 @@ class VisualizationSystem : UnitySystemBase
             {
                 GameObject go = vComp.go;
                 go.transform.position = new Vector3(tComp.position.x, 0f, tComp.position.y);
-                RocketWorks.Vector2 velocity = group[i].GetComponent<MovementComponent>().velocity;
+                MovementComponent mov = group[i].GetComponent<MovementComponent>();
+                if (mov == null)
+                    continue;
+                RocketWorks.Vector2 velocity = mov.velocity;
                 Quaternion oldRot = go.transform.rotation;
                 go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg, 0f);
                 //if(velocity != RocketWorks.Vector2.zero)

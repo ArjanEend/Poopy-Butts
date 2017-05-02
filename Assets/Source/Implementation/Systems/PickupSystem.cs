@@ -35,12 +35,10 @@ public class PickupSystem : SystemBase {
         for (int i = 0; i < pickups.Count; i++)
         {
             MainEntity pickup = (MainEntity)pickups[i];
-            if (pickup.Enabled)
-                return;
+            if (!pickup.Enabled)
+                continue;
             for (int j = 0; j < players.Count; j++)
             {
-                if (i == j)
-                    continue;
                 MainEntity player = (MainEntity)players[j];
 
                 if (pickup.TransformComponent().position == player.TransformComponent().position)
@@ -49,6 +47,7 @@ public class PickupSystem : SystemBase {
                 Vector2 diff = pickup.TransformComponent().position - player.TransformComponent().position;
                 Vector2 mid = (pickup.TransformComponent().position + player.TransformComponent().position) * .5f;
                 float dist = Vector2.Distance(pickup.TransformComponent().position, player.TransformComponent().position);
+
                 float overlap = dist - (pickup.CircleCollider().radius + player.CircleCollider().radius);
                 if (overlap < 0f)
                 {

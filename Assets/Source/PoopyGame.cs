@@ -48,6 +48,7 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
+        systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
 
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
@@ -131,6 +132,8 @@ public class PoopyGameServer :
         messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
+        systemManager.AddSystem(new PickupSystem(socket));
+        systemManager.AddSystem(new SpawnPickupSystem(socket));
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
@@ -178,6 +181,7 @@ public class PoopyGameServer :
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
         playerObj.AddComponent<CircleCollider>().radius = .15f;
+        playerObj.AddComponent<Stomach>();
         //ent.AddComponent<PingComponent>();
         //ent.AddComponent<PongComponent>();
     }
