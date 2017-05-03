@@ -26,12 +26,14 @@ public class MoveWithFeet : MonoBehaviour {
 	void LateUpdate () {
         Vector3 midPoint = Vector3.zero;
         Vector3 upVector = Vector3.up;
-        Vector3 forwardVector = Vector3.zero;
+        Vector3 forwardVector = transform.parent.forward;
         for(int i = 0; i < feet.Length; i++)
         {
             midPoint += feet[i].position / feet.Length;
         }
-        midPoint += transform.forward * .1f;
+
+        midPoint += forwardVector * .2f;
+        
 
         transform.position = Vector3.Lerp(prevPos, midPoint + upVector * distanceAboveFeet, Time.deltaTime * 5f);
         prevPos = transform.position;
