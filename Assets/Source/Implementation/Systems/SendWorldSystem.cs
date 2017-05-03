@@ -37,7 +37,7 @@ namespace Implementation.Systems
             playerGroup = mainPool.GetGroup(typeof(PlayerIdComponent), typeof(TransformComponent));
             pingGroup = contexts.Meta.Pool.GetGroup(typeof(PongComponent));
             messageGroup = contexts.Message.Pool.GetGroup(typeof(MessageComponent));
-            itemGroup = mainPool.GetGroup(typeof(TransformComponent), typeof(MovementComponent), typeof(VisualizationComponent));
+            itemGroup = mainPool.GetGroup(typeof(TransformComponent), typeof(VisualizationComponent));
         }
 
         public override void Execute(float deltaTime)

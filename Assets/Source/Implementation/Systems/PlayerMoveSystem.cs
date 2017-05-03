@@ -19,7 +19,7 @@ namespace Implementation.Systems
         public override void Initialize(Contexts contexts)
         {
             inputGroup = contexts.Main.Pool.GetGroup(typeof(AxisComponent), typeof(PlayerIdComponent));
-            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(TransformComponent));
+            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(Stomach), typeof(TransformComponent));
             oldStates = new Dictionary<TransformComponent, Vector2[]>();
             velocities = new Dictionary<MovementComponent, Vector2[]>();
         }
@@ -58,7 +58,8 @@ namespace Implementation.Systems
                         Vector2 prevAcc = move.acceleration;
 
                         Vector2 prevVel = move.velocity;
-                        move.velocity = input * .8f;
+                        float speed = .8f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
+                        move.velocity = input * speed;
                         //move.velocity += (move.acceleration - prevAcc) * timeDiff;
                         //move.velocity -= move.friction * move.velocity * timeDiff;
                         trans.position += (move.velocity - prevVel) * timeDiff;

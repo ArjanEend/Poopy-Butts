@@ -36,6 +36,9 @@ class VisualizationSystem : UnitySystemBase
         }
         for(int i = 0; i < group.Count; i++)
         {
+            if (!group[i].IsDirty)
+                continue;
+            group[i].IsDirty = false;
             VisualizationComponent vComp = group[i].GetComponent<VisualizationComponent>(vId);
             TransformComponent tComp = group[i].GetComponent<TransformComponent>(tId);
             if (vComp.go != null)

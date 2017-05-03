@@ -30,6 +30,7 @@ namespace Implementation.Systems
         {
             for(int i = 0; i < group.Count; i++)
             {
+                group[i].IsDirty = true;
                 var t = group[i].GetComponent<TransformComponent>(tId);
                 var m = group[i].GetComponent<MovementComponent>(mId);
                 m.velocity += m.acceleration * deltaTime;
