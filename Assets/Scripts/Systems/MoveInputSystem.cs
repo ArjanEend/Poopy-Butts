@@ -8,13 +8,15 @@ using RocketWorks.Grouping;
 
 using Vector2 = RocketWorks.Vector2;
 using Implementation.Components;
+using RocketWorks.Networking;
 
 public class MoveInputSystem : SystemBase
 {
     private int playerId;
 
     private EntityPool pool;
-    private Group group;
+    private Group axisGroup;
+    private Group buttonGroup;
     private Group playerGroup;
 
     private Vector2 prevInput;
@@ -27,14 +29,25 @@ public class MoveInputSystem : SystemBase
 
     public override void Initialize(Contexts contexts)
     {
-        this.pool = contexts.Main.Pool;
-        this.group = pool.GetGroup(typeof(AxisComponent));
-        playerGroup = pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(TransformComponent));
+        this.pool = contexts.Input.Pool;
+        this.axisGroup = contexts.Input.Pool.GetGroup(typeof(AxisComponent));
+        buttonGroup = contexts.Input.Pool.GetGroup(typeof(ButtonComponent));
+        playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(TransformComponent));
 
     }
 
     public override void Execute(float deltaTime)
     {
+        if(Input.GetButtonDown("Jump"))
+        {
+            Entity ent = pool.GetObject();
+            ent.AddComponent<PlayerIdComponent>().id = playerId;
+            ent.AddComponent<ButtonComponent>();
+        } else if (Input.GetButtonUp("Jump"))
+        {
+            buttonGroup.DestroyAll();
+        }
+
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).Normalized();
 
         if (input == prevInput || Vector2.Distance(prevInput, input) < .3f)

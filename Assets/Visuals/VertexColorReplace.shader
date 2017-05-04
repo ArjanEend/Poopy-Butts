@@ -68,6 +68,111 @@ Shader "Custom/VertexColorReplace" {
 			o.Alpha = c.a;
 		}
 		ENDCG
+			Pass{
+			Name "ShadowCaster"
+			Tags{ "LightMode" = "ShadowCaster" }
+
+			Fog{ Mode Off }
+			ZWrite On ZTest LEqual Cull Off
+			Offset 1, 1
+
+			CGPROGRAM
+#pragma vertex vert_surf
+#pragma fragment frag_surf
+#pragma exclude_renderers noshadows flash
+#pragma glsl_no_auto_normalization
+#pragma fragmentoption ARB_precision_hint_fastest
+#pragma multi_compile_shadowcaster
+#include "HLSLSupport.cginc"
+#include "UnityCG.cginc"
+#include "Lighting.cginc"
+
+			struct v2f_surf {
+			V2F_SHADOW_CASTER;
+		};
+
+		float _Curvature;
+
+		v2f_surf vert_surf(appdata_full v) {
+			v2f_surf o;
+
+			float4 vv = mul(unity_ObjectToWorld, v.vertex);
+
+			// Now adjust the coordinates to be relative to the camera position
+			vv.xyz -= _WorldSpaceCameraPos.xyz;
+
+			// Reduce the y coordinate (i.e. lower the "height") of each vertex based
+			// on the square of the distance from the camera in the z axis, multiplied
+			// by the chosen curvature factor
+			vv = float4(0.0f, ((vv.x * vv.x) + (vv.z * vv.z)) * -_Curvature, 0.0f, 0.0f);
+
+			//v.vertex.xyz += v.normal * .1;
+			// Now apply the offset back to the vertices in model space
+			v.vertex += mul(unity_WorldToObject, vv);
+
+			TRANSFER_SHADOW_CASTER(o)
+				return o;
+		}
+		float4 frag_surf(v2f_surf IN) : COLOR{
+			SHADOW_CASTER_FRAGMENT(IN)
+		}
+			ENDCG
+		}
+
+			// Pass to render object as a shadow collector
+			Pass{
+			Name "ShadowCollector"
+			Tags{ "LightMode" = "ShadowCollector" }
+
+			Fog{ Mode Off }
+			ZWrite On ZTest LEqual
+
+			CGPROGRAM
+#pragma vertex vert_surf
+#pragma fragment frag_surf
+#pragma exclude_renderers noshadows flash
+#pragma fragmentoption ARB_precision_hint_fastest
+#pragma multi_compile_shadowcollector
+#pragma glsl_no_auto_normalization
+#include "HLSLSupport.cginc"
+#define SHADOW_COLLECTOR_PASS
+#include "UnityCG.cginc"
+#include "Lighting.cginc"
+
+
+			struct v2f_surf {
+			V2F_SHADOW_COLLECTOR;
+		};
+
+
+		float _Curvature;
+
+		v2f_surf vert_surf(appdata_full v) {
+			v2f_surf o;
+
+			float4 vv = mul(unity_ObjectToWorld, v.vertex);
+
+			// Now adjust the coordinates to be relative to the camera position
+			vv.xyz -= _WorldSpaceCameraPos.xyz;
+
+			// Reduce the y coordinate (i.e. lower the "height") of each vertex based
+			// on the square of the distance from the camera in the z axis, multiplied
+			// by the chosen curvature factor
+			vv = float4(0.0f, ((vv.x * vv.x) + (vv.z * vv.z)) * -_Curvature, 0.0f, 0.0f);
+
+			//v.vertex.xyz += v.normal * .1;
+			// Now apply the offset back to the vertices in model space
+			v.vertex += mul(unity_WorldToObject, vv);
+
+			TRANSFER_SHADOW_COLLECTOR(o)
+				return o;
+		}
+
+		half4 frag_surf(v2f_surf IN) : COLOR{
+			SHADOW_COLLECTOR_FRAGMENT(IN)
+		}
+			ENDCG
+		}
 	}
 	FallBack "Diffuse"
 }

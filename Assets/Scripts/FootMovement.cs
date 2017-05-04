@@ -5,6 +5,9 @@ using UnityEngine;
 public class FootMovement : MonoBehaviour {
 
     [SerializeField]
+    private LayerMask groundLayers;
+
+    [SerializeField]
     private float maxDistance;
 
     [SerializeField]
@@ -23,8 +26,7 @@ public class FootMovement : MonoBehaviour {
     }
 
     private Coroutine animationRoutine;
-
-	// Use this for initialization
+    
 	void Start () {
         transform.parent = null;
         hipPosition = hip.localPosition;

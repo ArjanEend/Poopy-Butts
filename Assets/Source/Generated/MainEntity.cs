@@ -9,41 +9,37 @@ using System.Collections.Generic;
 ////// AUTO GENERATED ////////
 public partial class MainEntity : Entity
 {
-public AxisComponent AxisComponent()
-{
-return (AxisComponent)components[0];
-}
 public MovementComponent MovementComponent()
 {
-return (MovementComponent)components[1];
+return (MovementComponent)components[0];
 }
 public PlayerIdComponent PlayerIdComponent()
 {
-return (PlayerIdComponent)components[2];
+return (PlayerIdComponent)components[1];
 }
 public TransformComponent TransformComponent()
 {
-return (TransformComponent)components[3];
+return (TransformComponent)components[2];
 }
 public VisualizationComponent VisualizationComponent()
 {
-return (VisualizationComponent)components[4];
+return (VisualizationComponent)components[3];
 }
 public LerpToComponent LerpToComponent()
 {
-return (LerpToComponent)components[5];
+return (LerpToComponent)components[4];
 }
 public CircleCollider CircleCollider()
 {
-return (CircleCollider)components[6];
+return (CircleCollider)components[5];
 }
 public PickupComponent PickupComponent()
 {
-return (PickupComponent)components[7];
+return (PickupComponent)components[6];
 }
 public Stomach Stomach()
 {
-return (Stomach)components[8];
+return (Stomach)components[7];
 }
 }
 #pragma warning restore

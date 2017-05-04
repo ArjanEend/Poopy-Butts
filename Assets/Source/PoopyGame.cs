@@ -41,6 +41,7 @@ public class PoopyGame : UnityGameBase {
         commander.AddObject(contexts.Main);
         commander.AddObject(contexts.Message);
         commander.AddObject(contexts.Meta);
+        commander.AddObject(contexts.Input);
 
         pingView = GameObject.FindObjectOfType<PingView>();
 
@@ -73,7 +74,8 @@ public class PoopyGame : UnityGameBase {
         pingView.Initialize(pingSystem);
 
         systemManager.AddSystem(new MoveInputSystem(id));
-        systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, MainContext>(socket));
+        systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true));
+        systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, false, true));
     }
 
     public override void UpdateGame(float deltaTime)
@@ -106,10 +108,12 @@ public class PoopyGameServer :
         rocketizer.AddProvider(contexts.Main.Pool);
         rocketizer.AddProvider(contexts.Message.Pool);
         rocketizer.AddProvider(contexts.Meta.Pool);
+        rocketizer.AddProvider(contexts.Input.Pool);
 
         commander.AddObject(contexts.Main);
         commander.AddObject(contexts.Message);
         commander.AddObject(contexts.Meta);
+        commander.AddObject(contexts.Input);
 
             socket = new SocketController(commander, rocketizer);
             socket.SetupSocket(true, "127.0.0.1", 9001
@@ -133,6 +137,7 @@ public class PoopyGameServer :
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new PickupSystem(socket));
+        systemManager.AddSystem(new PoopSystem(socket));
         systemManager.AddSystem(new SpawnPickupSystem(socket));
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,

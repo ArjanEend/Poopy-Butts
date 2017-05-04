@@ -18,7 +18,7 @@ namespace Implementation.Systems
 
         public override void Initialize(Contexts contexts)
         {
-            inputGroup = contexts.Main.Pool.GetGroup(typeof(AxisComponent), typeof(PlayerIdComponent));
+            inputGroup = contexts.Input.Pool.GetGroup(typeof(AxisComponent), typeof(PlayerIdComponent));
             playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(Stomach), typeof(TransformComponent));
             oldStates = new Dictionary<TransformComponent, Vector2[]>();
             velocities = new Dictionary<MovementComponent, Vector2[]>();

@@ -58,6 +58,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\CommandBase.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\Commander.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\CreateEntityCommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\DestroyEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\EstimateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\framework\RocketWorks\Systems\SystemManager.cs" />
     <Compile Include="Assets\framework\RocketWorks\Triggers\TriggerBase.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\ButtonComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\CircleCollider.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
