@@ -7,14 +7,12 @@ public class FoodBarController : MonoBehaviour {
 
     [SerializeField]
     private Image bar;
+    
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+    public void UpdateDisplay(Stomach stomach)
+    {
+        bar.fillAmount = stomach.pickups.Count * .15f;
+    }
 }

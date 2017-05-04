@@ -41,6 +41,9 @@ public class PickupSystem : SystemBase {
             {
                 MainEntity player = (MainEntity)players[j];
 
+                if (player.GetComponent<Stomach>().pickups.Count > 6)
+                    return;
+
                 if (pickup.TransformComponent().position == player.TransformComponent().position)
                     continue;
 

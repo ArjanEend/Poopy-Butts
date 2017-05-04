@@ -51,13 +51,15 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
 
+        var system = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>());
+        system.ComponentUpdated += GameObject.FindObjectOfType<>
+
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
         socket.UserIDSetEvent += OnUserID;
 
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
-
 
         MessageController controller = GameObject.FindObjectOfType<MessageController>();
         controller.Network = socket;
