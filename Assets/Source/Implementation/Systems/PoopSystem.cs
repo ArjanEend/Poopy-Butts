@@ -1,4 +1,5 @@
 ﻿using Implementation.Components;
+using PoopyButts.Components;
 using RocketWorks.Commands;
 using RocketWorks.Grouping;
 using RocketWorks.Networking;
@@ -41,9 +42,23 @@ namespace Implementation.Systems
                     if (playerGroup[j].GetComponent<PlayerIdComponent>().id != input[i].GetComponent<PlayerIdComponent>().id)
                         continue;
 
+                    Stomach stomach = playerGroup[i].GetComponent<Stomach>();
+                    if (stomach.pickups.Count == 0)
+                        continue;
+
+                    float turdSize = .1f;
+                    for(int p = 0; p < stomach.pickups.Count; p++)
+                    {
+                        turdSize += stomach.pickups[i].Entity.GetComponent<PickupComponent>().radius * .5f;
+                        socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[i]));
+                        stomach.pickups[i].Entity.Reset();
+                    }
+
                     var newEntity = contexts.Main.Pool.GetObject();
                     newEntity.AddComponent<TransformComponent>().position = playerGroup[j].GetComponent<TransformComponent>().position;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Turd";
+                    newEntity.AddComponent<PoopComponent>().size = turdSize;
+                    newEntity.AddComponent<CircleCollider>().radius = turdSize;
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }
