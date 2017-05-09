@@ -4,6 +4,8 @@ using Implementation.Components;
 using Implementation.Components;
 using Implementation.Components;
 using PoopyButts.Components;
+using Implementation.Components;
+using PoopyButts.Components;
 using RocketWorks.Entities;
 using System.Collections.Generic;
 ////// AUTO GENERATED ////////
@@ -40,6 +42,14 @@ return (PickupComponent)components[6];
 public Stomach Stomach()
 {
 return (Stomach)components[7];
+}
+public PoopComponent PoopComponent()
+{
+return (PoopComponent)components[8];
+}
+public Tilemap Tilemap()
+{
+return (Tilemap)components[9];
 }
 }
 #pragma warning restore

@@ -113,7 +113,9 @@
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PongComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\PoopComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\Stomach.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\Tilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />

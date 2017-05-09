@@ -26,6 +26,7 @@ public class PoopyGame : UnityGameBase {
 
     private SocketController socket;
     private PingView pingView;
+    private FoodBarController foodBar;
 
     public PoopyGame() : base()
 	{
@@ -41,15 +42,13 @@ public class PoopyGame : UnityGameBase {
         commander.AddObject(contexts.Input);
 
         pingView = GameObject.FindObjectOfType<PingView>();
+        foodBar = GameObject.FindObjectOfType<FoodBarController>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
-
-        var system = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>());
-        system.ComponentUpdated += GameObject.FindObjectOfType<>
 
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
@@ -75,6 +74,9 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new MoveInputSystem(id));
         systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true));
         systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, false, true));
+
+        var system = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>(socket.UserId));
+        system.ComponentUpdated += foodBar.UpdateDisplay;
     }
 
     public override void UpdateGame(float deltaTime)

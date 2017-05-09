@@ -7,7 +7,13 @@ namespace Implementation.Systems
     public class DispatchLocal<T, S> : SystemBase where T : IComponent where S : EntityContext
     {
         public Action<T> ComponentUpdated;
-        
+
+        private int localUser;
+        public DispatchLocal(int userId)
+        {
+            localUser = userId;
+        }
+
         public override void Initialize(Contexts contexts)
         {
             base.Initialize(contexts);
@@ -16,7 +22,8 @@ namespace Implementation.Systems
 
         private void OnComponentUpdate(Entity obj)
         {
-            ComponentUpdated(obj.GetComponent<T>());
+            if(obj.GetComponent<PlayerIdComponent>().id == localUser)
+                ComponentUpdated(obj.GetComponent<T>());
         }
 
         public override void Destroy()

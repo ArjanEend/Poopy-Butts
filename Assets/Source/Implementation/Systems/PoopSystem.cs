@@ -52,6 +52,8 @@ namespace Implementation.Systems
                         turdSize += stomach.pickups[i].Entity.GetComponent<PickupComponent>().radius * .5f;
                         socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[i]));
                         stomach.pickups[i].Entity.Reset();
+                        stomach.pickups.Clear();
+                        socket.WriteSocket(new MainContextUpdateComponentCommand(stomach, playerGroup[i].CreationIndex));
                     }
 
                     var newEntity = contexts.Main.Pool.GetObject();
