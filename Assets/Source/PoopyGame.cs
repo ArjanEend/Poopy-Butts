@@ -45,9 +45,11 @@ public class PoopyGame : UnityGameBase {
         foodBar = GameObject.FindObjectOfType<FoodBarController>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
+        systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
+        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
 
         socket = new SocketController(commander, rocketizer);
@@ -123,6 +125,7 @@ public class PoopyGameServer :
 #endif
                 );
 
+
         SendWorldSystem sendWorld = new SendWorldSystem(socket);
         systemManager.AddSystem(sendWorld);
 
@@ -137,9 +140,11 @@ public class PoopyGameServer :
         messageSystem.OnNewEntity += OnNewMessage;
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
+        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new PickupSystem(socket));
         systemManager.AddSystem(new PoopSystem(socket));
         systemManager.AddSystem(new SpawnPickupSystem(socket));
+        systemManager.AddSystem(new SpawnTilemap());
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));

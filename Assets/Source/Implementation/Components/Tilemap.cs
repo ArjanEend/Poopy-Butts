@@ -2,9 +2,10 @@
 
 namespace PoopyButts.Components
 {
-    public class Tilemap : IComponent
+    public partial class Tilemap : IComponent
     {
         public int[,] tiles;
         public string assetId = "newtiles";
+        public float tileSize = 1f;
     }
 }

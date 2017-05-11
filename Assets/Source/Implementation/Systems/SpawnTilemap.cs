@@ -41,22 +41,24 @@ namespace Implementation.Systems
             {
                 for (int y = 0; y < tileArray.GetLength(1); y++)
                 {
-                    if (y - 1 < 0 || y + 1 > tileArray.GetLength(1) || x - 1 < 0 || x + 1 > tileArray.GetLength(0))
-                        continue;
+                    int north = y - 1 < 0 ? 0 : tileArray[x, y - 1];
+                    int west = x + 1 >= tileArray.GetLength(0) ? 0 : tileArray[x + 1, y];
+                    int south = y + 1 >= tileArray.GetLength(1) ? 0 : tileArray[x, y + 1];
+                    int east = x - 1 < 0 ? 0 : tileArray[x - 1, y];
 
-                    if (tileArray[x, y] == 1)
-                    {
-                        parsedMap[x + 1, y] += 1;
-                        parsedMap[x, y + 1] += 2;
-                        parsedMap[x - 1, y] += 3;
-                        parsedMap[x, y - 1] += 4;
-                    }
+                    parsedMap[x, y] += north * 1;
+                    parsedMap[x, y] += west * 2;
+                    parsedMap[x, y] += south * 4;
+                    parsedMap[x, y] += east * 8;
                 }
             }
-            
 
             tilemap.AddComponent<TransformComponent>();
-            tilemap.AddComponent<Tilemap>().tiles = parsedMap;
+            Tilemap comp = new Tilemap();
+            comp.tiles = parsedMap;
+            comp.assetId = "DebugMap";
+            comp.tileSize = 2.61f;
+            tilemap.AddComponent(comp);
         }
 
         public override void Destroy()
@@ -66,7 +68,6 @@ namespace Implementation.Systems
 
         public override void Execute(float deltaTime)
         {
-            throw new NotImplementedException();
         }
     }
 }

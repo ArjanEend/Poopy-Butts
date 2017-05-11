@@ -15,7 +15,7 @@ public class TileMapVisualizer : UnitySystemBase
 
     public override void Initialize(Contexts contexts)
     {
-        tilemapGroup = contexts.Main.Pool.GetGroup(typeof(TileMapVisualizer));
+        tilemapGroup = contexts.Main.Pool.GetGroup(typeof(Tilemap));
     }
 
     public override void Destroy()
@@ -29,20 +29,22 @@ public class TileMapVisualizer : UnitySystemBase
         {
             Tilemap comp = newEntities[i].GetComponent<Tilemap>();
             comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.assetId));
+            Debug.Log(comp.go);
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
             if (newEntities[i].GetComponent<TransformComponent>() != null)
             {
                 Vector2 pos = newEntities[i].GetComponent<TransformComponent>().position;
                 comp.go.transform.position = new Vector3(pos.x, 0f, pos.y);
             }
-
+            
             for(int x = 0; x < comp.tiles.GetLength(0); x++)
             {
                 for(int y = 0; y < comp.tiles.GetLength(1); y++)
                 {
                     Transform targetChild = comp.go.transform.GetChild(comp.tiles[x,y]);
                     Transform copy = Instantiate(targetChild, comp.go.transform);
-                    copy.transform.localPosition = new Vector3(x, 0f, y);
+                    copy.gameObject.SetActive(true);
+                    copy.transform.localPosition = new Vector3(x * comp.tileSize, 0f, y * comp.tileSize);
                 }
             }
 

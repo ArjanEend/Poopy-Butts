@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using RocketWorks.Entities;
 using RocketWorks.Networking;
 using RocketWorks.Commands;
+using PoopyButts.Components;
 
 namespace Implementation.Systems
 {
@@ -17,6 +18,7 @@ namespace Implementation.Systems
         private Group playerGroup;
         private Group pingGroup;
         private Group messageGroup;
+        private Group tilemapGroup;
 
         private SocketController controller;
 
@@ -38,6 +40,7 @@ namespace Implementation.Systems
             pingGroup = contexts.Meta.Pool.GetGroup(typeof(PongComponent));
             messageGroup = contexts.Message.Pool.GetGroup(typeof(MessageComponent));
             itemGroup = mainPool.GetGroup(typeof(TransformComponent), typeof(VisualizationComponent));
+            tilemapGroup = mainPool.GetGroup(typeof(Tilemap));
         }
 
         public override void Execute(float deltaTime)
@@ -67,6 +70,10 @@ namespace Implementation.Systems
                 {
                     RocketLog.Log("Send message object" + messageGroup[j].CreationIndex, this);
                     controller.WriteSocket(new MessageContextCreateEntityCommand(messageGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
+                }
+                for (int j = 0; j < tilemapGroup.Count; j++)
+                {
+                    controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < pingGroup.Count; j++)
                 {
