@@ -27,22 +27,31 @@ namespace Implementation.Systems
         {
         }
 
-        private void HandleCollision(TransformComponent transform, CircleCollider collider, Tilemap map)
+        private Vector2 HandleCollision(TransformComponent transform, CircleCollider collider, Tilemap map)
         {
             //Get all corners
+            Vector2 position = transform.position;
 
-            Vector2 max = transform.position + collider.radius;
-            Vector2 min = transform.position - collider.radius;
+            Vector2 max = position + collider.radius * .5f;
+            Vector2 min = position - collider.radius * .5f;
 
             Vector2 topRight = new Vector2(max.x, max.y);
             Vector2 topLeft = new Vector2(min.x, max.y);
             Vector2 bottomRight = new Vector2(max.x, min.y);
             Vector2 bottomLeft = new Vector2(min.x, min.y);
             
-            Vector2 position = transform.position;
-
             Vector2 currentTile = transform.position / map.tileSize;
+            currentTile.x = Mathf.RoundToInt(currentTile.x);
+            currentTile.y = Mathf.RoundToInt(currentTile.y);
+            Vector2 tilePos = currentTile * map.tileSize;
+            
+            if (HandlePoint(transform.position, map))
+            {
+                RocketLog.Log("Player inside of occoupied tile, this shouldn't happen!");
+            }
 
+            float ySolve = position.y;
+            float xSolve = position.x;
             //Seperate axis theorem
             {
                 Vector2 right = topRight;
@@ -50,8 +59,7 @@ namespace Implementation.Systems
 
                 if (HandlePoint(right, map) || HandlePoint(left, map))
                 {
-                    position.y = (currentTile.y + map.tileSize) - (max.y);
-                    //bodyPosition.y -= speedY;
+                    ySolve = (tilePos.y) - ((map.tileSize * -.5f) + (collider.radius * .51f));
                 }
             }
             {
@@ -60,39 +68,55 @@ namespace Implementation.Systems
 
                 if (HandlePoint(right, map) || HandlePoint(left, map))
                 {
-                    position.y = (currentTile.y - map.tileSize) + (min.y);
-                    //bodyPosition.y -= speedY;
+                    ySolve = (tilePos.y) + ((map.tileSize * -.5f) + (collider.radius * .51f));
                 }
             }
-            /*{
-                Vector2 right = topRight;
-                Vector2 left = bottomRight;
+            max = position + collider.radius * .5f;
+            min = position - collider.radius * .5f;
 
-                if (HandlePoint(right) || HandlePoint(left))
+            topRight = new Vector2(max.x, max.y);
+            topLeft = new Vector2(min.x, max.y);
+            bottomRight = new Vector2(max.x, min.y);
+            bottomLeft = new Vector2(min.x, min.y);
+            {
+                Vector2 top = topRight;
+                Vector2 bottom = bottomRight;
+
+                if (HandlePoint(top, map) || HandlePoint(bottom, map))
                 {
-                    bodyPosition.x = (currentTile.x + tileSize) - (bounds.extents.x + center.x);
-                    //bodyPosition.x -= speedX;
+                    xSolve = (tilePos.x) - ((map.tileSize * -.5f) + (collider.radius * .51f));
                 }
             }
             {
-                Vector2 right = topLeft;
-                Vector2 left = bottomLeft;
+                Vector2 top = topLeft;
+                Vector2 bottom = bottomLeft;
 
-                if (HandlePoint(left) || HandlePoint(right))
+                if (HandlePoint(top, map) || HandlePoint(bottom, map))
                 {
-                    bodyPosition.x = (currentTile.x) + (bounds.extents.x - center.x);
-                    //bodyPosition.x -= speedX;
+                    xSolve = (tilePos.x) + ((map.tileSize * -.5f) + (collider.radius * .51f));
                 }
-            }*/
+            }
 
+            float xDiff = Mathf.Abs(position.x - xSolve);
+            float yDiff = Mathf.Abs(position.y - ySolve);
 
-            transform.position = position;
+            if (xSolve < ySolve)
+                position.x = xSolve;
+            else
+                position.y = ySolve;
+
+            if(Vector2.Distance(position, transform.position) > map.tileSize * 2f)
+            {
+                RocketLog.Log("Weird translation happening");
+            }
+
+            return position;
         }
 
         private bool HandlePoint(Vector2 point, Tilemap map)
         {
             Vector2 tileIndex = point / map.tileSize;
-            if (InBounds(tileIndex, map) && map.tiles[(int)tileIndex.x, (int)tileIndex.y] != 0)
+            if (InBounds(tileIndex, map) && map.tiles[Mathf.RoundToInt(tileIndex.y), Mathf.RoundToInt(tileIndex.x)] == 0)
             {
                 return true;
             }
@@ -101,12 +125,12 @@ namespace Implementation.Systems
 
         private bool InBounds(Vector2 pos, Tilemap map)
         {
-            return InBounds((int)pos.x, (int)pos.y, map);
+            return InBounds(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), map);
         }
 
         private bool InBounds(int x, int y, Tilemap map)
         {
-            return x > -1 && y > -1 && x < map.tiles.GetLength(0) && y < map.tiles.GetLength(1);
+            return x > -1 && y > -1 && x < map.tiles.GetLength(1) && y < map.tiles.GetLength(0);
         }
 
         public override void Execute(float deltaTime)
@@ -120,10 +144,9 @@ namespace Implementation.Systems
                     TransformComponent objectTrans = objectGroup[i].GetComponent<TransformComponent>();
                     CircleCollider objectCollider = objectGroup[i].GetComponent<CircleCollider>();
 
-                    //Vector2 relativePos = objectTrans.position - tileTrans.position;
-                    //Vector2 tilePos = relativePos / tilemap.tileSize;
-
-                    HandleCollision(objectTrans, objectCollider, tilemap);
+                    objectTrans.position -= tileTrans.position;
+                    
+                    objectTrans.position = tileTrans.position + HandleCollision(objectTrans, objectCollider, tilemap);
                 }
             }
         }

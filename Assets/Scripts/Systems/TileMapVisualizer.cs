@@ -36,12 +36,30 @@ public class TileMapVisualizer : UnitySystemBase
                 Vector2 pos = newEntities[i].GetComponent<TransformComponent>().position;
                 comp.go.transform.position = new Vector3(pos.x, 0f, pos.y);
             }
-            
-            for(int x = 0; x < comp.tiles.GetLength(0); x++)
+            int[,] tileArray = comp.tiles;
+            int[,] parsedMap = new int[tileArray.GetLength(0), tileArray.GetLength(1)];
+
+            for (int y = 0; y < tileArray.GetLength(0); y++)
             {
-                for(int y = 0; y < comp.tiles.GetLength(1); y++)
+                for (int x = 0; x < tileArray.GetLength(1); x++)
                 {
-                    Transform targetChild = comp.go.transform.GetChild(comp.tiles[x,y]);
+                    int north = y - 1 < 0 ? 0 : tileArray[y - 1, x];
+                    int west = x + 1 >= tileArray.GetLength(1) ? 0 : tileArray[y, x + 1];
+                    int south = y + 1 >= tileArray.GetLength(0) ? 0 : tileArray[y + 1, x];
+                    int east = x - 1 < 0 ? 0 : tileArray[y, x - 1];
+
+                    parsedMap[y, x] += south * 1;
+                    parsedMap[y, x] += west * 2;
+                    parsedMap[y, x] += north * 4;
+                    parsedMap[y, x] += east * 8;
+                }
+            }
+
+            for (int y = 0; y < parsedMap.GetLength(0); y++)
+            {
+                for(int x = 0; x < parsedMap.GetLength(1); x++)
+                {
+                    Transform targetChild = comp.go.transform.GetChild(parsedMap[y,x]);
                     Transform copy = Instantiate(targetChild, comp.go.transform);
                     copy.gameObject.SetActive(true);
                     copy.transform.localPosition = new Vector3(x * comp.tileSize, 0f, y * comp.tileSize);

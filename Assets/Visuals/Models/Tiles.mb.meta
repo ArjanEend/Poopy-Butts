@@ -870,6 +870,20 @@ ModelImporter:
     101724: transform98
     101726: transform99
     101728: upTile
+    101730: cornerTile
+    101732: cornerTile1
+    101734: cornerTile2
+    101736: pPlane14
+    101738: threewaytile
+    101740: threewaytile1
+    101742: threewaytile2
+    101744: upTile1
+    101746: upTile2
+    101748: upTile3
+    101750: Wall
+    101752: twowaytile
+    101754: upperFloor
+    101756: upTile4
     400000: downTile
     400002: Lantaarn_0005:pCube1
     400004: Lantaarn_0005:pCube10
@@ -1735,6 +1749,20 @@ ModelImporter:
     401724: transform98
     401726: transform99
     401728: upTile
+    401730: cornerTile
+    401732: cornerTile1
+    401734: cornerTile2
+    401736: pPlane14
+    401738: threewaytile
+    401740: threewaytile1
+    401742: threewaytile2
+    401744: upTile1
+    401746: upTile2
+    401748: upTile3
+    401750: Wall
+    401752: twowaytile
+    401754: upperFloor
+    401756: upTile4
     2300000: downTile
     2300002: leftTile
     2300004: midTile1
@@ -1755,6 +1783,13 @@ ModelImporter:
     2300034: SETile
     2300036: SWTile
     2300038: upTile
+    2300040: cornerTile2
+    2300042: threewaytile2
+    2300044: upTile1
+    2300046: upTile2
+    2300048: upTile3
+    2300050: twowaytile
+    2300052: upperFloor
     3300000: downTile
     3300002: leftTile
     3300004: midTile1
@@ -1775,6 +1810,13 @@ ModelImporter:
     3300034: SETile
     3300036: SWTile
     3300038: upTile
+    3300040: cornerTile2
+    3300042: threewaytile2
+    3300044: upTile1
+    3300046: upTile2
+    3300048: upTile3
+    3300050: twowaytile
+    3300052: upperFloor
     4300000: SWTile
     4300002: upTile
     4300004: NWTIle
@@ -1795,6 +1837,13 @@ ModelImporter:
     4300034: midTile1
     4300036: midTile2
     4300038: midTile3
+    4300040: upTile1
+    4300042: cornerTile2
+    4300044: upTile2
+    4300046: upTile3
+    4300048: threewaytile2
+    4300050: twowaytile
+    4300052: upperFloor
     7400000: Take 001
     9500000: //RootNode
   materials:

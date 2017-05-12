@@ -40,8 +40,6 @@ namespace Implementation.Systems
                     Entity ent = group[i];
                     ent.GetComponent<LerpToComponent>().position = ent.GetComponent<TransformComponent>().position;
                     ent.GetComponent<LerpToComponent>().velocity = ent.GetComponent<MovementComponent>().velocity;
-                  ///  if (ent.GetComponent<PlayerIdComponent>() != null)
-                   //     RocketLog.Log(ent.GetComponent<LerpToComponent>().position.ToString(), this);
                 }
             }
             else
