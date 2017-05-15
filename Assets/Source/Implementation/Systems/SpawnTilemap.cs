@@ -11,25 +11,32 @@ namespace Implementation.Systems
 {
     public class SpawnTilemap : SystemBase
     {
-        private int[,] tileArray = new int[4, 16] {
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-            { 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+        private int[,] tileArray = new int[8, 8] {
+            { 1, 1, 1, 1, 1, 1, 1, 1},
+            { 1, 1, 1, 1, 1, 1, 1, 1},
+            { 1, 1, 0, 0, 1, 1, 1, 1},
+            { 1, 1, 0, 0, 0, 0, 0, 1},
+            { 1, 1, 0, 0, 0, 0, 0, 1},
+            { 1, 1, 0, 0, 0, 0, 1, 1},
+            { 1, 1, 1, 1, 1, 1, 1, 1},
+            { 1, 1, 1, 1, 1, 1, 1, 1},
         };
 
         public override void Initialize(Contexts contexts)
         {
             base.Initialize(contexts);
             Entity tilemap = contexts.Main.Pool.GetObject();
-            
 
-            tilemap.AddComponent<TransformComponent>();
+            float tileSize = 1.5f;
+
+            tilemap.AddComponent<TransformComponent>().position = new RocketWorks.Vector2(tileArray.GetLength(0) * tileSize * -.5f, tileArray.GetLength(1) * tileSize * -.5f);
+
             Tilemap comp = new Tilemap();
             comp.tiles = tileArray;
             comp.assetId = "DebugMap";
-            comp.tileSize = 1.5f;
+            comp.tileSize = tileSize;
             tilemap.AddComponent(comp);
+
         }
 
         public override void Destroy()

@@ -47,7 +47,7 @@ namespace Implementation.Systems
             
             if (HandlePoint(transform.position, map))
             {
-                RocketLog.Log("Player inside of occoupied tile, this shouldn't happen!");
+                //RocketLog.Log("Player inside of occoupied tile, this shouldn't happen!");
             }
 
             float ySolve = position.y;
@@ -71,6 +71,7 @@ namespace Implementation.Systems
                     ySolve = (tilePos.y) + ((map.tileSize * -.5f) + (collider.radius * .51f));
                 }
             }
+
             max = position + collider.radius * .5f;
             min = position - collider.radius * .5f;
 
@@ -97,10 +98,10 @@ namespace Implementation.Systems
                 }
             }
 
-            float xDiff = Mathf.Abs(position.x - xSolve);
-            float yDiff = Mathf.Abs(position.y - ySolve);
+            float xDiff = Math.Min(.1f, Mathf.Abs(position.x - xSolve));
+            float yDiff = Math.Min(.1f, Mathf.Abs(position.y - ySolve));
 
-            if (xSolve < ySolve)
+            if (xDiff < yDiff)
                 position.x = xSolve;
             else
                 position.y = ySolve;
@@ -116,7 +117,7 @@ namespace Implementation.Systems
         private bool HandlePoint(Vector2 point, Tilemap map)
         {
             Vector2 tileIndex = point / map.tileSize;
-            if (InBounds(tileIndex, map) && map.tiles[Mathf.RoundToInt(tileIndex.y), Mathf.RoundToInt(tileIndex.x)] == 0)
+            if (InBounds(tileIndex, map) && map.tiles[Mathf.RoundToInt(tileIndex.y), Mathf.RoundToInt(tileIndex.x)] == 1)
             {
                 return true;
             }

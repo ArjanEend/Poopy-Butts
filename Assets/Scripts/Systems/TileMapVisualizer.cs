@@ -62,7 +62,7 @@ public class TileMapVisualizer : UnitySystemBase
                     Transform targetChild = comp.go.transform.GetChild(parsedMap[y,x]);
                     Transform copy = Instantiate(targetChild, comp.go.transform);
                     copy.gameObject.SetActive(true);
-                    copy.transform.localPosition = new Vector3(x * comp.tileSize, 0f, y * comp.tileSize);
+                    copy.transform.localPosition = new Vector3(x * comp.tileSize, copy.transform.localPosition.y, y * comp.tileSize);
                 }
             }
 

@@ -134,9 +134,11 @@
     <Compile Include="Assets\Source\Generated\PingComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Generated\PongComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PoopComponent.cs" />
     <Compile Include="Assets\Source\Generated\Rocketizer.cs" />
     <Compile Include="Assets\Source\Generated\SetUserIDCommand.cs" />
     <Compile Include="Assets\Source\Generated\Stomach.cs" />
+    <Compile Include="Assets\Source\Generated\Tilemap.cs" />
     <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
     <Compile Include="Assets\Source\Generated\UpdateComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
@@ -153,10 +155,12 @@
     <Compile Include="Assets\Source\Implementation\Components\PongComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PoopComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\Stomach.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\Tilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\CircleCollisionSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\DispatchLocal.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
@@ -167,6 +171,8 @@
     <Compile Include="Assets\Source\Implementation\Systems\PoopSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SpawnPickupSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\SpawnTilemap.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\TilemapCollision.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
