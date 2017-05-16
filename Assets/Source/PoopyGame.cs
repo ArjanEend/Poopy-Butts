@@ -47,9 +47,9 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
+        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
 
         socket = new SocketController(commander, rocketizer);
@@ -138,9 +138,10 @@ public class PoopyGameServer :
             MessageSystem messageSystem = new MessageSystem();
             systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
+
+        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new PickupSystem(socket));
         systemManager.AddSystem(new PoopSystem(socket));
         systemManager.AddSystem(new SpawnPickupSystem(socket));

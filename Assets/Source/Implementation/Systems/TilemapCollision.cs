@@ -20,17 +20,21 @@ namespace Implementation.Systems
             base.Initialize(contexts);
 
             tileGroup = contexts.Main.Pool.GetGroup(typeof(TransformComponent), typeof(Tilemap));
-            objectGroup = contexts.Main.Pool.GetGroup(typeof(TransformComponent), typeof(CircleCollider));
+            objectGroup = contexts.Main.Pool.GetGroup(typeof(TransformComponent), typeof(CircleCollider), typeof(MovementComponent));
         }
 
         public override void Destroy()
         {
         }
 
-        private Vector2 HandleCollision(TransformComponent transform, CircleCollider collider, Tilemap map)
+        private Vector2 HandleCollision(TransformComponent transform, MovementComponent movement, float deltaTime, CircleCollider collider, Tilemap map)
         {
             //Get all corners
             Vector2 position = transform.position;
+            float ySolve = 0f;
+            float xSolve = 0f;
+
+            position.y += movement.velocity.y * deltaTime;
 
             Vector2 max = position + collider.radius * .5f;
             Vector2 min = position - collider.radius * .5f;
@@ -49,28 +53,44 @@ namespace Implementation.Systems
             {
                 //RocketLog.Log("Player inside of occoupied tile, this shouldn't happen!");
             }
-
-            float ySolve = position.y;
-            float xSolve = position.x;
+            
             //Seperate axis theorem
+            if(movement.velocity.y > 0f)
             {
                 Vector2 right = topRight;
                 Vector2 left = topLeft;
 
-                if (HandlePoint(right, map) || HandlePoint(left, map))
+                if (HandlePoint(right, map))
                 {
-                    ySolve = (tilePos.y) - ((map.tileSize * -.5f) + (collider.radius * .51f));
+                    ySolve = SolveYAxis(right, map.tileSize, collider.radius);
+                    movement.velocity.y = 0f;
+                } else 
+                if (HandlePoint(left, map))
+                {
+                    ySolve = SolveYAxis(left, map.tileSize, collider.radius);
+                    movement.velocity.y = 0f;
                 }
             }
+            else if(movement.velocity.y < 0f)
             {
                 Vector2 right = bottomRight;
                 Vector2 left = bottomLeft;
 
-                if (HandlePoint(right, map) || HandlePoint(left, map))
+                if (HandlePoint(right, map))
                 {
-                    ySolve = (tilePos.y) + ((map.tileSize * -.5f) + (collider.radius * .51f));
+                    ySolve = SolveYAxis(right, map.tileSize, collider.radius);
+                    movement.velocity.y = 0f;
+                }
+                else
+                if (HandlePoint(left, map))
+                {
+                    ySolve = SolveYAxis(left, map.tileSize, collider.radius);
+                    movement.velocity.y = 0f;
                 }
             }
+
+            position.y -= movement.velocity.y * deltaTime;
+            position.x += movement.velocity.x * deltaTime;
 
             max = position + collider.radius * .5f;
             min = position - collider.radius * .5f;
@@ -79,32 +99,39 @@ namespace Implementation.Systems
             topLeft = new Vector2(min.x, max.y);
             bottomRight = new Vector2(max.x, min.y);
             bottomLeft = new Vector2(min.x, min.y);
+
+            if (movement.velocity.x > 0f)
             {
                 Vector2 top = topRight;
                 Vector2 bottom = bottomRight;
 
                 if (HandlePoint(top, map) || HandlePoint(bottom, map))
                 {
-                    xSolve = (tilePos.x) - ((map.tileSize * -.5f) + (collider.radius * .51f));
+                    xSolve = (map.tileSize + collider.radius * .5f) - (currentTile.x - min.x);
+                    movement.velocity.x = 0f;
                 }
             }
+            else if (movement.velocity.x < 0f)
             {
                 Vector2 top = topLeft;
                 Vector2 bottom = bottomLeft;
 
                 if (HandlePoint(top, map) || HandlePoint(bottom, map))
                 {
-                    xSolve = (tilePos.x) + ((map.tileSize * -.5f) + (collider.radius * .51f));
+                    xSolve = (map.tileSize + collider.radius * .5f) - (currentTile.x - min.x);
+                    movement.velocity.x = 0f;
                 }
             }
 
-            float xDiff = Math.Min(.1f, Mathf.Abs(position.x - xSolve));
-            float yDiff = Math.Min(.1f, Mathf.Abs(position.y - ySolve));
-
-            if (xDiff < yDiff)
-                position.x = xSolve;
-            else
-                position.y = ySolve;
+            //float xDiff = Math.Min(.2f, Mathf.Abs(position.x - xSolve));
+            //float yDiff = Math.Min(.2f, Mathf.Abs(position.y - ySolve));
+            if(Math.Abs(xSolve) > Math.Abs(ySolve))
+            {
+                position.y -= ySolve;
+            } else
+            {
+                position.x -= xSolve;
+            }
 
             if(Vector2.Distance(position, transform.position) > map.tileSize * 2f)
             {
@@ -112,6 +139,30 @@ namespace Implementation.Systems
             }
 
             return position;
+        }
+
+        private float SolveXAxis(Vector2 point, float tileSize, float mySize)
+        {
+            float returnValue = 0f;
+            Vector2 tile = point / tileSize;
+            tile.x = Mathf.RoundToInt(tile.x);
+            tile.y = Mathf.RoundToInt(tile.y);
+            
+            returnValue = (-tileSize + mySize) - (tile.x - (point.x - mySize * .5f));
+
+            return returnValue;
+        }
+
+        private float SolveYAxis(Vector2 point, float tileSize, float mySize)
+        {
+            float returnValue = 0f;
+            Vector2 tile = point / tileSize;
+            tile.x = Mathf.RoundToInt(tile.x);
+            tile.y = Mathf.RoundToInt(tile.y);
+
+            returnValue = (tileSize + mySize) - (tile.y - (point.y - mySize * .5f));
+
+            return returnValue;
         }
 
         private bool HandlePoint(Vector2 point, Tilemap map)
@@ -143,11 +194,12 @@ namespace Implementation.Systems
                 for(int j = 0; j < objectGroup.Count; j++)
                 {
                     TransformComponent objectTrans = objectGroup[i].GetComponent<TransformComponent>();
+                    MovementComponent movement = objectGroup[i].GetComponent<MovementComponent>();
                     CircleCollider objectCollider = objectGroup[i].GetComponent<CircleCollider>();
 
                     objectTrans.position -= tileTrans.position;
                     
-                    objectTrans.position = tileTrans.position + HandleCollision(objectTrans, objectCollider, tilemap);
+                    objectTrans.position = tileTrans.position + HandleCollision(objectTrans, movement, deltaTime, objectCollider, tilemap);
                 }
             }
         }
