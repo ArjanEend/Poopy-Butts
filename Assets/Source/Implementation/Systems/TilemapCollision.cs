@@ -34,7 +34,7 @@ namespace Implementation.Systems
             float ySolve = 0f;
             float xSolve = 0f;
 
-            position.y += movement.velocity.y * deltaTime;
+            //position.y += movement.velocity.y * deltaTime;
 
             Vector2 max = position + collider.radius * .5f;
             Vector2 min = position - collider.radius * .5f;
@@ -43,97 +43,29 @@ namespace Implementation.Systems
             Vector2 topLeft = new Vector2(min.x, max.y);
             Vector2 bottomRight = new Vector2(max.x, min.y);
             Vector2 bottomLeft = new Vector2(min.x, min.y);
-            
-            Vector2 currentTile = transform.position / map.tileSize;
-            currentTile.x = Mathf.RoundToInt(currentTile.x);
-            currentTile.y = Mathf.RoundToInt(currentTile.y);
-            Vector2 tilePos = currentTile * map.tileSize;
-            
-            if (HandlePoint(transform.position, map))
-            {
-                //RocketLog.Log("Player inside of occoupied tile, this shouldn't happen!");
-            }
-            
-            //Seperate axis theorem
-            if(movement.velocity.y > 0f)
-            {
-                Vector2 right = topRight;
-                Vector2 left = topLeft;
 
-                if (HandlePoint(right, map))
-                {
-                    ySolve = SolveYAxis(right, map.tileSize, collider.radius);
-                    movement.velocity.y = 0f;
-                } else 
-                if (HandlePoint(left, map))
-                {
-                    ySolve = SolveYAxis(left, map.tileSize, collider.radius);
-                    movement.velocity.y = 0f;
-                }
-            }
-            else if(movement.velocity.y < 0f)
-            {
-                Vector2 right = bottomRight;
-                Vector2 left = bottomLeft;
+            Vector2 diff = HandlePoint(topRight, map, position, collider.radius);
+            if (diff.x > diff.y)
+                position.y -= diff.y;
+            else
+                position.x -= diff.x;
+            diff = HandlePoint(topLeft, map, position, collider.radius);
+            if (diff.x > diff.y)
+                position.y -= diff.y;
+            else
+                position.x -= diff.x;
+            diff = HandlePoint(bottomRight, map, position, collider.radius);
+            if (diff.x > diff.y)
+                position.y -= diff.y;
+            else
+                position.x -= diff.x;
+            diff = HandlePoint(bottomLeft, map, position, collider.radius);
+            if (diff.x > diff.y)
+                position.y -= diff.y;
+            else
+                position.x -= diff.x;
 
-                if (HandlePoint(right, map))
-                {
-                    ySolve = SolveYAxis(right, map.tileSize, collider.radius);
-                    movement.velocity.y = 0f;
-                }
-                else
-                if (HandlePoint(left, map))
-                {
-                    ySolve = SolveYAxis(left, map.tileSize, collider.radius);
-                    movement.velocity.y = 0f;
-                }
-            }
-
-            position.y -= movement.velocity.y * deltaTime;
-            position.x += movement.velocity.x * deltaTime;
-
-            max = position + collider.radius * .5f;
-            min = position - collider.radius * .5f;
-
-            topRight = new Vector2(max.x, max.y);
-            topLeft = new Vector2(min.x, max.y);
-            bottomRight = new Vector2(max.x, min.y);
-            bottomLeft = new Vector2(min.x, min.y);
-
-            if (movement.velocity.x > 0f)
-            {
-                Vector2 top = topRight;
-                Vector2 bottom = bottomRight;
-
-                if (HandlePoint(top, map) || HandlePoint(bottom, map))
-                {
-                    xSolve = (map.tileSize + collider.radius * .5f) - (currentTile.x - min.x);
-                    movement.velocity.x = 0f;
-                }
-            }
-            else if (movement.velocity.x < 0f)
-            {
-                Vector2 top = topLeft;
-                Vector2 bottom = bottomLeft;
-
-                if (HandlePoint(top, map) || HandlePoint(bottom, map))
-                {
-                    xSolve = (map.tileSize + collider.radius * .5f) - (currentTile.x - min.x);
-                    movement.velocity.x = 0f;
-                }
-            }
-
-            //float xDiff = Math.Min(.2f, Mathf.Abs(position.x - xSolve));
-            //float yDiff = Math.Min(.2f, Mathf.Abs(position.y - ySolve));
-            if(Math.Abs(xSolve) > Math.Abs(ySolve))
-            {
-                position.y -= ySolve;
-            } else
-            {
-                position.x -= xSolve;
-            }
-
-            if(Vector2.Distance(position, transform.position) > map.tileSize * 2f)
+            if (Vector2.Distance(position, transform.position) > map.tileSize * 2f)
             {
                 RocketLog.Log("Weird translation happening");
             }
@@ -141,43 +73,24 @@ namespace Implementation.Systems
             return position;
         }
 
-        private float SolveXAxis(Vector2 point, float tileSize, float mySize)
+        private Vector2 HandlePoint(Vector2 point, Tilemap map, Vector2 center, float radius)
         {
-            float returnValue = 0f;
-            Vector2 tile = point / tileSize;
-            tile.x = Mathf.RoundToInt(tile.x);
-            tile.y = Mathf.RoundToInt(tile.y);
-            
-            returnValue = (-tileSize + mySize) - (tile.x - (point.x - mySize * .5f));
-
-            return returnValue;
-        }
-
-        private float SolveYAxis(Vector2 point, float tileSize, float mySize)
-        {
-            float returnValue = 0f;
-            Vector2 tile = point / tileSize;
-            tile.x = Mathf.RoundToInt(tile.x);
-            tile.y = Mathf.RoundToInt(tile.y);
-
-            returnValue = (tileSize + mySize) - (tile.y - (point.y - mySize * .5f));
-
-            return returnValue;
-        }
-
-        private bool HandlePoint(Vector2 point, Tilemap map)
-        {
+            Vector2 returnPos = Vector2.zero;
             Vector2 tileIndex = point / map.tileSize;
-            if (InBounds(tileIndex, map) && map.tiles[Mathf.RoundToInt(tileIndex.y), Mathf.RoundToInt(tileIndex.x)] == 1)
+            tileIndex.x = Mathf.FloorToInt(tileIndex.x);
+            tileIndex.y = Mathf.FloorToInt(tileIndex.y);
+            Vector2 tilePos = (tileIndex * map.tileSize) + (map.tileSize * .5f);
+            if (InBounds(tileIndex, map) && map.tiles[Mathf.FloorToInt(tileIndex.y), Mathf.FloorToInt(tileIndex.x)] == 1)
             {
-                return true;
+                returnPos.x = ((map.tileSize * .5f) + (radius * .5f)) - (tilePos.x - center.x);
+                returnPos.y = ((map.tileSize * .5f) + (radius * .5f)) - (tilePos.y - center.y);
             }
-            return false;
+            return returnPos;
         }
 
         private bool InBounds(Vector2 pos, Tilemap map)
         {
-            return InBounds(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y), map);
+            return InBounds(Mathf.FloorToInt(pos.x), Mathf.FloorToInt(pos.y), map);
         }
 
         private bool InBounds(int x, int y, Tilemap map)
