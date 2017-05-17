@@ -45,6 +45,7 @@ public class PoopyGame : UnityGameBase {
         foodBar = GameObject.FindObjectOfType<FoodBarController>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
+        systemManager.AddSystem(UnitySystemBase.Initialize<PoopVisualizer>(contexts));
         systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         //systemManager.AddSystem(new TilemapCollision());
