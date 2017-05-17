@@ -34,7 +34,6 @@ public class MoveWithFeet : MonoBehaviour {
 
         midPoint += forwardVector * .05f;
         
-
         transform.position = Vector3.Lerp(prevPos, midPoint + upVector * distanceAboveFeet, Time.deltaTime * 5f);
         prevPos = transform.position;
 	}
