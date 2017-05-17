@@ -173,6 +173,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\SpawnPickupSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SpawnTilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\TilemapCollision.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\UpdatePoops.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

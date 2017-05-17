@@ -60,7 +60,10 @@ namespace Implementation.Systems
                     newEntity.AddComponent<TransformComponent>().position = playerGroup[j].GetComponent<TransformComponent>().position;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Turd";
                     newEntity.AddComponent<PoopComponent>().size = turdSize;
-                    newEntity.AddComponent<CircleCollider>().radius = turdSize;
+                    newEntity.GetComponent<PoopComponent>().playerRef = playerGroup[j];
+                    newEntity.AddComponent<MovementComponent>().friction = .5f;
+                    //newEntity.AddComponent<LerpToComponent>();
+                    newEntity.AddComponent<CircleCollider>().radius = turdSize * .1f;
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }
