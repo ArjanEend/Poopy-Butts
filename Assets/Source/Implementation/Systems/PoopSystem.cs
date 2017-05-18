@@ -49,7 +49,7 @@ namespace Implementation.Systems
                     float turdSize = .1f;
                     for(int p = 0; p < stomach.pickups.Count; p++)
                     {
-                        turdSize += stomach.pickups[i].Entity.GetComponent<PickupComponent>().radius * .5f;
+                        turdSize += stomach.pickups[i].Entity.GetComponent<PickupComponent>().radius * .8f;
                         socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[i]));
                         stomach.pickups[i].Entity.Reset();
                         stomach.pickups.Clear();
@@ -63,7 +63,7 @@ namespace Implementation.Systems
                     newEntity.GetComponent<PoopComponent>().playerRef = playerGroup[j];
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
                     //newEntity.AddComponent<LerpToComponent>();
-                    newEntity.AddComponent<CircleCollider>().radius = turdSize * .1f;
+                    newEntity.AddComponent<CircleCollider>().radius = turdSize * .3f;
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }

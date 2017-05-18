@@ -884,6 +884,21 @@ ModelImporter:
     101752: twowaytile
     101754: upperFloor
     101756: upTile4
+    101758: group
+    101760: midTile4
+    101762: pasted__downTile
+    101764: pasted__leftTile
+    101766: pasted__pPlane14
+    101768: pasted__rightTile
+    101770: pasted__transform1
+    101772: pasted__transform2
+    101774: pasted__transform3
+    101776: pasted__upTile
+    101778: pasted__upTile1
+    101780: pasted__upTile2
+    101782: pasted__Wall
+    101784: upTile5
+    101786: emptyTile
     400000: downTile
     400002: Lantaarn_0005:pCube1
     400004: Lantaarn_0005:pCube10
@@ -1763,6 +1778,21 @@ ModelImporter:
     401752: twowaytile
     401754: upperFloor
     401756: upTile4
+    401758: group
+    401760: midTile4
+    401762: pasted__downTile
+    401764: pasted__leftTile
+    401766: pasted__pPlane14
+    401768: pasted__rightTile
+    401770: pasted__transform1
+    401772: pasted__transform2
+    401774: pasted__transform3
+    401776: pasted__upTile
+    401778: pasted__upTile1
+    401780: pasted__upTile2
+    401782: pasted__Wall
+    401784: upTile5
+    401786: emptyTile
     2300000: downTile
     2300002: leftTile
     2300004: midTile1
@@ -1790,6 +1820,10 @@ ModelImporter:
     2300048: upTile3
     2300050: twowaytile
     2300052: upperFloor
+    2300054: midTile4
+    2300056: pasted__upTile1
+    2300058: pasted__upTile2
+    2300060: emptyTile
     3300000: downTile
     3300002: leftTile
     3300004: midTile1
@@ -1817,6 +1851,10 @@ ModelImporter:
     3300048: upTile3
     3300050: twowaytile
     3300052: upperFloor
+    3300054: midTile4
+    3300056: pasted__upTile1
+    3300058: pasted__upTile2
+    3300060: emptyTile
     4300000: SWTile
     4300002: upTile
     4300004: NWTIle
@@ -1844,6 +1882,10 @@ ModelImporter:
     4300048: threewaytile2
     4300050: twowaytile
     4300052: upperFloor
+    4300054: pasted__upTile1
+    4300056: pasted__upTile2
+    4300058: midTile4
+    4300060: emptyTile
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -1872,7 +1914,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

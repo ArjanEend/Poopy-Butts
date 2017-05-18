@@ -38,15 +38,19 @@ public class TileMapVisualizer : UnitySystemBase
             }
             int[,] tileArray = comp.tiles;
             int[,] parsedMap = new int[tileArray.GetLength(0), tileArray.GetLength(1)];
-
+            
             for (int y = 0; y < tileArray.GetLength(0); y++)
             {
                 for (int x = 0; x < tileArray.GetLength(1); x++)
                 {
-                    int north = y - 1 < 0 ? 0 : tileArray[y - 1, x];
-                    int west = x + 1 >= tileArray.GetLength(1) ? 0 : tileArray[y, x + 1];
-                    int south = y + 1 >= tileArray.GetLength(0) ? 0 : tileArray[y + 1, x];
-                    int east = x - 1 < 0 ? 0 : tileArray[y, x - 1];
+                    if(tileArray[y, x] == 0)
+                    {
+                        continue;
+                    }
+                    int south = y - 1 < 0 ? 0 : tileArray[y - 1, x];
+                    int east = x + 1 >= tileArray.GetLength(1) ? 0 : tileArray[y, x + 1];
+                    int north = y + 1 >= tileArray.GetLength(0) ? 0 : tileArray[y + 1, x];
+                    int west = x - 1 < 0 ? 0 : tileArray[y, x - 1];
 
                     parsedMap[y, x] += south * 1;
                     parsedMap[y, x] += west * 2;
@@ -61,6 +65,7 @@ public class TileMapVisualizer : UnitySystemBase
                 {
                     Transform targetChild = comp.go.transform.GetChild(parsedMap[y,x]);
                     Transform copy = Instantiate(targetChild, comp.go.transform);
+                    copy.gameObject.name += tileArray[y, x];
                     copy.gameObject.SetActive(true);
                     copy.transform.localPosition = new Vector3(x * comp.tileSize, copy.transform.localPosition.y, y * comp.tileSize);
                 }

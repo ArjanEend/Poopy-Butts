@@ -153,22 +153,8 @@ public class PoopyGameServer :
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
 
-        //systemManager.AddSystem(new EstimateComponentsSystem<MovementComponent, MainContext>(socket));
-
-        for (int i = 0; i < 3; i++)
-        {
-            Entity ent = contexts.Main.Pool.GetObject();
-            ent.AddComponent<TransformComponent>().position = new Vector2(i, 0f);
-            ent.AddComponent<MovementComponent>().acceleration = new Vector2(new System.Random(i).Next(-25, 25) * .002f, 0f);
-            ent.GetComponent<MovementComponent>().friction = .0005f;
-            ent.AddComponent<VisualizationComponent>();
-            ent.AddComponent<LerpToComponent>();
-        }
-
         Entity newEnt = contexts.Meta.Pool.GetObject();
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
-        //newEnt.AddComponent<PingComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
-        //newEnt.AddComponent<PongComponent>().toTicks = (long)(new DateTime(1970, 1, 1) - DateTime.UtcNow).TotalMilliseconds;
     }
 
     private void OnNewMessage(Entity obj)
@@ -191,14 +177,11 @@ public class PoopyGameServer :
         Entity playerObj = contexts.Main.Pool.GetObject();
         playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
         playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
-        //playerObj.GetComponent<MovementComponent>().friction = 12f;
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
         playerObj.AddComponent<CircleCollider>().radius = .15f;
         playerObj.AddComponent<Stomach>();
-        //ent.AddComponent<PingComponent>();
-        //ent.AddComponent<PongComponent>();
     }
 
         public void SendMessage(string message)
