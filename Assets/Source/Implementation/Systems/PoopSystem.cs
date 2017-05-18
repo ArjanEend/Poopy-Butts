@@ -35,34 +35,34 @@ namespace Implementation.Systems
         public override void Execute(float deltaTime)
         {
             var input = inputGroup.NewEntities;
-            for (int i = 0; i < input.Count; i++)
+            for (int j = 0; j < playerGroup.Count; j++)
             {
-                for(int j = 0; j < playerGroup.Count; j++)
+                int playerId = playerGroup[j].GetComponent<PlayerIdComponent>().id;
+                for (int i = 0; i < input.Count; i++)
                 {
-                    if (playerGroup[j].GetComponent<PlayerIdComponent>().id != input[i].GetComponent<PlayerIdComponent>().id)
+                      if (playerId != input[i].GetComponent<PlayerIdComponent>().id)
                         continue;
 
-                    Stomach stomach = playerGroup[i].GetComponent<Stomach>();
+                    Stomach stomach = playerGroup[j].GetComponent<Stomach>();
                     if (stomach.pickups.Count == 0)
                         continue;
 
                     float turdSize = .1f;
                     for(int p = 0; p < stomach.pickups.Count; p++)
                     {
-                        turdSize += stomach.pickups[i].Entity.GetComponent<PickupComponent>().radius * .8f;
-                        socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[i]));
-                        stomach.pickups[i].Entity.Reset();
+                        turdSize += stomach.pickups[p].Entity.GetComponent<PickupComponent>().radius * .8f;
+                        socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[p]));
+                        stomach.pickups[p].Entity.Reset();
                         stomach.pickups.Clear();
-                        socket.WriteSocket(new MainContextUpdateComponentCommand(stomach, playerGroup[i].CreationIndex));
+                        socket.WriteSocket(new MainContextUpdateComponentCommand(stomach, playerGroup[j].CreationIndex), playerId);
                     }
 
-                    var newEntity = contexts.Main.Pool.GetObject();
+                    var newEntity = contexts.Main.Pool.GetObject(true);
                     newEntity.AddComponent<TransformComponent>().position = playerGroup[j].GetComponent<TransformComponent>().position;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Turd";
                     newEntity.AddComponent<PoopComponent>().size = turdSize;
                     newEntity.GetComponent<PoopComponent>().playerRef = playerGroup[j];
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
-                    //newEntity.AddComponent<LerpToComponent>();
                     newEntity.AddComponent<CircleCollider>().radius = turdSize * .3f;
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
