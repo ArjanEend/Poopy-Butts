@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BulletSharp, Version=2.83.7.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assets\Plugins\BulletSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -164,6 +168,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\PhysicsSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PickupSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PlayerMoveSystem.cs" />
@@ -184,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\framework\.gitignore" />
+    <Content Include="Assets\Plugins\BulletSharp.dll" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

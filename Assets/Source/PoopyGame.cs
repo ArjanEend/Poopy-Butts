@@ -12,8 +12,10 @@ using Vector2 = RocketWorks.Vector2;
 using RocketWorks.Serialization;
 using PoopyButts.Components;
 using Assets.Source.Implementation.Systems;
+using System.Runtime.InteropServices;
 
 #if UNITY_EDTIOR || UNITY_5
+
 public class PoopyGame : UnityGameBase {
 
     [RuntimeInitializeOnLoadMethod]
@@ -27,7 +29,6 @@ public class PoopyGame : UnityGameBase {
     private SocketController socket;
     private PingView pingView;
     private FoodBarController foodBar;
-
     public PoopyGame() : base()
 	{
         NetworkCommander commander = new NetworkCommander();
@@ -127,7 +128,6 @@ public class PoopyGameServer :
 #endif
                 );
 
-
         SendWorldSystem sendWorld = new SendWorldSystem(socket);
         systemManager.AddSystem(sendWorld);
 
@@ -143,6 +143,7 @@ public class PoopyGameServer :
 
         //systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
+        systemManager.AddSystem(new PhysicsSystem());
         systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new PickupSystem(socket));
         systemManager.AddSystem(new PoopSystem(socket));
