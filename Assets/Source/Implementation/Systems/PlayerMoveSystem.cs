@@ -4,6 +4,7 @@ using RocketWorks.Grouping;
 using Implementation.Components;
 using RocketWorks;
 using System.Collections.Generic;
+using PoopyButts.Components;
 
 namespace Implementation.Systems
 {
@@ -12,16 +13,10 @@ namespace Implementation.Systems
         private Group inputGroup;
         private Group playerGroup;
 
-        private Dictionary<TransformComponent, Vector2[]> oldStates;
-        private Dictionary<MovementComponent, Vector2[]> velocities;
-        private int currentIndex = 0;
-
         public override void Initialize(Contexts contexts)
         {
             inputGroup = contexts.Input.Pool.GetGroup(typeof(AxisComponent), typeof(PlayerIdComponent));
-            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(Stomach), typeof(TransformComponent));
-            oldStates = new Dictionary<TransformComponent, Vector2[]>();
-            velocities = new Dictionary<MovementComponent, Vector2[]>();
+            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(CircleCollider), typeof(Stomach), typeof(TransformComponent));
         }
 
         public override void Execute(float deltaTime)
@@ -31,11 +26,8 @@ namespace Implementation.Systems
             {
                 TransformComponent trans = playerGroup[j].GetComponent<TransformComponent>();
                 MovementComponent move = playerGroup[j].GetComponent<MovementComponent>();
-                if (!oldStates.ContainsKey(trans))
-                    oldStates.Add(trans, new Vector2[400]);
-                if (!velocities.ContainsKey(move))
-                    velocities.Add(move, new Vector2[400]);
-                oldStates[trans][currentIndex] = trans.position;
+                CircleCollider col = playerGroup[j].GetComponent<CircleCollider>();
+
                 for (int i = 0; i < newInput.Count; i++)
                 {
                     if (newInput[i].Composition == 0)
@@ -45,32 +37,22 @@ namespace Implementation.Systems
                         Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
                         float timeDiff = (float)(newInput[i].GetComponent<AxisComponent>().time.Subtract(DateTime.UtcNow).TotalMilliseconds) * -.001f;
 
-                        int stepsBack = Mathf.RoundToInt(timeDiff / .016f);
-                        int index = currentIndex - stepsBack;
-                        while (index < 0)
-                            index += 400;
-
-                        //trans.position = oldStates[trans][index];
-                        //move.velocity = velocities[move][index];
-
                         input.Normalize();
 
-                        Vector2 prevAcc = move.acceleration;
+                        Vector2 prevVel = move.acceleration;
+                        float speed = 720f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
+                        move.acceleration = input * speed;
 
-                        Vector2 prevVel = move.velocity;
-                        float speed = .8f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
-                        move.velocity = input * speed;
-                        //move.velocity += (move.acceleration - prevAcc) * timeDiff;
-                        //move.velocity -= move.friction * move.velocity * timeDiff;
-                        trans.position += (move.velocity - prevVel) * timeDiff;
+                        Vector2 movement = (move.acceleration - prevVel) * timeDiff;
+
+                        //col.RigidBody.Translate(new BulletSharp.Math.Vector3(movement.x, 0f, movement.y));
+                        //trans.position += ;
 
                         //Processed
                         newInput[i].Reset();
                     }
                 }
             }
-            currentIndex++;
-            currentIndex %= 400;
         }
 
         public override void Destroy()

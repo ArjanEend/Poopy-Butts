@@ -63,7 +63,8 @@ namespace Implementation.Systems
 
             RigidBodyConstructionInfo rbInfo = new RigidBodyConstructionInfo(mass, myMotionState, shape, localInertia);
             rbInfo.Friction = 2f;
-            rbInfo.LinearDamping = .3f;
+            rbInfo.LinearDamping = 1.9f;
+            rbInfo.AngularDamping = 1.9f;
             RigidBody body = new RigidBody(rbInfo);
             rbInfo.Dispose();
             world.AddRigidBody(body);
@@ -96,10 +97,11 @@ namespace Implementation.Systems
             for(int i = 0; i < circleGroup.Count; i++)
             {
                 TransformComponent transform = circleGroup[i].GetComponent<TransformComponent>();
-
+                MovementComponent movement = circleGroup[i].GetComponent<MovementComponent>();
                 var col = circleGroup[i].GetComponent<CircleCollider>();
                 var pos = col.RigidBody.WorldTransform.Origin;
                 transform.position = new RocketWorks.Vector2(pos.X, pos.Z);
+                col.RigidBody.ApplyCentralForce(new Vector3(movement.acceleration.x, 0f, movement.acceleration.y));
                 circleGroup[i].GetComponent<MovementComponent>().velocity = new RocketWorks.Vector2(col.RigidBody.LinearVelocity.X, col.RigidBody.LinearVelocity.Z);
             }
         }
