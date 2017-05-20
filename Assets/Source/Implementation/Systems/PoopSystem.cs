@@ -64,6 +64,7 @@ namespace Implementation.Systems
                     newEntity.GetComponent<PoopComponent>().playerRef = playerGroup[j];
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
                     newEntity.AddComponent<CircleCollider>().radius = turdSize * .3f;
+                    newEntity.AddComponent<LerpToComponent>();
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }

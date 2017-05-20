@@ -41,7 +41,7 @@ namespace Implementation.Systems
 
         private void CreateGround()
         {
-            var groundShape = new BoxShape(500, 1, 500);
+            var groundShape = new BoxShape(500, .5f, 500);
             //groundShape.InitializePolyhedralFeatures();
             //var groundShape = new StaticPlaneShape(Vector3.UnitY, 1);
             
@@ -62,10 +62,11 @@ namespace Implementation.Systems
             DefaultMotionState myMotionState = new DefaultMotionState(startTransform);
 
             RigidBodyConstructionInfo rbInfo = new RigidBodyConstructionInfo(mass, myMotionState, shape, localInertia);
-            rbInfo.Friction = 2f;
             rbInfo.LinearDamping = 1.9f;
             rbInfo.AngularDamping = 1.9f;
             RigidBody body = new RigidBody(rbInfo);
+            body.ActivationState = ActivationState.DisableDeactivation;
+            //body.LinearFactor = new Vector3(1f, 0f, 1f);
             rbInfo.Dispose();
             world.AddRigidBody(body);
 
@@ -89,8 +90,8 @@ namespace Implementation.Systems
                 var mat = Matrix.Translation(new Vector3(trans.position.x + (.5f * count++), 5f, trans.position.y));
 
                 col.RigidBody = LocalCreateRigidBody(15f, mat, shape);
-                col.RigidBody.RollingFriction = 5f;
-                col.RigidBody.Friction = 5f;
+                //col.RigidBody.RollingFriction = 5f;
+                //col.RigidBody.Friction = 5f;
                 col.RigidBody.ApplyForce(new Vector3(-15f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
             }
 
@@ -99,8 +100,8 @@ namespace Implementation.Systems
                 TransformComponent transform = circleGroup[i].GetComponent<TransformComponent>();
                 MovementComponent movement = circleGroup[i].GetComponent<MovementComponent>();
                 var col = circleGroup[i].GetComponent<CircleCollider>();
-                var pos = col.RigidBody.WorldTransform.Origin;
-                transform.position = new RocketWorks.Vector2(pos.X, pos.Z);
+                var pos = col.RigidBody.CenterOfMassPosition;
+                transform.position = new RocketWorks.Vector3(pos.X, pos.Z, pos.Y);
                 col.RigidBody.ApplyCentralForce(new Vector3(movement.acceleration.x, 0f, movement.acceleration.y));
                 circleGroup[i].GetComponent<MovementComponent>().velocity = new RocketWorks.Vector2(col.RigidBody.LinearVelocity.X, col.RigidBody.LinearVelocity.Z);
             }

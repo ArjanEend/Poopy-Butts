@@ -33,8 +33,8 @@ public class TileMapVisualizer : UnitySystemBase
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
             if (newEntities[i].GetComponent<TransformComponent>() != null)
             {
-                Vector2 pos = newEntities[i].GetComponent<TransformComponent>().position;
-                comp.go.transform.position = new Vector3(pos.x, 0f, pos.y);
+                Vector3 pos = newEntities[i].GetComponent<TransformComponent>().position;
+                comp.go.transform.position = new Vector3(pos.x, pos.z, pos.y);
             }
             int[,] tileArray = comp.tiles;
             int[,] parsedMap = new int[tileArray.GetLength(0), tileArray.GetLength(1)];

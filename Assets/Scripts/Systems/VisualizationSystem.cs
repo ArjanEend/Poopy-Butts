@@ -44,7 +44,7 @@ class VisualizationSystem : UnitySystemBase
             if (vComp.go != null)
             {
                 GameObject go = vComp.go;
-                go.transform.position = new Vector3(tComp.position.x, 0f, tComp.position.y);
+                go.transform.position = new Vector3(tComp.position.x, tComp.position.z, tComp.position.y);
                 MovementComponent mov = group[i].GetComponent<MovementComponent>();
                 if (mov == null)
                     continue;

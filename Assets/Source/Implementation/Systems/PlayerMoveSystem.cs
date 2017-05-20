@@ -34,22 +34,23 @@ namespace Implementation.Systems
                         continue;
                     if(newInput[i].GetComponent<PlayerIdComponent>().id == playerGroup[j].GetComponent<PlayerIdComponent>().id)
                     {
-                        Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
-                        float timeDiff = (float)(newInput[i].GetComponent<AxisComponent>().time.Subtract(DateTime.UtcNow).TotalMilliseconds) * -.001f;
+                        lock (playerGroup[j])
+                        {
+                            Vector2 input = newInput[i].GetComponent<AxisComponent>().input;
+                            float timeDiff = (float)(newInput[i].GetComponent<AxisComponent>().time.Subtract(DateTime.UtcNow).TotalMilliseconds) * -.001f;
 
-                        input.Normalize();
+                            input.Normalize();
 
-                        Vector2 prevVel = move.acceleration;
-                        float speed = 720f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
-                        move.acceleration = input * speed;
+                            Vector2 prevVel = move.acceleration;
+                            float speed = 890f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
+                            move.acceleration = input * speed;
 
-                        Vector2 movement = (move.acceleration - prevVel) * timeDiff;
+                            Vector2 movement = (move.acceleration - prevVel) * timeDiff; ;
+                            
 
-                        //col.RigidBody.Translate(new BulletSharp.Math.Vector3(movement.x, 0f, movement.y));
-                        //trans.position += ;
-
-                        //Processed
-                        newInput[i].Reset();
+                            //Processed
+                            newInput[i].Reset();
+                        }
                     }
                 }
             }

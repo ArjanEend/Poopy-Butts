@@ -52,7 +52,7 @@ public class PoopyGame : UnityGameBase {
         //systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new UpdatePoops());
-        systemManager.AddSystem(new CircleCollisionSystem());
+        //systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
 
         socket = new SocketController(commander, rocketizer);
@@ -144,7 +144,7 @@ public class PoopyGameServer :
         //systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new PhysicsSystem());
-        systemManager.AddSystem(new CircleCollisionSystem());
+        //systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new PickupSystem(socket));
         systemManager.AddSystem(new PoopSystem(socket));
         systemManager.AddSystem(new UpdatePoops());

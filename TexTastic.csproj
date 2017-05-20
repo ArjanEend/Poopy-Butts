@@ -146,6 +146,7 @@
     <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
     <Compile Include="Assets\Source\Generated\UpdateComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
+    <Compile Include="Assets\Source\Generated\Vector3.cs" />
     <Compile Include="Assets\Source\Generated\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\ButtonComponent.cs" />

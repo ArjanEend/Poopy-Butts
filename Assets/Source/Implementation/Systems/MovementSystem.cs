@@ -3,6 +3,7 @@ using RocketWorks.Pooling;
 using RocketWorks.Systems;
 using Implementation.Components;
 using RocketWorks.Grouping;
+using RocketWorks;
 
 namespace Implementation.Systems
 {
@@ -34,7 +35,7 @@ namespace Implementation.Systems
                 var t = group[i].GetComponent<TransformComponent>(tId);
                 var m = group[i].GetComponent<MovementComponent>(mId);
                 m.velocity += m.acceleration * deltaTime;
-                t.position += m.velocity * deltaTime;
+                t.position += (Vector3)m.velocity * deltaTime;
                 m.velocity -= m.velocity * m.friction * deltaTime;
             }
         }

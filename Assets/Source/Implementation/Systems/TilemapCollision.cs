@@ -112,7 +112,7 @@ namespace Implementation.Systems
 
                     objectTrans.position -= tileTrans.position;
                     
-                    objectTrans.position = tileTrans.position + HandleCollision(objectTrans, movement, deltaTime, objectCollider, tilemap);
+                    //objectTrans.position = tileTrans.position + HandleCollision(objectTrans, movement, deltaTime, objectCollider, tilemap);
                 }
             }
         }
