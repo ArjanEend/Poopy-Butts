@@ -53,9 +53,9 @@ namespace Implementation.Systems
                         turdSize += stomach.pickups[p].Entity.GetComponent<PickupComponent>().radius * .8f;
                         socket.WriteSocket(new MainContextDestroyEntityCommand(stomach.pickups[p]));
                         stomach.pickups[p].Entity.Reset();
-                        stomach.pickups.Clear();
-                        socket.WriteSocket(new MainContextUpdateComponentCommand(stomach, playerGroup[j].CreationIndex), playerId);
                     }
+                    stomach.pickups.Clear();
+                    socket.WriteSocket(new MainContextUpdateComponentCommand(stomach, playerGroup[j].CreationIndex), playerId);
 
                     var newEntity = contexts.Main.Pool.GetObject(true);
                     newEntity.AddComponent<TransformComponent>().position = playerGroup[j].GetComponent<TransformComponent>().position;
@@ -63,7 +63,7 @@ namespace Implementation.Systems
                     newEntity.AddComponent<PoopComponent>().size = turdSize;
                     newEntity.GetComponent<PoopComponent>().playerRef = playerGroup[j];
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
-                    newEntity.AddComponent<CircleCollider>().radius = turdSize * .3f;
+                    newEntity.AddComponent<CircleCollider>().radius = turdSize * .05f;
                     newEntity.AddComponent<LerpToComponent>();
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));

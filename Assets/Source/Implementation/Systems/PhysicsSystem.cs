@@ -44,8 +44,8 @@ namespace Implementation.Systems
             var groundShape = new BoxShape(500, .5f, 500);
             //groundShape.InitializePolyhedralFeatures();
             //var groundShape = new StaticPlaneShape(Vector3.UnitY, 1);
-            
-            CollisionObject ground = LocalCreateRigidBody(0, Matrix.Identity, groundShape);
+            var mat = Matrix.Translation(new Vector3(0f, -.5f, 0f));
+            CollisionObject ground = LocalCreateRigidBody(0, mat, groundShape);
             ground.UserObject = "Ground";
         }
 
@@ -87,7 +87,7 @@ namespace Implementation.Systems
                 var trans = newColliders[i].GetComponent<TransformComponent>();
                 var col = newColliders[i].GetComponent<CircleCollider>();
                 var shape = new SphereShape(col.radius);
-                var mat = Matrix.Translation(new Vector3(trans.position.x + (.5f * count++), 5f, trans.position.y));
+                var mat = Matrix.Translation(new Vector3(trans.position.x + (.5f * count++), col.radius * .5f, trans.position.y));
 
                 col.RigidBody = LocalCreateRigidBody(15f, mat, shape);
                 //col.RigidBody.RollingFriction = 5f;

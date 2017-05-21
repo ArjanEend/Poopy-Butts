@@ -181,7 +181,7 @@ public class PoopyGameServer :
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
-        playerObj.AddComponent<CircleCollider>().radius = .15f;
+        playerObj.AddComponent<CircleCollider>().radius = .075f;
         playerObj.AddComponent<Stomach>();
     }
 

@@ -36,13 +36,12 @@ namespace Implementation.Systems
                 {
                     Entity first = poopGroup[i];
                     Entity second = poopGroup[j];
-                    
-
-                     
                 }
 
-                heading = heading.Normalized();
-                poopGroup[i].GetComponent<MovementComponent>().acceleration = heading * .3f;
+                if(heading.Magnitude() > 1f)
+                    heading = heading.Normalized();
+
+                poopGroup[i].GetComponent<MovementComponent>().acceleration = heading * 15f;
             }
         }
     }
