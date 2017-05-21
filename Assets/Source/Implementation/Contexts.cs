@@ -12,8 +12,8 @@ public partial class Contexts
     private EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent> inputContext =
         new EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent>();
 
-    private EntityContext<PlayerIdComponent, PingComponent, PongComponent> metaContext =
-        new EntityContext<PlayerIdComponent, PingComponent, PongComponent>();
+    private EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo> metaContext =
+        new EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo>();
 
     private EntityContext<PlayerIdComponent, MessageComponent> messageContext = 
         new EntityContext<PlayerIdComponent, MessageComponent>();

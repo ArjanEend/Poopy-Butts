@@ -29,6 +29,8 @@ public class PoopyGame : UnityGameBase {
     private SocketController socket;
     private PingView pingView;
     private FoodBarController foodBar;
+    private CameraController camera;
+
     public PoopyGame() : base()
 	{
         NetworkCommander commander = new NetworkCommander();
@@ -44,6 +46,7 @@ public class PoopyGame : UnityGameBase {
 
         pingView = GameObject.FindObjectOfType<PingView>();
         foodBar = GameObject.FindObjectOfType<FoodBarController>();
+        camera = GameObject.FindObjectOfType<CameraController>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(UnitySystemBase.Initialize<PoopVisualizer>(contexts));
@@ -80,8 +83,10 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true));
         systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, false, true));
 
-        var system = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>(socket.UserId));
-        system.ComponentUpdated += foodBar.UpdateDisplay;
+        var stomachDispatch = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>(socket.UserId));
+        stomachDispatch.ComponentUpdated += foodBar.UpdateDisplay;
+        var playerDispatch = systemManager.AddSystem(new DispatchLocal<VisualizationComponent, MainContext>(socket.UserId));
+        playerDispatch.ComponentUpdated += camera.Initialize;
     }
 
     public override void UpdateGame(float deltaTime)
@@ -174,6 +179,7 @@ public class PoopyGameServer :
         RocketLog.Log("User: " + obj, this);
         Entity ent = contexts.Meta.Pool.GetObject(true);
         ent.AddComponent<PlayerIdComponent>().id = obj;
+        ent.AddComponent<PlayerInfo>().name = "Player " + obj;
 
         Entity playerObj = contexts.Main.Pool.GetObject();
         playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);

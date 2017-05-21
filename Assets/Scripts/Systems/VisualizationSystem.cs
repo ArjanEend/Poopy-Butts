@@ -29,10 +29,6 @@ class VisualizationSystem : UnitySystemBase
             VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
             comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId));
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
-            if(newEntities[i].GetComponent<PlayerIdComponent>() != null)
-            {
-                GameObject.FindObjectOfType<CameraController>().Initialize(comp.go.transform);
-            }
         }
         for(int i = 0; i < group.Count; i++)
         {

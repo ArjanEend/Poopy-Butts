@@ -68,6 +68,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextsBuilder.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\UpdateYourComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Editor\ScriptableObjectUtility.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\Entity.cs" />
     <Compile Include="Assets\framework\RocketWorks\Entities\EntityContext.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Assets\Source\Implementation\Components\PickupComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PlayerIdComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\PlayerInfo.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PongComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PoopComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\Stomach.cs" />
