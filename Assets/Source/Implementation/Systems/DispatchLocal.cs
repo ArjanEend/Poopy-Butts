@@ -17,7 +17,7 @@ namespace Implementation.Systems
         public override void Initialize(Contexts contexts)
         {
             base.Initialize(contexts);
-            contexts.GetContext<S>().Pool.GetGroup(typeof(PlayerIdComponent), typeof(Stomach)).OnEntityAdded += OnComponentUpdate;
+            contexts.GetContext<S>().Pool.GetGroup(typeof(PlayerIdComponent), typeof(T)).OnEntityAdded += OnComponentUpdate;
         }
 
         private void OnComponentUpdate(Entity obj)

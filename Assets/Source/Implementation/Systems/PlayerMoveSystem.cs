@@ -16,7 +16,7 @@ namespace Implementation.Systems
         public override void Initialize(Contexts contexts)
         {
             inputGroup = contexts.Input.Pool.GetGroup(typeof(AxisComponent), typeof(PlayerIdComponent));
-            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(CircleCollider), typeof(Stomach), typeof(TransformComponent));
+            playerGroup = contexts.Main.Pool.GetGroup(typeof(PlayerIdComponent), typeof(MovementComponent), typeof(CircleCollider), typeof(TransformComponent));
         }
 
         public override void Execute(float deltaTime)
@@ -42,7 +42,7 @@ namespace Implementation.Systems
                             input.Normalize();
 
                             Vector2 prevVel = move.acceleration;
-                            float speed = 890f - playerGroup[i].GetComponent<Stomach>().pickups.Count * .1f;
+                            float speed = 890f;
                             move.acceleration = input * speed;
 
                             Vector2 movement = (move.acceleration - prevVel) * timeDiff; ;

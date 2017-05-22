@@ -13,6 +13,8 @@ using RocketWorks.Serialization;
 using PoopyButts.Components;
 using Assets.Source.Implementation.Systems;
 using System.Runtime.InteropServices;
+using Random = System.Random;
+using System;
 
 #if UNITY_EDTIOR || UNITY_5
 
@@ -28,7 +30,6 @@ public class PoopyGame : UnityGameBase {
 
     private SocketController socket;
     private PingView pingView;
-    private FoodBarController foodBar;
     private CameraController camera;
 
     public PoopyGame() : base()
@@ -45,18 +46,13 @@ public class PoopyGame : UnityGameBase {
         commander.AddObject(contexts.Input);
 
         pingView = GameObject.FindObjectOfType<PingView>();
-        foodBar = GameObject.FindObjectOfType<FoodBarController>();
         camera = GameObject.FindObjectOfType<CameraController>();
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
-        systemManager.AddSystem(UnitySystemBase.Initialize<PoopVisualizer>(contexts));
         systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
-        //systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
-        systemManager.AddSystem(new UpdatePoops());
-        //systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(UnitySystemBase.Initialize<EatinSystem>(contexts));
+        systemManager.AddSystem(new UpdateUnits());
 
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
@@ -83,8 +79,6 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true));
         systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, false, true));
 
-        var stomachDispatch = systemManager.AddSystem(new DispatchLocal<Stomach, MainContext>(socket.UserId));
-        stomachDispatch.ComponentUpdated += foodBar.UpdateDisplay;
         var playerDispatch = systemManager.AddSystem(new DispatchLocal<VisualizationComponent, MainContext>(socket.UserId));
         playerDispatch.ComponentUpdated += camera.Initialize;
     }
@@ -111,10 +105,10 @@ public class PoopyGameServer :
 #endif
 {
     private SocketController socket;
-        public PoopyGameServer() : base()
-        {
-            NetworkCommander commander = new NetworkCommander();
-            Rocketizer rocketizer = new Rocketizer();
+    public PoopyGameServer() : base()
+    {
+        NetworkCommander commander = new NetworkCommander();
+        Rocketizer rocketizer = new Rocketizer();
 
         rocketizer.AddProvider(contexts.Main.Pool);
         rocketizer.AddProvider(contexts.Message.Pool);
@@ -126,10 +120,10 @@ public class PoopyGameServer :
         commander.AddObject(contexts.Meta);
         commander.AddObject(contexts.Input);
 
-            socket = new SocketController(commander, rocketizer);
-            socket.SetupSocket(true, "127.0.0.1", 9001
+        socket = new SocketController(commander, rocketizer);
+        socket.SetupSocket(true, "127.0.0.1", 9001
 #if !UNITY_EDITOR
-                ,true
+                , true
 #endif
                 );
 
@@ -142,22 +136,31 @@ public class PoopyGameServer :
         systemManager.AddSystem(new PlayerMoveSystem());
         socket.UserConnectedEvent += OnUserConnected;
 
-            MessageSystem messageSystem = new MessageSystem();
-            systemManager.AddSystem(messageSystem);
+        MessageSystem messageSystem = new MessageSystem();
+        systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
 
         //systemManager.AddSystem(new TilemapCollision());
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new PhysicsSystem());
         //systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(new PickupSystem(socket));
-        systemManager.AddSystem(new PoopSystem(socket));
-        systemManager.AddSystem(new UpdatePoops());
-        systemManager.AddSystem(new SpawnPickupSystem(socket));
+        systemManager.AddSystem(new SpawnUnits(socket));
+        systemManager.AddSystem(new UpdateUnits());
         systemManager.AddSystem(new SpawnTilemap());
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
+
+        Random random = new Random(DateTime.Now.Millisecond);
+        for (int i = 0; i < 8; i++)
+        {
+            Entity spawner = contexts.Main.Pool.GetObject();
+            spawner.AddComponent<TransformComponent>().position = new Vector2(random.Next(-100, 100) * .01f, random.Next(-100, 100) * .01f);
+            spawner.AddComponent<VisualizationComponent>().resourceId = "Turd";
+            spawner.AddComponent<OwnerComponent>();
+            spawner.AddComponent<CircleCollider>().radius = .075f;
+            spawner.AddComponent<SpawnerComponent>().interval = 5f;
+        }
 
         Entity newEnt = contexts.Meta.Pool.GetObject();
         newEnt.AddComponent<PlayerIdComponent>().id = -1;
@@ -188,7 +191,6 @@ public class PoopyGameServer :
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
         playerObj.AddComponent<CircleCollider>().radius = .075f;
-        playerObj.AddComponent<Stomach>();
     }
 
         public void SendMessage(string message)

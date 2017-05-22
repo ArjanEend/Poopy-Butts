@@ -8,7 +8,7 @@
 			_Curvature("Curvature", Float) = 0.1
 	}
 		SubShader{
-			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Tags { "Queue" = "Geometry" "IgnoreProjector" = "True" "RenderType" = "Opaque" }
 			LOD 200
 
 			Blend SrcAlpha OneMinusSrcAlpha
@@ -25,7 +25,6 @@
 		struct Input {
 			float2 uv_MainTex;
 			float4 vertexColor : COLOR;
-			float camDistance;
 		};
 
 		void vert(inout appdata_full v, out Input o) {
@@ -35,7 +34,6 @@
 
 			// Now adjust the coordinates to be relative to the camera position
 			vv.xyz -= _WorldSpaceCameraPos.xyz;
-			o.camDistance = length(vv);
 
 			// Reduce the y coordinate (i.e. lower the "height") of each vertex based
 			// on the square of the distance from the camera in the z axis, multiplied
@@ -58,7 +56,6 @@
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
-			clip(IN.camDistance - 2);
 		}
 		ENDCG
 
