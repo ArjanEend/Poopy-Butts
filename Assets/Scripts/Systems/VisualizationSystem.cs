@@ -40,13 +40,13 @@ class VisualizationSystem : UnitySystemBase
             if (vComp.go != null)
             {
                 GameObject go = vComp.go;
-                go.transform.position = new Vector3(tComp.position.x, tComp.position.z, tComp.position.y);
+                go.transform.position = tComp.position;
                 MovementComponent mov = group[i].GetComponent<MovementComponent>();
                 if (mov == null)
                     continue;
-                RocketWorks.Vector2 velocity = mov.velocity;
+                RocketWorks.Vector3 velocity = mov.velocity;
                 Quaternion oldRot = go.transform.rotation;
-                go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg, 0f);
+                go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, -velocity.z) * Mathf.Rad2Deg, 0f);
                 //if(velocity != RocketWorks.Vector2.zero)
                     go.transform.rotation = Quaternion.RotateTowards(oldRot, go.transform.rotation, Time.deltaTime * 270f);
                 if(GetComponentInChildren<Animator>() != null)

@@ -124,6 +124,7 @@
     <Compile Include="Assets\Source\Implementation\Components\SpawnerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\Tilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\TriggerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
     <Compile Include="CodeGeneration.cs" />

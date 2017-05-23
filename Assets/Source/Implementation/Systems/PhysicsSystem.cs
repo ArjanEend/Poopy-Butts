@@ -19,6 +19,7 @@ namespace Implementation.Systems
         private DbvtBroadphase broadPhase;
         private DynamicsWorld world;
         private Group circleGroup;
+        private Group triggerGroup;
 
         private int count = 1;
 
@@ -32,11 +33,13 @@ namespace Implementation.Systems
             broadPhase = new DbvtBroadphase();
 
             world = new DiscreteDynamicsWorld(dispatcher, broadPhase, null, configuration);
+            world.PairCache.SetInternalGhostPairCallback(new GhostPairCallback());
             world.Gravity = new Vector3(0f, -10f, 0f);
 
             CreateGround();
 
             circleGroup = contexts.Main.Pool.GetGroup(typeof(CircleCollider), typeof(TransformComponent), typeof(MovementComponent));
+            triggerGroup = contexts.Main.Pool.GetGroup(typeof(TriggerComponent), typeof(TransformComponent));
         }
 
         private void CreateGround()
@@ -73,6 +76,16 @@ namespace Implementation.Systems
             return body;
         }
 
+        public PairCachingGhostObject CreateTrigger(float radius, Matrix transform)
+        {
+            var shape = new SphereShape(radius);
+            PairCachingGhostObject obj = new PairCachingGhostObject();
+            obj.CollisionShape = shape;
+            obj.WorldTransform = transform;
+            world.AddCollisionObject(obj);
+            return obj;
+        }
+
         public override void Destroy()
         {
         }
@@ -80,6 +93,7 @@ namespace Implementation.Systems
         public override void Execute(float deltaTime)
         {
             world.StepSimulation(deltaTime);
+            world.SetInternalTickCallback(TickCallback);
 
             List<Entity> newColliders = circleGroup.NewEntities;
             for(int i = 0; i < newColliders.Count; i++)
@@ -87,23 +101,68 @@ namespace Implementation.Systems
                 var trans = newColliders[i].GetComponent<TransformComponent>();
                 var col = newColliders[i].GetComponent<CircleCollider>();
                 var shape = new SphereShape(col.radius);
-                var mat = Matrix.Translation(new Vector3(trans.position.x + (.5f * count++), col.radius * .5f, trans.position.y));
+                var mat = Matrix.Translation(new Vector3(trans.position.x + (.01f * count++), col.radius * .5f, trans.position.z));
 
                 col.RigidBody = LocalCreateRigidBody(15f, mat, shape);
-                //col.RigidBody.RollingFriction = 5f;
-                //col.RigidBody.Friction = 5f;
-                col.RigidBody.ApplyForce(new Vector3(-15f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
+                col.RigidBody.UserObject = newColliders[i];
+                col.RigidBody.ApplyForce(new Vector3(-5f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
+            }
+            List<Entity> newTriggers = triggerGroup.NewEntities;
+            for (int i = 0; i < triggerGroup.Count; i++)
+            {
+                var trans = triggerGroup[i].GetComponent<TransformComponent>();
+                var col = triggerGroup[i].GetComponent<TriggerComponent>();
+                var mat = Matrix.Translation(new Vector3(trans.position.x, trans.position.y, trans.position.z));
+
+                col.GhostObject = CreateTrigger(col.radius, mat);
+                col.GhostObject.UserObject = newTriggers[i];
             }
 
-            for(int i = 0; i < circleGroup.Count; i++)
+
+            for (int i = 0; i < circleGroup.Count; i++)
             {
                 TransformComponent transform = circleGroup[i].GetComponent<TransformComponent>();
                 MovementComponent movement = circleGroup[i].GetComponent<MovementComponent>();
                 var col = circleGroup[i].GetComponent<CircleCollider>();
                 var pos = col.RigidBody.CenterOfMassPosition;
-                transform.position = new RocketWorks.Vector3(pos.X, pos.Z, pos.Y);
-                col.RigidBody.ApplyCentralForce(new Vector3(movement.acceleration.x, 0f, movement.acceleration.y));
-                circleGroup[i].GetComponent<MovementComponent>().velocity = new RocketWorks.Vector2(col.RigidBody.LinearVelocity.X, col.RigidBody.LinearVelocity.Z);
+                transform.position = new RocketWorks.Vector3(pos.X, pos.Y, pos.Z);
+                col.RigidBody.ApplyCentralForce(new Vector3(movement.acceleration.x, movement.acceleration.y, movement.acceleration.z));
+                circleGroup[i].GetComponent<MovementComponent>().velocity = new RocketWorks.Vector3(col.RigidBody.LinearVelocity.X, col.RigidBody.LinearVelocity.Y, col.RigidBody.LinearVelocity.Z);
+            }
+            for (int i = 0; i < triggerGroup.Count; i++)
+            {
+                TransformComponent transform = triggerGroup[i].GetComponent<TransformComponent>();
+                var col = triggerGroup[i].GetComponent<TriggerComponent>();
+                var pos = transform.position;
+                var mat = Matrix.Translation(new Vector3(pos.x, pos.y, pos.z));
+                col.GhostObject.WorldTransform = mat;
+                
+                for(int j = 0; j < col.GhostObject.OverlappingPairs.Count; j++)
+                {
+                    var obj = col.GhostObject.OverlappingPairs[j];
+                    RocketLog.Log("Overlap", obj.UserObject);
+                }
+
+            }
+        }
+
+        private void TickCallback(DynamicsWorld world, float timeStep)
+        {
+            int numManifolds = world.Dispatcher.NumManifolds;
+            for (int i = 0; i < numManifolds; i++)
+            {
+                var contactManifold = world.Dispatcher.GetManifoldByIndexInternal(i);
+                var obA = contactManifold.Body0;
+                var obB = contactManifold.Body1;
+
+                /*int numContacts = contactManifold.NumContacts;
+                for (int j = 0; j < numContacts; j++)
+                {
+                    var pt = contactManifold.GetContactPoint(j);
+                    if (pt.Distance < .0f)
+                    {
+                    }
+                }*/
             }
         }
     }

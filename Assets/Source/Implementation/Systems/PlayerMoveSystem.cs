@@ -41,11 +41,11 @@ namespace Implementation.Systems
 
                             input.Normalize();
 
-                            Vector2 prevVel = move.acceleration;
+                            Vector3 prevVel = move.acceleration;
                             float speed = 890f;
-                            move.acceleration = input * speed;
+                            move.acceleration = new Vector3(input.x, 0f, input.y) * speed;
 
-                            Vector2 movement = (move.acceleration - prevVel) * timeDiff; ;
+                            Vector3 movement = (move.acceleration - prevVel) * timeDiff; ;
                             
 
                             //Processed

@@ -9,6 +9,7 @@ using RocketWorks.Systems;
 using Implementation.Components;
 using Implementation.Systems;
 using Vector2 = RocketWorks.Vector2;
+using Vector3 = RocketWorks.Vector3;
 using RocketWorks.Serialization;
 using PoopyButts.Components;
 using Assets.Source.Implementation.Systems;
@@ -155,11 +156,12 @@ public class PoopyGameServer :
         for (int i = 0; i < 8; i++)
         {
             Entity spawner = contexts.Main.Pool.GetObject();
-            spawner.AddComponent<TransformComponent>().position = new Vector2(random.Next(-100, 100) * .01f, random.Next(-100, 100) * .01f);
+            spawner.AddComponent<TransformComponent>().position = new Vector3(random.Next(-100, 100) * .1f, 0f, random.Next(-100, 100) * .1f);
             spawner.AddComponent<VisualizationComponent>().resourceId = "Turd";
             spawner.AddComponent<OwnerComponent>();
             spawner.AddComponent<CircleCollider>().radius = .075f;
             spawner.AddComponent<SpawnerComponent>().interval = 5f;
+            spawner.AddComponent<TriggerComponent>().radius = 2f;
         }
 
         Entity newEnt = contexts.Meta.Pool.GetObject();

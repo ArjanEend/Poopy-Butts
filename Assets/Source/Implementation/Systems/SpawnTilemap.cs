@@ -50,7 +50,7 @@ namespace Implementation.Systems
 
                     float tileSize = 2.5f;
 
-            tilemap.AddComponent<TransformComponent>().position = new RocketWorks.Vector2(tileArray.GetLength(0) * tileSize * -.5f, tileArray.GetLength(1) * tileSize * -.5f);
+            tilemap.AddComponent<TransformComponent>().position = new RocketWorks.Vector3(tileArray.GetLength(0) * tileSize * -.5f, 0f, tileArray.GetLength(1) * tileSize * -.5f);
 
             Tilemap comp = new Tilemap();
             comp.tiles = tileArray;

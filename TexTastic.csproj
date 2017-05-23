@@ -151,6 +151,7 @@
     <Compile Include="Assets\Source\Generated\SpawnerComponent.cs" />
     <Compile Include="Assets\Source\Generated\Tilemap.cs" />
     <Compile Include="Assets\Source\Generated\TransformComponent.cs" />
+    <Compile Include="Assets\Source\Generated\TriggerComponent.cs" />
     <Compile Include="Assets\Source\Generated\UpdateComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\UpdateYourComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\Vector2.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Assets\Source\Implementation\Components\SpawnerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\Tilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Components\TransformComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\TriggerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\CircleCollisionSystem.cs" />
@@ -199,7 +201,9 @@
     <Content Include="Assets\framework\.gitignore" />
     <Content Include="Assets\Plugins\BulletSharp.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\Source\Implementation\Physics\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CodeGeneration.csproj">
       <Project>{3BD4942F-29C8-4D46-972B-EB7B5BF51E93}</Project>

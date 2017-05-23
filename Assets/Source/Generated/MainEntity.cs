@@ -5,6 +5,7 @@ using Implementation.Components;
 using Implementation.Components;
 using Implementation.Components;
 using Implementation.Components;
+using Implementation.Components;
 using PoopyButts.Components;
 using Implementation.Components;
 using Implementation.Components;
@@ -42,21 +43,25 @@ public LerpToComponent LerpToComponent()
 {
 return (LerpToComponent)components[6];
 }
+public TriggerComponent TriggerComponent()
+{
+return (TriggerComponent)components[7];
+}
 public CircleCollider CircleCollider()
 {
-return (CircleCollider)components[7];
+return (CircleCollider)components[8];
 }
 public OwnerComponent OwnerComponent()
 {
-return (OwnerComponent)components[8];
+return (OwnerComponent)components[9];
 }
 public SpawnerComponent SpawnerComponent()
 {
-return (SpawnerComponent)components[9];
+return (SpawnerComponent)components[10];
 }
 public Tilemap Tilemap()
 {
-return (Tilemap)components[10];
+return (Tilemap)components[11];
 }
 }
 #pragma warning restore

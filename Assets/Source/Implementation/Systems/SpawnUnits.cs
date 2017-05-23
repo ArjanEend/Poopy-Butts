@@ -52,7 +52,6 @@ namespace Implementation.Systems
                     newEntity.AddComponent<OwnerComponent>().playerReference = spawnerGroup[j];
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
                     newEntity.AddComponent<CircleCollider>().radius = .1f;
-                    newEntity.AddComponent<LerpToComponent>();
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }
