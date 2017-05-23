@@ -146,6 +146,7 @@ public class PoopyGameServer :
         systemManager.AddSystem(new PhysicsSystem());
         //systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new SpawnUnits(socket));
+        systemManager.AddSystem(new UpdateInfluence());
         systemManager.AddSystem(new UpdateUnits());
         systemManager.AddSystem(new SpawnTilemap());
         systemManager.AddSystem(new LerpSystem(true));
@@ -159,9 +160,9 @@ public class PoopyGameServer :
             spawner.AddComponent<TransformComponent>().position = new Vector3(random.Next(-100, 100) * .1f, 0f, random.Next(-100, 100) * .1f);
             spawner.AddComponent<VisualizationComponent>().resourceId = "Turd";
             spawner.AddComponent<OwnerComponent>();
-            spawner.AddComponent<CircleCollider>().radius = .075f;
+            spawner.AddComponent<CircleCollider>().radius = .25f;
             spawner.AddComponent<SpawnerComponent>().interval = 5f;
-            spawner.AddComponent<TriggerComponent>().radius = 2f;
+            spawner.AddComponent<TriggerComponent>().radius = 1f;
         }
 
         Entity newEnt = contexts.Meta.Pool.GetObject();
@@ -192,7 +193,7 @@ public class PoopyGameServer :
         playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
-        playerObj.AddComponent<CircleCollider>().radius = .075f;
+        playerObj.AddComponent<CircleCollider>().radius = .25f;
     }
 
         public void SendMessage(string message)

@@ -10,5 +10,7 @@ namespace Implementation.Components
     {
         public float interval = 5f;
         public float lastTime = 0f;
+
+        public float influence = 15f;
     }
 }

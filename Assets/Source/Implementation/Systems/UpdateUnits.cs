@@ -29,12 +29,12 @@ namespace Implementation.Systems
                 if (firstPoop.playerReference.Entity == null)
                     continue;
 
-                Vector2 heading = 
+                Vector3 heading = 
                     firstPoop.playerReference.Entity.GetComponent<TransformComponent>().position -
                     unitGroup[i].GetComponent<TransformComponent>().position;
 
-                if (heading.Magnitude() < .6f)
-                    heading = Vector2.zero;
+                if (heading.Magnitude() < .1f)
+                    heading = Vector3.zero;
                 
                 for(int j = 0; j < unitGroup.Count; j++)
                 {
@@ -55,7 +55,7 @@ namespace Implementation.Systems
                         float dist = Vector3.Distance(secondTrans.position, firstTrans.position);
                         if(dist < 1f)
                         {
-                            heading = (Vector2)(secondTrans.position - firstTrans.position);
+                            heading = (Vector3)(secondTrans.position - firstTrans.position);
                             break;
                         }
                     }

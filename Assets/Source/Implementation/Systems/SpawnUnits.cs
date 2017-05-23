@@ -14,6 +14,7 @@ namespace Implementation.Systems
         
         private Group spawnerGroup;
 
+        private Random random = new Random(DateTime.Now.Millisecond);
         private float elapsedTime = 0f;
 
         public SpawnUnits(SocketController socket)
@@ -38,20 +39,24 @@ namespace Implementation.Systems
             for (int j = 0; j < spawnerGroup.Count; j++)
             {
                 SpawnerComponent spawner = spawnerGroup[j].GetComponent<SpawnerComponent>();
+                OwnerComponent owner = spawnerGroup[j].GetComponent<OwnerComponent>();
+                if (owner.playerReference.Entity == null)
+                    continue;
                 if (elapsedTime - spawner.lastTime > spawner.interval)
                 {
                     spawner.lastTime = elapsedTime;
                     socket.WriteSocket(new MainContextUpdateComponentCommand(spawner, spawnerGroup[j].CreationIndex));
 
                     TransformComponent trans = spawnerGroup[j].GetComponent<TransformComponent>();
-                    OwnerComponent owner = spawnerGroup[j].GetComponent<OwnerComponent>();
 
                     var newEntity = contexts.Main.Pool.GetObject();
-                    newEntity.AddComponent<TransformComponent>().position = spawnerGroup[j].GetComponent<TransformComponent>().position;
+                    RocketWorks.Vector3 offset = new RocketWorks.Vector3(random.Next(-100, 100) * .001f, random.Next(-100, 100) * .001f, random.Next(-100, 100) * .001f);
+                    newEntity.AddComponent<TransformComponent>().position = spawnerGroup[j].GetComponent<TransformComponent>().position + offset;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Unit";
-                    newEntity.AddComponent<OwnerComponent>().playerReference = spawnerGroup[j];
+                    newEntity.AddComponent<OwnerComponent>().playerReference = owner.playerReference;
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
                     newEntity.AddComponent<CircleCollider>().radius = .1f;
+                    //newEntity.AddComponent<LerpToComponent>();
 
                     socket.WriteSocket(new MainContextCreateEntityCommand(newEntity));
                 }

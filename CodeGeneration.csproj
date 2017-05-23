@@ -65,6 +65,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\DestroyEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\EstimateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\RemoveComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\CodeGeneration\ContextsBuilder.cs" />

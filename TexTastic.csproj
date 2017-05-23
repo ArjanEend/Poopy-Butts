@@ -188,6 +188,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SpawnTilemap.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\TilemapCollision.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\UpdateInfluence.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\UpdateUnits.cs" />
     <Compile Include="Assets\Source\PoopyGame.cs" />
     <Compile Include="Program.cs" />

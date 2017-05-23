@@ -82,6 +82,7 @@ namespace Implementation.Systems
             PairCachingGhostObject obj = new PairCachingGhostObject();
             obj.CollisionShape = shape;
             obj.WorldTransform = transform;
+            obj.CollisionFlags |= CollisionFlags.NoContactResponse;
             world.AddCollisionObject(obj);
             return obj;
         }
@@ -108,10 +109,10 @@ namespace Implementation.Systems
                 col.RigidBody.ApplyForce(new Vector3(-5f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
             }
             List<Entity> newTriggers = triggerGroup.NewEntities;
-            for (int i = 0; i < triggerGroup.Count; i++)
+            for (int i = 0; i < newTriggers.Count; i++)
             {
-                var trans = triggerGroup[i].GetComponent<TransformComponent>();
-                var col = triggerGroup[i].GetComponent<TriggerComponent>();
+                var trans = newTriggers[i].GetComponent<TransformComponent>();
+                var col = newTriggers[i].GetComponent<TriggerComponent>();
                 var mat = Matrix.Translation(new Vector3(trans.position.x, trans.position.y, trans.position.z));
 
                 col.GhostObject = CreateTrigger(col.radius, mat);
@@ -136,13 +137,6 @@ namespace Implementation.Systems
                 var pos = transform.position;
                 var mat = Matrix.Translation(new Vector3(pos.x, pos.y, pos.z));
                 col.GhostObject.WorldTransform = mat;
-                
-                for(int j = 0; j < col.GhostObject.OverlappingPairs.Count; j++)
-                {
-                    var obj = col.GhostObject.OverlappingPairs[j];
-                    RocketLog.Log("Overlap", obj.UserObject);
-                }
-
             }
         }
 
