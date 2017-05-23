@@ -21,6 +21,11 @@ public class MoveInputSystem : SystemBase
 
     private Vector2 prevInput;
 
+    private Entity button1Entity;
+    private Entity button2Entity;
+
+    private Plane plane = new Plane(Vector3.up, Vector3.zero);
+
     public MoveInputSystem(int playerId) : base()
     {
         //tickRate = .1f;
@@ -38,14 +43,41 @@ public class MoveInputSystem : SystemBase
 
     public override void Execute(float deltaTime)
     {
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            Entity ent = pool.GetObject();
-            ent.AddComponent<PlayerIdComponent>().id = playerId;
-            ent.AddComponent<ButtonComponent>();
-        } else if (Input.GetButtonUp("Jump"))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float dist = 0f;
+            plane.Raycast(ray, out dist);
+            Vector3 pos = ray.GetPoint(dist);
+
+            button1Entity = pool.GetObject();
+            button1Entity.AddComponent<TransformComponent>().position = pos;
+            button1Entity.AddComponent<PlayerIdComponent>().id = playerId;
+            ButtonComponent comp = new ButtonComponent();
+            comp.id = 1;
+            button1Entity.AddComponent(comp);
+        }
+        else if (Input.GetButton("Fire1"))
         {
-            buttonGroup.DestroyAll();
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float dist = 0f;
+            plane.Raycast(ray, out dist);
+            Vector3 pos = ray.GetPoint(dist);
+            button1Entity.AddComponent<TransformComponent>().position = pos;
+        }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            button1Entity.Reset();
+        }
+        if(Input.GetButtonDown("Fire2"))
+        {
+            button2Entity = pool.GetObject();
+            button2Entity.AddComponent<PlayerIdComponent>().id = playerId; ButtonComponent comp = new ButtonComponent();
+            comp.id = 2;
+            button2Entity.AddComponent(comp);
+        } else if (Input.GetButtonUp("Fire2"))
+        {
+            button2Entity.Reset();
         }
 
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).Normalized();
@@ -74,10 +106,6 @@ public class MoveInputSystem : SystemBase
 
     public override void Cleanup()
     {
-        /*for (int i = group.Count - 1; i >= 0; i--)
-        {
-            group[i].Reset();
-        }*/
     }
 
     public override void Destroy()

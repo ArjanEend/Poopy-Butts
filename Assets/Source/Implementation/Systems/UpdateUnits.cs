@@ -49,6 +49,11 @@ namespace Implementation.Systems
                     if(firstPoop.playerReference.Entity == secondPoop.playerReference.Entity)
                     {
                         //Behaviour if stuff is the same
+                        Vector3 diff = firstTrans.position - secondTrans.position;
+                        if(diff.Magnitude() < .5f)
+                        {
+                            heading += diff * 1.5f;
+                        }
                     } else
                     {
                         //Behaviour if enemy
@@ -64,7 +69,7 @@ namespace Implementation.Systems
                 if(heading.Magnitude() > 1f)
                     heading = heading.Normalized();
 
-                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 15f;
+                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 7f;
             }
         }
     }

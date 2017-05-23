@@ -56,6 +56,7 @@
     <Compile Include="Assets\framework\RocketWorks\Commands\DestroyEntityCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\EstimateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\ICommand.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Commands\RemoveComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\SetUserIDCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateComponentCommand.cs" />
     <Compile Include="Assets\framework\RocketWorks\Commands\UpdateYourComponentCommand.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Assets\Source\Generated\InputContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\InputContextDestroyEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\InputContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\InputContextRemoveComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\InputContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\InputContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\InputEntity.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Assets\Source\Generated\MainContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextDestroyEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MainContextRemoveComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainEntity.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Assets\Source\Generated\MessageContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageContextDestroyEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextRemoveComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MessageEntity.cs" />
@@ -137,6 +141,7 @@
     <Compile Include="Assets\Source\Generated\MetaContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextDestroyEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MetaContextRemoveComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaEntity.cs" />
@@ -146,6 +151,7 @@
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerInfo.cs" />
     <Compile Include="Assets\Source\Generated\PongComponent.cs" />
+    <Compile Include="Assets\Source\Generated\RemoveComponentCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\Rocketizer.cs" />
     <Compile Include="Assets\Source\Generated\SetUserIDCommand.cs" />
     <Compile Include="Assets\Source\Generated\SpawnerComponent.cs" />
