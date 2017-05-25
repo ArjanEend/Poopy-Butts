@@ -25,10 +25,12 @@ public class MoveInputSystem : SystemBase
     private Entity button2Entity;
 
     private Plane plane = new Plane(Vector3.up, Vector3.zero);
+    private SocketController socket;
 
     public MoveInputSystem(int playerId) : base()
     {
         //tickRate = .1f;
+        this.socket = socket;
         this.playerId = playerId;
     }
 
@@ -63,7 +65,7 @@ public class MoveInputSystem : SystemBase
             float dist = 0f;
             plane.Raycast(ray, out dist);
             Vector3 pos = ray.GetPoint(dist);
-            button1Entity.AddComponent<TransformComponent>().position = pos;
+            //button1Entity.AddComponent<TransformComponent>().position = pos;
         }
         else if (Input.GetButtonUp("Fire1"))
         {
@@ -72,7 +74,8 @@ public class MoveInputSystem : SystemBase
         if(Input.GetButtonDown("Fire2"))
         {
             button2Entity = pool.GetObject();
-            button2Entity.AddComponent<PlayerIdComponent>().id = playerId; ButtonComponent comp = new ButtonComponent();
+            button2Entity.AddComponent<PlayerIdComponent>().id = playerId;
+            ButtonComponent comp = new ButtonComponent();
             comp.id = 2;
             button2Entity.AddComponent(comp);
         } else if (Input.GetButtonUp("Fire2"))

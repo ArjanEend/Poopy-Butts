@@ -6,11 +6,11 @@ using PoopyButts.Components;
 
 public partial class Contexts
 {
-    private EntityContext<MovementComponent, HealthComponent, AttackComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, TriggerComponent, CircleCollider, OwnerComponent, SpawnerComponent, Tilemap> mainContext = 
-        new EntityContext<MovementComponent, HealthComponent, AttackComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, TriggerComponent, CircleCollider, OwnerComponent, SpawnerComponent, Tilemap>();
+    private EntityContext<MovementComponent, FollowComponent, GuardComponent, HealthComponent, AttackComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, TriggerComponent, CircleCollider, OwnerComponent, SpawnerComponent, Tilemap> mainContext = 
+        new EntityContext<MovementComponent, FollowComponent, GuardComponent, HealthComponent, AttackComponent, PlayerIdComponent, TransformComponent, VisualizationComponent, LerpToComponent, TriggerComponent, CircleCollider, OwnerComponent, SpawnerComponent, Tilemap>();
 
-    private EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent> inputContext =
-        new EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent>();
+    private EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent, TransformComponent> inputContext =
+        new EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent, TransformComponent>();
 
     private EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo> metaContext =
         new EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo>();

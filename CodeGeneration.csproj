@@ -113,6 +113,8 @@
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\ButtonComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\CircleCollider.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\FollowComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\GuardComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\HealthComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />

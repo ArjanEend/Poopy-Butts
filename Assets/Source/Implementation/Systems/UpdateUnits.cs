@@ -10,11 +10,20 @@ namespace Implementation.Systems
     public class UpdateUnits : SystemBase
     {
         private Group unitGroup;
+        private Group followGroup;
 
         public override void Initialize(Contexts contexts)
         {
             base.Initialize(contexts);
             unitGroup = contexts.Main.Pool.GetGroup(typeof(OwnerComponent), typeof(MovementComponent), typeof(TransformComponent));
+
+            followGroup = contexts.Main.Pool.GetGroup(typeof(FollowComponent));
+            followGroup.OnEntityAdded += OnNewFOllow;
+        }
+
+        private void OnNewFOllow(Entity obj)
+        {
+            RocketLog.Log("NEW FOLLOW");
         }
 
         public override void Destroy()
@@ -29,9 +38,15 @@ namespace Implementation.Systems
                 if (firstPoop.playerReference.Entity == null)
                     continue;
 
-                Vector3 heading = 
-                    firstPoop.playerReference.Entity.GetComponent<TransformComponent>().position -
-                    unitGroup[i].GetComponent<TransformComponent>().position;
+                Vector3 heading = Vector3.zero;
+
+                if(unitGroup[i].HasComponent<FollowComponent>())
+                    heading += firstPoop.playerReference.Entity.GetComponent<TransformComponent>().position -
+                unitGroup[i].GetComponent<TransformComponent>().position;
+
+                if (unitGroup[i].HasComponent<GuardComponent>())
+                    heading += unitGroup[i].GetComponent<GuardComponent>().position -
+                unitGroup[i].GetComponent<TransformComponent>().position;
 
                 if (heading.Magnitude() < .1f)
                     heading = Vector3.zero;

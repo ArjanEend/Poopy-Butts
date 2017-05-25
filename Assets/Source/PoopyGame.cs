@@ -135,6 +135,7 @@ public class PoopyGameServer :
         systemManager.AddSystem(pingSystem);
 
         systemManager.AddSystem(new PlayerMoveSystem());
+        systemManager.AddSystem(new PlayerInput(socket));
         socket.UserConnectedEvent += OnUserConnected;
 
         MessageSystem messageSystem = new MessageSystem();
@@ -194,6 +195,7 @@ public class PoopyGameServer :
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
         playerObj.AddComponent<CircleCollider>().radius = .25f;
+        playerObj.AddComponent<TriggerComponent>().radius = 1f;
     }
 
         public void SendMessage(string message)

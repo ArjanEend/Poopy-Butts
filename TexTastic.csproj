@@ -110,6 +110,8 @@
     <Compile Include="Assets\Source\Generated\CreateEntityCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\DestroyEntityCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\EstimateComponentCommmand`1.cs" />
+    <Compile Include="Assets\Source\Generated\FollowComponent.cs" />
+    <Compile Include="Assets\Source\Generated\GuardComponent.cs" />
     <Compile Include="Assets\Source\Generated\HealthComponent.cs" />
     <Compile Include="Assets\Source\Generated\InputContext.cs" />
     <Compile Include="Assets\Source\Generated\InputContextCreateEntityCommand.cs" />
@@ -167,6 +169,8 @@
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\ButtonComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\CircleCollider.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\FollowComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\GuardComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\HealthComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
@@ -189,6 +193,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PhysicsSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\PlayerInput.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PlayerMoveSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SpawnUnits.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
