@@ -127,15 +127,15 @@ public class PoopyGameServer :
                 , true
 #endif
                 );
-
-        SendWorldSystem sendWorld = new SendWorldSystem(socket);
-        systemManager.AddSystem(sendWorld);
+        
+        systemManager.AddSystem(new SendWorldSystem(socket));
 
         PingSystem pingSystem = new PingSystem(socket);
         systemManager.AddSystem(pingSystem);
 
         systemManager.AddSystem(new PlayerMoveSystem());
         systemManager.AddSystem(new PlayerInput(socket));
+        systemManager.AddSystem(new SpawnUnits(socket));
         socket.UserConnectedEvent += OnUserConnected;
 
         MessageSystem messageSystem = new MessageSystem();
@@ -146,13 +146,15 @@ public class PoopyGameServer :
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new PhysicsSystem());
         //systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(new SpawnUnits(socket));
         systemManager.AddSystem(new UpdateInfluence());
+        systemManager.AddSystem(new AttackTrigger());
         systemManager.AddSystem(new UpdateUnits());
         systemManager.AddSystem(new SpawnTilemap());
+        systemManager.AddSystem(new AttackCollisions(socket));
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
+        systemManager.AddSystem(new SendComponentsSystem<AttackComponent, MainContext>(socket));
 
         Random random = new Random(DateTime.Now.Millisecond);
         for (int i = 0; i < 8; i++)
@@ -196,6 +198,9 @@ public class PoopyGameServer :
         playerObj.AddComponent<LerpToComponent>();
         playerObj.AddComponent<CircleCollider>().radius = .25f;
         playerObj.AddComponent<TriggerComponent>().radius = 1f;
+        playerObj.AddComponent<HealthComponent>().health = 15f;
+
+        socket.WriteSocket(new MainContextCreateEntityCommand(playerObj));
     }
 
         public void SendMessage(string message)

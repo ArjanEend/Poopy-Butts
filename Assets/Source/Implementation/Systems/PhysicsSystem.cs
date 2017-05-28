@@ -149,14 +149,22 @@ namespace Implementation.Systems
                 var obA = contactManifold.Body0;
                 var obB = contactManifold.Body1;
 
-                /*int numContacts = contactManifold.NumContacts;
+                if (!(obA.UserObject is Entity && obB.UserObject is Entity))
+                    continue;
+
+                int numContacts = contactManifold.NumContacts;
                 for (int j = 0; j < numContacts; j++)
                 {
                     var pt = contactManifold.GetContactPoint(j);
                     if (pt.Distance < .0f)
                     {
+                        var entity = contexts.Physics.Pool.GetObject();
+                        var component = new CollisionComponent();
+                        component.a = obA.UserObject as Entity;
+                        component.b = obB.UserObject as Entity;
+                        break;
                     }
-                }*/
+                }
             }
         }
     }

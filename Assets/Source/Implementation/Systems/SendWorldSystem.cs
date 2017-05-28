@@ -45,40 +45,43 @@ namespace Implementation.Systems
 
         public override void Execute(float deltaTime)
         {
-            List<Entity> users = userGroup.NewEntities;
-            for(int i = 0; i < users.Count; i++)
+            List<Entity> newUsers = userGroup.NewEntities;
+            for(int i = 0; i < newUsers.Count; i++)
             {
-                if (users[i].GetComponent<PlayerIdComponent>().id == -1)
+                if (newUsers[i].GetComponent<PlayerIdComponent>().id == -1)
                     continue;
                 for (int k = 0; k < userGroup.Count; k++)
                 {
-                    controller.WriteSocket(new MetaContextCreateEntityCommand(users[i]), userGroup[k].GetComponent<PlayerIdComponent>().id);
-                    controller.WriteSocket(new MetaContextCreateEntityCommand(userGroup[k]), users[i].GetComponent<PlayerIdComponent>().id);
+                    if(newUsers[i].GetComponent<PlayerIdComponent>().id != userGroup[k].GetComponent<PlayerIdComponent>().id)
+                        controller.WriteSocket(new MetaContextCreateEntityCommand(newUsers[i]), userGroup[k].GetComponent<PlayerIdComponent>().id);
+                    controller.WriteSocket(new MetaContextCreateEntityCommand(userGroup[k]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                     for (int j = 0; j < playerGroup.Count; j++)
                     {
-                        controller.WriteSocket(new MainContextCreateEntityCommand(playerGroup[j]), userGroup[k].GetComponent<PlayerIdComponent>().id);
+                        //controller.WriteSocket(new MainContextCreateEntityCommand(playerGroup[j]), userGroup[k].GetComponent<PlayerIdComponent>().id);
                     }
                 }
                 
-                RocketLog.Log("User: " + users[i].GetComponent<PlayerIdComponent>().id, this);
+                RocketLog.Log("User: " + newUsers[i].GetComponent<PlayerIdComponent>().id, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {
-                    RocketLog.Log("Send generic object" + itemGroup[j].CreationIndex, this);
-                    controller.WriteSocket(new MainContextCreateEntityCommand(itemGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
+                    if (playerGroup.Contains(itemGroup[j]))
+                        continue;
+                    RocketLog.Log("Send generic object      " + itemGroup[j].CreationIndex, this);
+                    controller.WriteSocket(new MainContextCreateEntityCommand(itemGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < messageGroup.Count; j++)
                 {
-                    RocketLog.Log("Send message object" + messageGroup[j].CreationIndex, this);
-                    controller.WriteSocket(new MessageContextCreateEntityCommand(messageGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
+                    RocketLog.Log("Send message object      " + messageGroup[j].CreationIndex, this);
+                    controller.WriteSocket(new MessageContextCreateEntityCommand(messageGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < tilemapGroup.Count; j++)
                 {
-                    controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
+                    controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < pingGroup.Count; j++)
                 {
                     RocketLog.Log("Send pong object", this);
-                    controller.WriteSocket(new MetaContextCreateEntityCommand(pingGroup[j]), users[i].GetComponent<PlayerIdComponent>().id);
+                    controller.WriteSocket(new MetaContextCreateEntityCommand(pingGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
             }
         }

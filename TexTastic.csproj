@@ -106,6 +106,7 @@
     <Compile Include="Assets\Source\Generated\AxisComponent.cs" />
     <Compile Include="Assets\Source\Generated\ButtonComponent.cs" />
     <Compile Include="Assets\Source\Generated\CircleCollider.cs" />
+    <Compile Include="Assets\Source\Generated\CollisionComponent.cs" />
     <Compile Include="Assets\Source\Generated\Contexts.cs" />
     <Compile Include="Assets\Source\Generated\CreateEntityCommand`1.cs" />
     <Compile Include="Assets\Source\Generated\DestroyEntityCommand`1.cs" />
@@ -149,6 +150,14 @@
     <Compile Include="Assets\Source\Generated\MetaEntity.cs" />
     <Compile Include="Assets\Source\Generated\MovementComponent.cs" />
     <Compile Include="Assets\Source\Generated\OwnerComponent.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContext.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextDestroyEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextRemoveComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsContextUpdateYourComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\PhysicsEntity.cs" />
     <Compile Include="Assets\Source\Generated\PingComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerIdComponent.cs" />
     <Compile Include="Assets\Source\Generated\PlayerInfo.cs" />
@@ -169,6 +178,7 @@
     <Compile Include="Assets\Source\Implementation\Components\AxisComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\ButtonComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\CircleCollider.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\CollisionComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\FollowComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\GuardComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\HealthComponent.cs" />
@@ -186,7 +196,9 @@
     <Compile Include="Assets\Source\Implementation\Components\TriggerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\VisualizationComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Contexts.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\AttackTrigger.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\CircleCollisionSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\AttackCollisions.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\DispatchLocal.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />

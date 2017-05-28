@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using RocketWorks.Entities;
 
 namespace Implementation.Components
 {
-    public partial class AttackComponent
+    public partial class AttackComponent : IComponent
     {
-        public float damage = 15f;
+        public float damage = 1f;
+        public EntityReference target;
     }
 }

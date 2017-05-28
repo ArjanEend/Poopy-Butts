@@ -12,6 +12,9 @@ public partial class Contexts
     private EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent, TransformComponent> inputContext =
         new EntityContext<AxisComponent, PlayerIdComponent, ButtonComponent, TransformComponent>();
 
+    private EntityContext<CollisionComponent> physicsContext =
+        new EntityContext<CollisionComponent>();
+
     private EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo> metaContext =
         new EntityContext<PlayerIdComponent, PingComponent, PongComponent, PlayerInfo>();
 
@@ -20,6 +23,7 @@ public partial class Contexts
 
     public EntityContext Main { get { return mainContext; } }
     public EntityContext Input { get { return inputContext; } }
+    public EntityContext Physics { get { return physicsContext; } }
     public EntityContext Message { get { return messageContext; } }
     public EntityContext Meta { get { return metaContext; } }
 }
