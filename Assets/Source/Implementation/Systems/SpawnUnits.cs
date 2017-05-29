@@ -12,7 +12,7 @@ namespace Implementation.Systems
 {
     public class SpawnUnits : SystemBase
     {
-        private const int UNIT_LIMIT = 1;
+        private const int UNIT_LIMIT = 4;
 
         private SocketController socket;
         

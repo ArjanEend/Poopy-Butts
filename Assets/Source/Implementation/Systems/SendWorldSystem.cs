@@ -64,8 +64,6 @@ namespace Implementation.Systems
                 RocketLog.Log("User: " + newUsers[i].GetComponent<PlayerIdComponent>().id, this);
                 for(int j = 0; j < itemGroup.Count; j++)
                 {
-                    if (playerGroup.Contains(itemGroup[j]))
-                        continue;
                     RocketLog.Log("Send generic object      " + itemGroup[j].CreationIndex, this);
                     controller.WriteSocket(new MainContextCreateEntityCommand(itemGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
@@ -76,7 +74,7 @@ namespace Implementation.Systems
                 }
                 for (int j = 0; j < tilemapGroup.Count; j++)
                 {
-                    controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
+                    //controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < pingGroup.Count; j++)
                 {

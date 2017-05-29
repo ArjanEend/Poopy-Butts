@@ -89,7 +89,9 @@ namespace Implementation.Systems
                     {
                         if(!ent.HasComponent<FollowComponent>())
                         {
+                            ent.RemoveComponent<GuardComponent>();
                             var comp = ent.AddComponent<FollowComponent>();
+                            socket.WriteSocket(new MainContextRemoveComponentCommand(ent.GetIndex<GuardComponent>(), ent.CreationIndex));
                             socket.WriteSocket(new MainContextUpdateComponentCommand(comp, ent.CreationIndex));
                         }
                     }
