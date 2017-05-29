@@ -74,7 +74,7 @@ namespace Implementation.Systems
                 }
                 for (int j = 0; j < tilemapGroup.Count; j++)
                 {
-                    //controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
+                    controller.WriteSocket(new MainContextCreateEntityCommand(tilemapGroup[j]), newUsers[i].GetComponent<PlayerIdComponent>().id);
                 }
                 for (int j = 0; j < pingGroup.Count; j++)
                 {

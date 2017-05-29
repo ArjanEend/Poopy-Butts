@@ -77,6 +77,9 @@
     <Compile Include="Assets\framework\RocketWorks\Math\Vector3.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\IPingResolver.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\KeepAlive.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Networking\NetworkBuffer.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Networking\NetworkReader.cs" />
+    <Compile Include="Assets\framework\RocketWorks\Networking\NetworkWriter.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\ServerTimeStamp.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketConnection.cs" />
     <Compile Include="Assets\framework\RocketWorks\Networking\SocketController.cs" />
