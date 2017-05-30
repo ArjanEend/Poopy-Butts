@@ -89,7 +89,7 @@ namespace Implementation.Systems
                 if (heading.Magnitude() > 1f)
                 heading = heading.Normalized();
 
-                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 7f;
+                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 600f;
             }
         }
     }

@@ -53,7 +53,7 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
-        systemManager.AddSystem(new UpdateUnits());
+        //systemManager.AddSystem(new UpdateUnits());
 
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;

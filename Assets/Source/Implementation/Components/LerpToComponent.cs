@@ -7,7 +7,7 @@ namespace Implementation.Components
     public partial class LerpToComponent : IComponent, IEstimatable<LerpToComponent>
     {
         public Vector3 position = Vector3.zero;
-        public Vector2 velocity = Vector2.zero;
+        public Vector3 velocity = Vector3.zero;
 
         public void Estimate(LerpToComponent against, float deltaTime, bool local)
         {

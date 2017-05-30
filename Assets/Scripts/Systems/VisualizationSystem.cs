@@ -27,8 +27,10 @@ class VisualizationSystem : UnitySystemBase
         for(int i = 0; i < newEntities.Count; i++)
         {
             VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
+            TransformComponent trans = newEntities[i].GetComponent<TransformComponent>();
             comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId));
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
+            comp.go.transform.position = trans.position;
         }
         for(int i = 0; i < group.Count; i++)
         {
@@ -46,7 +48,7 @@ class VisualizationSystem : UnitySystemBase
                     continue;
                 RocketWorks.Vector3 velocity = mov.velocity;
                 Quaternion oldRot = go.transform.rotation;
-                go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, -velocity.z) * Mathf.Rad2Deg, 0f);
+                go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg, 0f);
                 //if(velocity != RocketWorks.Vector2.zero)
                     go.transform.rotation = Quaternion.RotateTowards(oldRot, go.transform.rotation, Time.deltaTime * 270f);
                 if(GetComponentInChildren<Animator>() != null)
