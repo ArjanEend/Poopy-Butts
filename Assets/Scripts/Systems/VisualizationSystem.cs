@@ -50,7 +50,7 @@ class VisualizationSystem : UnitySystemBase
                 Quaternion oldRot = go.transform.rotation;
                 go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg, 0f);
                 //if(velocity != RocketWorks.Vector2.zero)
-                    go.transform.rotation = Quaternion.RotateTowards(oldRot, go.transform.rotation, Time.deltaTime * 270f);
+                    go.transform.rotation = Quaternion.RotateTowards(oldRot, go.transform.rotation, Time.deltaTime * 180f);
                 if(GetComponentInChildren<Animator>() != null)
                     go.GetComponentInChildren<Animator>().SetFloat("Speed", velocity.Magnitude());
             }

@@ -1,4 +1,4 @@
-﻿using Implementation.Components;
+﻿ using Implementation.Components;
 using RocketWorks.Systems;
 using System;
 using RocketWorks.Grouping;
@@ -16,7 +16,7 @@ namespace Implementation.Systems
         {
             base.Initialize(contexts);
 
-            unitGroup = contexts.Main.Pool.GetGroup(typeof(OwnerComponent), typeof(TransformComponent));
+            unitGroup = contexts.Main.Pool.GetGroup(typeof(OwnerComponent), typeof(TransformComponent), typeof(MovementComponent));
             healthGroup = contexts.Main.Pool.GetGroup(typeof(HealthComponent), typeof(TransformComponent));
         }
 
@@ -34,7 +34,10 @@ namespace Implementation.Systems
                 if(attack != null)
                 {
                     if (!attack.target.Entity.Alive)
+                    {
+                        RocketLog.Log("Target killed", this);
                         unitGroup[i].RemoveComponent<AttackComponent>();
+                    }
                     continue;
                 }
 
@@ -50,8 +53,6 @@ namespace Implementation.Systems
                         OwnerComponent firstPoop = first.GetComponent<OwnerComponent>();
                         OwnerComponent secondPoop = ent.GetComponent<OwnerComponent>();
                         PlayerIdComponent playerId = ent.GetComponent<PlayerIdComponent>();
-                        TransformComponent firstTrans = ent.GetComponent<TransformComponent>();
-                        TransformComponent secondTrans = ent.GetComponent<TransformComponent>();
 
                         if (playerId != null && firstPoop.playerReference == second)
                         {
@@ -59,7 +60,9 @@ namespace Implementation.Systems
                             continue;
                         }
 
-                        if (attack == null)
+                        if (attack == null && 
+                            ((secondPoop != null && firstPoop.playerReference != secondPoop.playerReference) ||
+                              playerId != null && ent != firstPoop.playerReference))
                         {
                             attack = new AttackComponent();
                             attack.damage = 1f;

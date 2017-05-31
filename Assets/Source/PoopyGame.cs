@@ -77,8 +77,8 @@ public class PoopyGame : UnityGameBase {
         pingView.Initialize(pingSystem);
 
         systemManager.AddSystem(new MoveInputSystem(id));
-        systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true));
-        systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, false, true));
+        systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true, true));
+        systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, true, false, true));
 
         var playerDispatch = systemManager.AddSystem(new DispatchLocal<VisualizationComponent, MainContext>(socket.UserId));
         playerDispatch.ComponentUpdated += camera.Initialize;
@@ -151,10 +151,13 @@ public class PoopyGameServer :
         systemManager.AddSystem(new UpdateUnits());
         systemManager.AddSystem(new SpawnTilemap());
         systemManager.AddSystem(new AttackCollisions(socket));
+        systemManager.AddSystem(new DeathSystem());
+       
         systemManager.AddSystem(new LerpSystem(true));
         systemManager.AddSystem(new EstimateComponentsSystem<LerpToComponent,
             MainContext>(socket));
         systemManager.AddSystem(new SendComponentsSystem<AttackComponent, MainContext>(socket));
+        systemManager.AddSystem(new SendEntitiesSystem<HealthComponent, MainContext>(socket, false, false, true));
 
         Random random = new Random(DateTime.Now.Millisecond);
         for (int i = 0; i < 8; i++)

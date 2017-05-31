@@ -35,11 +35,13 @@ namespace Implementation.Systems
             for(int i = 0; i < unitGroup.Count; i++)
             {
                 OwnerComponent firstPoop = unitGroup[i].GetComponent<OwnerComponent>();
-                if (firstPoop.playerReference.Entity == null)
+                if (firstPoop.playerReference.Entity == null || !firstPoop.playerReference.Entity.Alive)
                     continue;
 
                 Vector3 heading = Vector3.zero;
 
+
+                TransformComponent firstTrans = unitGroup[i].GetComponent<TransformComponent>();
                 TriggerComponent trigger = unitGroup[i].GetComponent<TriggerComponent>();
                 if (trigger.GhostObject != null)
                 {
@@ -53,21 +55,31 @@ namespace Implementation.Systems
                             Entity second = ent;
                             OwnerComponent secondPoop = ent.GetComponent<OwnerComponent>();
                             PlayerIdComponent playerId = ent.GetComponent<PlayerIdComponent>();
-                            TransformComponent firstTrans = ent.GetComponent<TransformComponent>();
                             TransformComponent secondTrans = ent.GetComponent<TransformComponent>();
 
                             if (playerId != null && firstPoop.playerReference == second)
                             {
                                 //Behaviour for flocking leader
+                                float d = Vector3.Distance(firstTrans.position, secondTrans.position);
+                                if (d > 0 && d <= .5)
+                                {
+                                    Vector3 repulse = firstTrans.position - secondTrans.position;
+                                    repulse.Normalize();
+                                    repulse /= d;
+                                    heading += repulse * 500f;
+                                }
                                 continue;
                             }
                             if (secondPoop != null && firstPoop.playerReference.Entity == secondPoop.playerReference.Entity)
                             {
                                 //Behaviour for flocking
-                                Vector3 diff = firstTrans.position - secondTrans.position;
-                                if (diff.Magnitude() < .5f)
+                                float d = Vector3.Distance(firstTrans.position, secondTrans.position);
+                                if (d > 0 && d <= .5)
                                 {
-                                    heading += diff * 1.5f;
+                                    Vector3 repulse = firstTrans.position - secondTrans.position;
+                                    repulse.Normalize();
+                                    repulse /= d;
+                                    heading += repulse;
                                 }
                             }
                         }
@@ -89,7 +101,7 @@ namespace Implementation.Systems
                 if (heading.Magnitude() > 1f)
                 heading = heading.Normalized();
 
-                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 600f;
+                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 800f;
             }
         }
     }

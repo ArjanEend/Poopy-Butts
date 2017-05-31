@@ -69,7 +69,7 @@ namespace Implementation.Systems
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Unit";
                     newEntity.AddComponent<OwnerComponent>().playerReference = owner.playerReference;
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
-                    newEntity.AddComponent<CircleCollider>().radius = .1f;
+                    newEntity.AddComponent<CircleCollider>().radius = .05f;
                     newEntity.AddComponent<HealthComponent>().health = 5f;
                     newEntity.AddComponent<TriggerComponent>().radius = 1.3f;
                     newEntity.AddComponent<LerpToComponent>();

@@ -202,6 +202,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\AttackTrigger.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\CircleCollisionSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\AttackCollisions.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\DeathSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\DispatchLocal.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />

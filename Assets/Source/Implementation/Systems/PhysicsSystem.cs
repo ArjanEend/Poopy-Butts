@@ -38,7 +38,7 @@ namespace Implementation.Systems
 
             CreateGround();
 
-            circleGroup = contexts.Main.Pool.GetGroup(typeof(CircleCollider), typeof(TransformComponent), typeof(MovementComponent));
+            circleGroup = contexts.Main.Pool.GetGroup(typeof(CircleCollider), typeof(TransformComponent));
             triggerGroup = contexts.Main.Pool.GetGroup(typeof(TriggerComponent), typeof(TransformComponent));
         }
 
@@ -69,6 +69,7 @@ namespace Implementation.Systems
             rbInfo.AngularDamping = 1.9f;
             RigidBody body = new RigidBody(rbInfo);
             body.ActivationState = ActivationState.DisableDeactivation;
+
             //body.LinearFactor = new Vector3(1f, 0f, 1f);
             rbInfo.Dispose();
             world.AddRigidBody(body);
@@ -102,9 +103,9 @@ namespace Implementation.Systems
                 var trans = newColliders[i].GetComponent<TransformComponent>();
                 var col = newColliders[i].GetComponent<CircleCollider>();
                 var shape = new SphereShape(col.radius);
-                var mat = Matrix.Translation(new Vector3(trans.position.x + (.01f * count++), col.radius * .5f, trans.position.z));
+                var mat = Matrix.Translation(new Vector3(trans.position.x, col.radius * .5f, trans.position.z));
 
-                col.RigidBody = LocalCreateRigidBody(15f, mat, shape);
+                col.RigidBody = LocalCreateRigidBody(newColliders[i].HasComponent<MovementComponent>() ? 15f : 0f, mat, shape);
                 col.RigidBody.UserObject = newColliders[i];
                 col.RigidBody.ApplyForce(new Vector3(-5f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
             }
@@ -124,6 +125,8 @@ namespace Implementation.Systems
             {
                 TransformComponent transform = circleGroup[i].GetComponent<TransformComponent>();
                 MovementComponent movement = circleGroup[i].GetComponent<MovementComponent>();
+                if (movement == null)
+                    continue;
                 var col = circleGroup[i].GetComponent<CircleCollider>();
                 var pos = col.RigidBody.CenterOfMassPosition;
                 transform.position = new RocketWorks.Vector3(pos.X, pos.Y, pos.Z);
@@ -149,6 +152,9 @@ namespace Implementation.Systems
                 var obA = contactManifold.Body0;
                 var obB = contactManifold.Body1;
 
+                if (obA is PairCachingGhostObject || obB is PairCachingGhostObject)
+                    continue;
+
                 if (!(obA.UserObject is Entity && obB.UserObject is Entity))
                     continue;
 
@@ -162,6 +168,7 @@ namespace Implementation.Systems
                         var component = new CollisionComponent();
                         component.a = obA.UserObject as Entity;
                         component.b = obB.UserObject as Entity;
+                        entity.AddComponent(component);
                         break;
                     }
                 }
