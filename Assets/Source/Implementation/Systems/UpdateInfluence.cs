@@ -3,10 +3,19 @@ using RocketWorks.Systems;
 using Implementation.Components;
 using RocketWorks.Grouping;
 using RocketWorks.Entities;
+using RocketWorks.Networking;
+using RocketWorks.Commands;
 
 public class UpdateInfluence : SystemBase
 {
     private Group spawnerGroup;
+
+    private SocketController socket;
+
+    public UpdateInfluence(SocketController socket)
+    {
+        this.socket = socket;
+    }
 
     public override void Initialize(Contexts contexts)
     {
@@ -57,7 +66,10 @@ public class UpdateInfluence : SystemBase
             }
 
             if (!contested && influenceEntity != null)
+            {
                 spawnOwner.playerReference = influenceEntity;
+                socket.WriteSocket(new MainContextUpdateComponentCommand(spawnOwner, spawnerGroup[i].CreationIndex));
+            }
         }
     }
 

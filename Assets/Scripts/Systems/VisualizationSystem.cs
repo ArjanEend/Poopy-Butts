@@ -16,21 +16,36 @@ class VisualizationSystem : UnitySystemBase
 
     private int localUser;
 
+    public override void Initialize(Contexts contexts)
+    {
+        EntityPool pool = contexts.Main.Pool;
+        vId = pool.GetIndexOf(typeof(VisualizationComponent));
+        tId = pool.GetIndexOf(typeof(TransformComponent));
+        group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
+    }
+
+    private void EntityRemoved(Entity obj)
+    {
+    }
+
     public override void Destroy()
     {
-        throw new NotImplementedException();
+
     }
 
     public override void Execute(float deltaTime)
     {
         List<Entity> newEntities = group.NewEntities;
-        for(int i = 0; i < newEntities.Count; i++)
+        for (int i = 0; i < newEntities.Count; i++)
         {
             VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
             TransformComponent trans = newEntities[i].GetComponent<TransformComponent>();
             comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId));
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
             comp.go.transform.position = trans.position;
+            IEntityVisualizer[] visualizers = comp.go.GetComponentsInChildren<IEntityVisualizer>(true);
+            for (int j = 0; j < visualizers.Length; j++)
+                visualizers[j].Init(newEntities[i]);
         }
         for(int i = 0; i < group.Count; i++)
         {
@@ -55,13 +70,5 @@ class VisualizationSystem : UnitySystemBase
                     go.GetComponentInChildren<Animator>().SetFloat("Speed", velocity.Magnitude());
             }
         }
-    }
-
-    public override void Initialize(Contexts contexts)
-    {
-        EntityPool pool = contexts.Main.Pool;
-        vId = pool.GetIndexOf(typeof(VisualizationComponent));
-        tId = pool.GetIndexOf(typeof(TransformComponent));
-        group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
     }
 }

@@ -70,7 +70,6 @@ namespace Implementation.Systems
                         healthA.health -= attackB.damage;
                         socket.WriteSocket(new MainContextUpdateComponentCommand(healthA, collision.a.creationIndex));
                     }
-                    socket.WriteSocket(new MainContextUpdateComponentCommand(healthA, collision.a.creationIndex));      
                     colliderA.RigidBody.ApplyImpulse(colliderA.RigidBody.CenterOfMassPosition - colliderB.RigidBody.CenterOfMassPosition * 500f, new Vector3());
                 }
             }

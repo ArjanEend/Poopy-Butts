@@ -146,7 +146,7 @@ public class PoopyGameServer :
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new PhysicsSystem());
         //systemManager.AddSystem(new CircleCollisionSystem());
-        systemManager.AddSystem(new UpdateInfluence());
+        systemManager.AddSystem(new UpdateInfluence(socket));
         systemManager.AddSystem(new AttackTrigger());
         systemManager.AddSystem(new UpdateUnits());
         systemManager.AddSystem(new SpawnTilemap());
