@@ -27,7 +27,7 @@ public abstract class ComponentVisualizerBase<T1> : ComponentVisualizerBase, ICo
     }
 }
 
-public abstract class ComponentUpdaterBase<T1> : ComponentVisualizerBase<T1>, IComponentVisualizer<T1>, IUpdateComponent<T1>
+public abstract class ComponentUpdaterBase<T1> : ComponentVisualizerBase<T1>, IUpdateComponent<T1>
     where T1 : IComponent
 {
     public virtual void OnUpdate(IComponent component)
@@ -39,7 +39,7 @@ public abstract class ComponentUpdaterBase<T1> : ComponentVisualizerBase<T1>, IC
     public abstract void OnUpdate(T1 component);
 }
 
-public abstract class ComponentVisualizerBase<T1, T2> : ComponentVisualizerBase<T1>, IComponentVisualizer<T2> 
+public abstract class ComponentVisualizerBase<T1, T2> : ComponentUpdaterBase<T1>, IComponentVisualizer<T2> 
     where T1 : IComponent where T2 : IComponent
 {
     public abstract void Init(T2 component);

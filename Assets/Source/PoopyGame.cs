@@ -79,9 +79,11 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new MoveInputSystem(id));
         systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true, true));
         systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, true, false, true));
+        var buttonVis = systemManager.AddSystem(new ButtonVisualization());
 
         var playerDispatch = systemManager.AddSystem(new DispatchLocal<VisualizationComponent, MainContext>(socket.UserId));
         playerDispatch.ComponentUpdated += camera.Initialize;
+        playerDispatch.ComponentUpdated += buttonVis.SetPlayer;
     }
 
     public override void UpdateGame(float deltaTime)

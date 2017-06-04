@@ -51,7 +51,12 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
         }
     }
 
-    private void CompositionChanged(IComponent comp, Entity entity)
+    public void Init(IComponent component)
+    {
+        componentQueue.Enqueue(component);
+    }
+
+    public void CompositionChanged(IComponent comp, Entity entity = null)
     {
         componentQueue.Enqueue(comp);
     }
@@ -71,8 +76,7 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
         }
         if (updates.Length == 0)
             return;
-
-
+        
         for (int i = 0; i < componentQueue.Count; i++)
         {
             IComponent comp = componentQueue.Dequeue();
