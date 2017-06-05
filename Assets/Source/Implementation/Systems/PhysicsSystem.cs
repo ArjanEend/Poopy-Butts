@@ -103,7 +103,7 @@ namespace Implementation.Systems
                 var trans = newColliders[i].GetComponent<TransformComponent>();
                 var col = newColliders[i].GetComponent<CircleCollider>();
                 var shape = new SphereShape(col.radius);
-                var mat = Matrix.Translation(new Vector3(trans.position.x, col.radius * .5f, trans.position.z));
+                var mat = Matrix.Translation(new Vector3(trans.position.x, trans.position.y, trans.position.z));
 
                 col.RigidBody = LocalCreateRigidBody(newColliders[i].HasComponent<MovementComponent>() ? 15f : 0f, mat, shape);
                 col.RigidBody.UserObject = newColliders[i];

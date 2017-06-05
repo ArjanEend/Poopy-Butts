@@ -12,11 +12,15 @@ namespace Implementation.Components
         public void Estimate(LerpToComponent against, float deltaTime, bool local)
         {
             Vector3 delta = against.position - position;
-            if (delta.Magnitude() > .1f || !local)
+            //against.position += delta * deltaTime;
+            if (delta.Magnitude() > .01f || !local)
             {
                 position = against.position + delta * .5f;
             }
-
+            if(position.y > 50f)
+            {
+                RocketLog.Log("This entity is very high", this);
+            }
             velocity = against.velocity;
         }
 

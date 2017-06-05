@@ -32,6 +32,7 @@ public class PoopyGame : UnityGameBase {
     private SocketController socket;
     private PingView pingView;
     private CameraController camera;
+    private ButtonVisualization buttonVis;
 
     public PoopyGame() : base()
 	{
@@ -51,6 +52,7 @@ public class PoopyGame : UnityGameBase {
 
         systemManager.AddSystem(UnitySystemBase.Initialize<VisualizationSystem>(contexts));
         systemManager.AddSystem(UnitySystemBase.Initialize<TileMapVisualizer>(contexts));
+        buttonVis = systemManager.AddSystem(UnitySystemBase.Initialize<ButtonVisualization>(contexts));
         systemManager.AddSystem(new LerpSystem(false));
         systemManager.AddSystem(new MovementSystem());
         //systemManager.AddSystem(new UpdateUnits());
@@ -79,11 +81,12 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(new MoveInputSystem(id));
         systemManager.AddSystem(new SendEntitiesSystem<AxisComponent, InputContext>(socket, true, true));
         systemManager.AddSystem(new SendEntitiesSystem<ButtonComponent, InputContext>(socket, true, false, true));
-        var buttonVis = systemManager.AddSystem(new ButtonVisualization());
 
         var playerDispatch = systemManager.AddSystem(new DispatchLocal<VisualizationComponent, MainContext>(socket.UserId));
+        var triggerDispatch = systemManager.AddSystem(new DispatchLocal<TriggerComponent, MainContext>(socket.UserId));
         playerDispatch.ComponentUpdated += camera.Initialize;
         playerDispatch.ComponentUpdated += buttonVis.SetPlayer;
+        triggerDispatch.ComponentUpdated += buttonVis.SetTrigger;
     }
 
     public override void UpdateGame(float deltaTime)

@@ -35,8 +35,6 @@ namespace Implementation.Systems
             for(int i = 0; i < unitGroup.Count; i++)
             {
                 OwnerComponent firstPoop = unitGroup[i].GetComponent<OwnerComponent>();
-                if (firstPoop.playerReference.Entity == null || !firstPoop.playerReference.Entity.Alive)
-                    continue;
 
                 Vector3 heading = Vector3.zero;
 
@@ -84,6 +82,12 @@ namespace Implementation.Systems
                             }
                         }
                     }
+                }
+
+                if ((firstPoop.playerReference.Entity == null || !firstPoop.playerReference.Entity.Alive) && !unitGroup[i].HasComponent<GuardComponent>())
+                {
+                    unitGroup[i].RemoveComponent<FollowComponent>();
+                    unitGroup[i].AddComponent<GuardComponent>().position = firstTrans.position;
                 }
 
                 if (unitGroup[i].HasComponent<FollowComponent>())
