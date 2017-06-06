@@ -12,7 +12,7 @@ namespace Implementation.Systems
 {
     public class SpawnUnits : SystemBase
     {
-        private const int UNIT_LIMIT = 4;
+        private const int UNIT_LIMIT = 15;
 
         private SocketController socket;
         
@@ -64,8 +64,8 @@ namespace Implementation.Systems
 
                     var newEntity = contexts.Main.Pool.GetObject();
                     newEntity.DestroyEvent += OnUnitDestroy;
-                    RocketWorks.Vector3 offset = new RocketWorks.Vector3(random.Next(-100, 100) * .001f, .1f, random.Next(-100, 100) * .01f);
-                    newEntity.AddComponent<TransformComponent>().position = trans.position + offset;
+                    RocketWorks.Vector3 offset = new RocketWorks.Vector3(random.Next(-100, 100) * .001f, .1f, random.Next(-100, 100) * .001f);
+                    newEntity.AddComponent<TransformComponent>().position = trans.position + offset.Normalized() * .3f;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = "Unit";
                     newEntity.AddComponent<OwnerComponent>().playerReference = owner.playerReference;
                     newEntity.AddComponent<MovementComponent>().friction = .5f;

@@ -1,8 +1,5 @@
 ﻿using RocketWorks.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Implementation.Components
 {
@@ -12,5 +9,15 @@ namespace Implementation.Components
         public float lastTime = 0f;
 
         public float influence = 15f;
+
+        private Dictionary<Entity, float> influences;
+        public Dictionary<Entity, float> Influences
+        {
+            get {
+                if (influences == null)
+                    influences = new Dictionary<Entity, float>();
+                return influences;
+            }
+        }
     }
 }

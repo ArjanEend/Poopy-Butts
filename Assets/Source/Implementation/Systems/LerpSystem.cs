@@ -47,8 +47,16 @@ namespace Implementation.Systems
                 for (int i = 0; i < group.Count; i++)
                 {
                     Entity ent = group[i];
-                    ent.GetComponent<TransformComponent>().position = Vector3.Lerp(ent.GetComponent<TransformComponent>().position, ent.GetComponent<LerpToComponent>().position, deltaTime * 1f);
-                    ent.GetComponent<MovementComponent>().velocity = Vector3.Lerp(ent.GetComponent<MovementComponent>().velocity, ent.GetComponent<LerpToComponent>().velocity, deltaTime * 1f);
+                    LerpToComponent lerpTo = ent.GetComponent<LerpToComponent>();
+                    TransformComponent trans = ent.GetComponent<TransformComponent>();
+                    MovementComponent move = ent.GetComponent<MovementComponent>();
+                    if (ent.GetComponent<LerpToComponent>().position == Vector3.zero)
+                        return;
+
+                    float timeDiff = Math.Max(1.5f, Vector3.Distance(trans.position, lerpTo.position));
+
+                    trans.position = Vector3.Lerp(trans.position, lerpTo.position, deltaTime * timeDiff);
+                    move.velocity = Vector3.Lerp(move.velocity, lerpTo.velocity, deltaTime * timeDiff);
                 }
             }
         }

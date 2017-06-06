@@ -6,6 +6,12 @@ namespace Implementation.Components
 {
     public partial class LerpToComponent : IComponent, IEstimatable<LerpToComponent>
     {
+        public LerpToComponent()
+        {
+            position = Vector3.zero;
+            velocity = Vector3.zero;
+        }
+
         public Vector3 position = Vector3.zero;
         public Vector3 velocity = Vector3.zero;
 
@@ -13,11 +19,15 @@ namespace Implementation.Components
         {
             Vector3 delta = against.position - position;
             //against.position += delta * deltaTime;
-            if (delta.Magnitude() > .01f || !local)
+            if (delta.Magnitude() > 1f)
             {
-                position = against.position + delta * .5f;
+                position = against.position;
             }
-            if(position.y > 50f)
+            else if (delta.Magnitude() > .1f || !local)
+            {
+                position = against.position + delta * deltaTime;
+            }
+            if(Mathf.Abs(position.y) > 1f)
             {
                 RocketLog.Log("This entity is very high", this);
             }

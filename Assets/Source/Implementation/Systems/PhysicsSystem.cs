@@ -40,6 +40,21 @@ namespace Implementation.Systems
 
             circleGroup = contexts.Main.Pool.GetGroup(typeof(CircleCollider), typeof(TransformComponent));
             triggerGroup = contexts.Main.Pool.GetGroup(typeof(TriggerComponent), typeof(TransformComponent));
+
+            circleGroup.OnEntityRemoved += OnColliderRemove;
+            triggerGroup.OnEntityRemoved += OnTriggerRemove;
+        }
+
+        private void OnColliderRemove(Entity obj)
+        {
+            var rigidBody = obj.GetComponent<CircleCollider>().RigidBody;
+            world.RemoveRigidBody(rigidBody);
+        }
+
+        private void OnTriggerRemove(Entity obj)
+        {
+            var ghostObject = obj.GetComponent<TriggerComponent>().GhostObject;
+            world.RemoveCollisionObject(ghostObject);
         }
 
         private void CreateGround()
@@ -107,7 +122,6 @@ namespace Implementation.Systems
 
                 col.RigidBody = LocalCreateRigidBody(newColliders[i].HasComponent<MovementComponent>() ? 15f : 0f, mat, shape);
                 col.RigidBody.UserObject = newColliders[i];
-                col.RigidBody.ApplyForce(new Vector3(-5f * count, 0f, 0f), col.RigidBody.CenterOfMassPosition);
             }
             List<Entity> newTriggers = triggerGroup.NewEntities;
             for (int i = 0; i < newTriggers.Count; i++)
@@ -119,8 +133,6 @@ namespace Implementation.Systems
                 col.GhostObject = CreateTrigger(col.radius, mat);
                 col.GhostObject.UserObject = newTriggers[i];
             }
-
-
             for (int i = 0; i < circleGroup.Count; i++)
             {
                 TransformComponent transform = circleGroup[i].GetComponent<TransformComponent>();
@@ -129,6 +141,10 @@ namespace Implementation.Systems
                     continue;
                 var col = circleGroup[i].GetComponent<CircleCollider>();
                 var pos = col.RigidBody.CenterOfMassPosition;
+                if(RocketWorks.Vector3.Distance(transform.position, new RocketWorks.Vector3(pos.X, pos.Y, pos.Z)) > .5f)
+                {
+                    RocketLog.Log("difference too high");
+                }
                 transform.position = new RocketWorks.Vector3(pos.X, pos.Y, pos.Z);
                 col.RigidBody.ApplyCentralForce(new Vector3(movement.acceleration.x, movement.acceleration.y, movement.acceleration.z));
                 circleGroup[i].GetComponent<MovementComponent>().velocity = new RocketWorks.Vector3(col.RigidBody.LinearVelocity.X, col.RigidBody.LinearVelocity.Y, col.RigidBody.LinearVelocity.Z);
@@ -152,7 +168,7 @@ namespace Implementation.Systems
                 var obA = contactManifold.Body0;
                 var obB = contactManifold.Body1;
 
-                if (obA is PairCachingGhostObject || obB is PairCachingGhostObject)
+                if (obA is GhostObject || obB is GhostObject)
                     continue;
 
                 if (!(obA.UserObject is Entity && obB.UserObject is Entity))
@@ -162,7 +178,7 @@ namespace Implementation.Systems
                 for (int j = 0; j < numContacts; j++)
                 {
                     var pt = contactManifold.GetContactPoint(j);
-                    if (pt.Distance < .0f)
+                    if (pt.Distance < .1f)
                     {
                         var entity = contexts.Physics.Pool.GetObject();
                         var component = new CollisionComponent();

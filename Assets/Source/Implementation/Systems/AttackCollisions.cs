@@ -28,8 +28,6 @@ namespace Implementation.Systems
         {
             base.Initialize(contexts);
             group = contexts.Physics.Pool.GetGroup(typeof(CollisionComponent));
-            //attackGroup = contexts.Main.Pool.GetGroup(typeof(AttackComponent));
-            //healthGroup = contexts.Main.Pool.GetGroup(typeof(HealthComponent));
         }
 
         public override void Destroy()
@@ -54,7 +52,7 @@ namespace Implementation.Systems
 
                 if (attackA != null && healhtB != null && collision.b == attackA.target)
                 {
-                    if(time > healhtB.LastDamageTime + .5f)
+                    if(time > healhtB.LastDamageTime + .25f)
                     {
                         healhtB.LastDamageTime = time;
                         healhtB.health -= attackA.damage;
@@ -64,7 +62,7 @@ namespace Implementation.Systems
                 }
                 if (attackB != null && healthA != null && collision.a == attackB.target)
                 {
-                    if (time > healthA.LastDamageTime + .5f)
+                    if (time > healthA.LastDamageTime + .25f)
                     {
                         healthA.LastDamageTime = time;
                         healthA.health -= attackB.damage;

@@ -11,6 +11,7 @@ namespace Implementation.Systems
     {
         private Group unitGroup;
         private Group followGroup;
+        private Random random = new Random();
 
         public override void Initialize(Contexts contexts)
         {
@@ -102,10 +103,12 @@ namespace Implementation.Systems
                         heading += (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
                             unitGroup[i].GetComponent<TransformComponent>().position) * 2f;
 
+                heading += new Vector3(random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f);
+
                 if (heading.Magnitude() > 1f)
                 heading = heading.Normalized();
 
-                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 800f;
+                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 1100f;
             }
         }
     }
