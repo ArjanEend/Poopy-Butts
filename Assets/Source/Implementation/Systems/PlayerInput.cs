@@ -81,6 +81,8 @@ namespace Implementation.Systems
             var objects = trigger.GhostObject.OverlappingPairs;
             for(int i = 0; i < objects.Count; i++)
             {
+                if (objects[i] is BulletSharp.GhostObject)
+                    continue;
                 Entity ent = objects[i].UserObject as Entity;
                 if(ent != null && unitGroup.Contains(ent))
                 {

@@ -34,7 +34,7 @@ namespace Implementation.Systems
                 group[i].IsDirty = true;
                 var t = group[i].GetComponent<TransformComponent>(tId);
                 var m = group[i].GetComponent<MovementComponent>(mId);
-                m.velocity += m.acceleration * deltaTime;
+                m.velocity += m.acceleration * .01f * deltaTime;
                 t.position += (Vector3)m.velocity * deltaTime;
                 m.velocity -= m.velocity * m.friction * deltaTime;
             }

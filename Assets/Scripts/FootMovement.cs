@@ -41,6 +41,11 @@ public class FootMovement : MonoBehaviour {
             if (otherFeet[i].IsMoving)
                 return;
         }
+        if(targetTransform == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 		if(Vector3.Distance(transform.position, targetTransform.position) > maxDistance)
         {
             animationRoutine = StartCoroutine(AnimateTowards());

@@ -15,6 +15,50 @@ ModelImporter:
     100014: pSphere2
     100016: pSphere3
     100018: pSphere4
+    100020: pSphere5
+    100022: pSphere6
+    100024: pSphere7
+    100026: transform1
+    100028: transform10
+    100030: transform11
+    100032: transform2
+    100034: transform3
+    100036: transform4
+    100038: transform5
+    100040: transform6
+    100042: transform7
+    100044: transform8
+    100046: transform9
+    100048: Body
+    100050: Butt
+    100052: Eye_L
+    100054: Eye_R
+    100056: Head
+    100058: LegMid_L
+    100060: LegMid_L1
+    100062: LegMid_L2
+    100064: LegMid_R
+    100066: LegMid_R1
+    100068: LegMid_R2
+    100070: LegMidEnd_L1
+    100072: LegMidEnd_L1 1
+    100074: LegMidEnd_L1 2
+    100076: LegMidEnd_R1
+    100078: LegMidEnd_R1 1
+    100080: LegMidEnd_R1 2
+    100082: LegMidJoint_L
+    100084: LegMidJoint_L 1
+    100086: LegMidJoint_L 2
+    100088: LegMidJoint_R
+    100090: LegMidJoint_R 1
+    100092: LegMidJoint_R 2
+    100094: TrunkEnd
+    100096: TrunkJoint
+    100098: TrunkStart
+    100100: Wing_L
+    100102: Wing_R
+    100104: WingTip_L
+    100106: WingTip_R
     400000: //RootNode
     400002: pCylinder1
     400004: pCylinder2
@@ -25,6 +69,50 @@ ModelImporter:
     400014: pSphere2
     400016: pSphere3
     400018: pSphere4
+    400020: pSphere5
+    400022: pSphere6
+    400024: pSphere7
+    400026: transform1
+    400028: transform10
+    400030: transform11
+    400032: transform2
+    400034: transform3
+    400036: transform4
+    400038: transform5
+    400040: transform6
+    400042: transform7
+    400044: transform8
+    400046: transform9
+    400048: Body
+    400050: Butt
+    400052: Eye_L
+    400054: Eye_R
+    400056: Head
+    400058: LegMid_L
+    400060: LegMid_L1
+    400062: LegMid_L2
+    400064: LegMid_R
+    400066: LegMid_R1
+    400068: LegMid_R2
+    400070: LegMidEnd_L1
+    400072: LegMidEnd_L1 1
+    400074: LegMidEnd_L1 2
+    400076: LegMidEnd_R1
+    400078: LegMidEnd_R1 1
+    400080: LegMidEnd_R1 2
+    400082: LegMidJoint_L
+    400084: LegMidJoint_L 1
+    400086: LegMidJoint_L 2
+    400088: LegMidJoint_R
+    400090: LegMidJoint_R 1
+    400092: LegMidJoint_R 2
+    400094: TrunkEnd
+    400096: TrunkJoint
+    400098: TrunkStart
+    400100: Wing_L
+    400102: Wing_R
+    400104: WingTip_L
+    400106: WingTip_R
     2300000: pCylinder1
     2300002: pCylinder2
     2300004: pCylinder5
@@ -34,6 +122,7 @@ ModelImporter:
     2300012: pSphere2
     2300014: pSphere3
     2300016: pSphere4
+    2300018: pSphere7
     3300000: pCylinder1
     3300002: pCylinder2
     3300004: pCylinder5
@@ -43,6 +132,7 @@ ModelImporter:
     3300012: pSphere2
     3300014: pSphere3
     3300016: pSphere4
+    3300018: pSphere7
     4300000: pSphere1
     4300002: pSphere2
     4300004: pSphere3
@@ -52,7 +142,9 @@ ModelImporter:
     4300012: pCylinder5
     4300014: pCylinder6
     4300016: pCylinder7
+    4300018: pSphere7
     9500000: //RootNode
+    13700000: pSphere7
   materials:
     importMaterials: 1
     materialName: 0

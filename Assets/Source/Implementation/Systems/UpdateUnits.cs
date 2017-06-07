@@ -47,6 +47,8 @@ namespace Implementation.Systems
                     var objects = trigger.GhostObject.OverlappingPairs;
                     for (int x = 0; x < objects.Count; x++)
                     {
+                        if (objects[x] is BulletSharp.GhostObject)
+                            continue;
                         Entity ent = objects[x].UserObject as Entity;
                         if (ent != null)
                         {
@@ -101,7 +103,7 @@ namespace Implementation.Systems
 
                 if(unitGroup[i].HasComponent<AttackComponent>())
                         heading += (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
-                            unitGroup[i].GetComponent<TransformComponent>().position) * 2f;
+                            unitGroup[i].GetComponent<TransformComponent>().position) * 5f;
 
                 heading += new Vector3(random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f);
 

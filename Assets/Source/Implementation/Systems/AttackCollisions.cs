@@ -58,7 +58,7 @@ namespace Implementation.Systems
                         healhtB.health -= attackA.damage;
                         socket.WriteSocket(new MainContextUpdateComponentCommand(healhtB, collision.b.creationIndex));
                     }
-                    colliderB.RigidBody.ApplyImpulse(colliderB.RigidBody.CenterOfMassPosition - colliderA.RigidBody.CenterOfMassPosition * 500f, new Vector3());
+                    colliderB.RigidBody.ApplyImpulse(colliderB.RigidBody.CenterOfMassPosition - colliderA.RigidBody.CenterOfMassPosition * 5000f, new Vector3());
                 }
                 if (attackB != null && healthA != null && collision.a == attackB.target)
                 {
@@ -68,7 +68,7 @@ namespace Implementation.Systems
                         healthA.health -= attackB.damage;
                         socket.WriteSocket(new MainContextUpdateComponentCommand(healthA, collision.a.creationIndex));
                     }
-                    colliderA.RigidBody.ApplyImpulse(colliderA.RigidBody.CenterOfMassPosition - colliderB.RigidBody.CenterOfMassPosition * 500f, new Vector3());
+                    colliderA.RigidBody.ApplyImpulse(colliderA.RigidBody.CenterOfMassPosition - colliderB.RigidBody.CenterOfMassPosition * 5000f, new Vector3());
                 }
             }
 

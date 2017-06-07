@@ -19,13 +19,13 @@ namespace Implementation.Components
         {
             Vector3 delta = against.position - position;
             //against.position += delta * deltaTime;
-            if (delta.Magnitude() > 1f)
+            if (delta.Magnitude() > .5f && !local)
             {
                 position = against.position;
             }
             else if (delta.Magnitude() > .1f || !local)
             {
-                position = against.position + delta * deltaTime;
+                position = against.position; //+ delta * deltaTime;
             }
             if(Mathf.Abs(position.y) > 1f)
             {

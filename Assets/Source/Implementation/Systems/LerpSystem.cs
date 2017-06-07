@@ -53,7 +53,8 @@ namespace Implementation.Systems
                     if (ent.GetComponent<LerpToComponent>().position == Vector3.zero)
                         return;
 
-                    float timeDiff = Math.Max(1.5f, Vector3.Distance(trans.position, lerpTo.position));
+                    float distance = Vector3.Distance(trans.position, lerpTo.position);
+                    float timeDiff = Math.Max(1.5f, distance * 2f);
 
                     trans.position = Vector3.Lerp(trans.position, lerpTo.position, deltaTime * timeDiff);
                     move.velocity = Vector3.Lerp(move.velocity, lerpTo.velocity, deltaTime * timeDiff);
