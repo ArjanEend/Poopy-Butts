@@ -67,6 +67,8 @@ public class ButtonVisualization : UnitySystemBase
 
     public override void Execute(float deltaTime)
     {
+        if (visualizer == null || visualizer.go == null)
+            return;
         if (button1Active)
         {
             //button1Object.SetActive(true);

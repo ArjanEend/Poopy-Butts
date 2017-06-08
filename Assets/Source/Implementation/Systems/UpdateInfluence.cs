@@ -13,6 +13,7 @@ public class UpdateInfluence : SystemBase
     private Group spawnerGroup;
 
     private SocketController socket;
+    private float elapsedTime = 0f;
 
     public UpdateInfluence(SocketController socket)
     {
@@ -33,6 +34,7 @@ public class UpdateInfluence : SystemBase
 
     public override void Execute(float deltaTime)
     {
+        elapsedTime += deltaTime;
         for(int i = 0; i < spawnerGroup.Count; i++)
         {
             TriggerComponent trigger = spawnerGroup[i].GetComponent<TriggerComponent>();
@@ -88,6 +90,7 @@ public class UpdateInfluence : SystemBase
         if(dict[entity] >= 5f)
         {
             owner.playerReference = entity;
+            spawner.lastTime = elapsedTime; 
             return true;
         }
         return false;

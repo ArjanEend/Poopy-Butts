@@ -12,7 +12,7 @@ namespace Implementation.Systems
 {
     public class SpawnUnits : SystemBase
     {
-        private const int UNIT_LIMIT = 15;
+        private const int UNIT_LIMIT = 3;
 
         private SocketController socket;
         
@@ -21,12 +21,9 @@ namespace Implementation.Systems
         private Random random = new Random(DateTime.Now.Millisecond);
         private float elapsedTime = 0f;
 
-        private Dictionary<Entity, int> unitsPerPlayer;
-
         public SpawnUnits(SocketController socket)
         {
             this.socket = socket;
-            unitsPerPlayer = new Dictionary<Entity, int>();
         }
 
         public override void Initialize(Contexts contexts)
@@ -52,12 +49,10 @@ namespace Implementation.Systems
                 if (elapsedTime - spawner.lastTime > spawner.interval)
                 {
                     spawner.lastTime = elapsedTime;
-                    if (!unitsPerPlayer.ContainsKey(owner.playerReference))
-                        unitsPerPlayer.Add(owner.playerReference, 0);
-                    if (unitsPerPlayer[owner.playerReference] > UNIT_LIMIT)
+                    if (spawner.unitsSpawned >= UNIT_LIMIT)
                         continue;
 
-                    unitsPerPlayer[owner.playerReference]++;
+                    spawner.unitsSpawned++;
                     socket.WriteSocket(new MainContextUpdateComponentCommand(spawner, spawnerGroup[j].CreationIndex));
 
                     TransformComponent trans = spawnerGroup[j].GetComponent<TransformComponent>();
@@ -83,7 +78,11 @@ namespace Implementation.Systems
         private void OnUnitDestroy(Entity ent)
         {
             OwnerComponent owner = ent.GetComponent<OwnerComponent>();
-            unitsPerPlayer[owner.playerReference]--;
+            for (int j = 0; j < spawnerGroup.Count; j++)
+            {
+                if (spawnerGroup[j].GetComponent<OwnerComponent>().playerReference == ent.GetComponent<OwnerComponent>().playerReference)
+                    spawnerGroup[j].GetComponent<SpawnerComponent>().unitsSpawned--;
+            }
         }
     }
 }

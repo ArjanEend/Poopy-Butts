@@ -7,6 +7,7 @@ namespace Implementation.Components
     {
         public float interval = 5f;
         public float lastTime = 0f;
+        public int unitsSpawned = 0;
 
         public float influence = 15f;
 

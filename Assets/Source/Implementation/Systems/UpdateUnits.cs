@@ -80,7 +80,7 @@ namespace Implementation.Systems
                                     Vector3 repulse = firstTrans.position - secondTrans.position;
                                     repulse.Normalize();
                                     repulse /= d;
-                                    heading += repulse;
+                                    heading += repulse * 2f;
                                 }
                             }
                         }

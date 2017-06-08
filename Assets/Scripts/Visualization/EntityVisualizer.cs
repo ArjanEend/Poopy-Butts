@@ -3,6 +3,7 @@ using RocketWorks.Entities;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
 {
@@ -34,6 +35,10 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
     public void Init(Entity entity)
     {
         entity.DestroyEvent += DeInit;
+
+        string ent = JsonConvert.SerializeObject(entity);
+        RocketLog.Log(ent);
+        RocketLog.Log("" + JsonConvert.DeserializeObject<Entity>(ent).CreationIndex);
 
         componentQueue = new Queue<IComponent>();
         initQueue = new Queue<Entity>();
