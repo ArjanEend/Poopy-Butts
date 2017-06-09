@@ -80,19 +80,21 @@ public class UpdateInfluence : SystemBase
 
     private bool InfluenceObject(SpawnerComponent spawner, OwnerComponent owner, Entity entity, float deltaTime)
     {
-        if (entity == null || owner.playerReference == entity)
+        if (entity == null || !entity.Alive)
             return false;
         var dict = spawner.Influences;
         if (!dict.ContainsKey(entity))
             dict.Add(entity, 0f);
 
-        dict[entity] += deltaTime;
-        if(dict[entity] >= 5f)
+        dict[entity] += deltaTime * (1 / dict.Count);
+        if (owner.playerReference != entity && dict[entity] >= 3f)
         {
             owner.playerReference = entity;
-            spawner.lastTime = elapsedTime; 
+            spawner.lastTime = elapsedTime;
             return true;
         }
+        else if (dict[entity] >= 3f)
+            dict[entity] = 3f;
         return false;
     }
 
@@ -102,10 +104,12 @@ public class UpdateInfluence : SystemBase
         var keys = new List<Entity>(dict.Keys);
         for (int i = keys.Count - 1; i >= 0; i--)
         {
-
             if (owner != null && keys[i] == owner.playerReference)
+            {
+                dict.Remove(keys[i]);
                 continue;
-            dict[keys[i]] -= deltaTime * .5f;
+            }
+            dict[keys[i]] -= deltaTime * .1f * dict.Count;
             if (dict[keys[i]] <= 0f)
                 dict.Remove(keys[i]);
         }

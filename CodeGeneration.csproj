@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\framework\RocketWorks\CodeGeneration\Template\" />
+    <Folder Include="Assets\Plugins\" />
     <Folder Include="Assets\Source\Generated\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

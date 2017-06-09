@@ -16,9 +16,15 @@ public class AttackLine : ComponentUpdaterBase<AttackComponent>
         target = component.target.Entity.GetComponent<VisualizationComponent>().go.transform;
     }
 
+    public override void OnRemove(AttackComponent component)
+    {
+        target = null;
+    }
+
     public override void OnUpdate(AttackComponent component)
     {
-        target = component.target.Entity.GetComponent<VisualizationComponent>().go.transform;
+        if(component != null)
+            target = component.target.Entity.GetComponent<VisualizationComponent>().go.transform;
     }
 
     // Use this for initialization

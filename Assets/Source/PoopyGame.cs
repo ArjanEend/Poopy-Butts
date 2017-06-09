@@ -165,10 +165,12 @@ public class PoopyGameServer :
         systemManager.AddSystem(new SendEntitiesSystem<HealthComponent, MainContext>(socket, false, false, true));
 
         Random random = new Random(DateTime.Now.Millisecond);
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 24; i++)
         {
             Entity spawner = contexts.Main.Pool.GetObject();
-            spawner.AddComponent<TransformComponent>().position = new Vector3(random.Next(-100, 100) * .1f, 0f, random.Next(-100, 100) * .1f);
+            Vector3 pos = new Vector3(random.Next(-100, 100) * .1f, 0f, random.Next(-100, 100) * .1f);
+            pos.Normalize();
+            spawner.AddComponent<TransformComponent>().position = pos * 10f;
             spawner.AddComponent<VisualizationComponent>().resourceId = "Turd";
             spawner.AddComponent<OwnerComponent>();
             spawner.AddComponent<CircleCollider>().radius = .25f;

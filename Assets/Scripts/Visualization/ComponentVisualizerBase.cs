@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class ComponentVisualizerBase : MonoBehaviour, IComponentVisualizer
 {
     public abstract void Init(IComponent component);
+    public abstract void OnRemove(IComponent component);
 
     public void Init(params IComponent[] components)
     {
@@ -20,10 +21,16 @@ public abstract class ComponentVisualizerBase<T1> : ComponentVisualizerBase, ICo
     where T1 : IComponent
 {
     public abstract void Init(T1 component);
+    public abstract void OnRemove(T1 component);
     public override void Init(IComponent component)
     {
         if (component is T1)
             Init((T1)component);
+    }
+    public override void OnRemove(IComponent component)
+    {
+        if (component is T1)
+            OnRemove((T1)component);
     }
 }
 
@@ -43,11 +50,17 @@ public abstract class ComponentVisualizerBase<T1, T2> : ComponentUpdaterBase<T1>
     where T1 : IComponent where T2 : IComponent
 {
     public abstract void Init(T2 component);
+    public abstract void OnRemove(T2 component);
     public override void Init(IComponent component)
     {
         base.Init(component);
         if (component is T2)
             Init((T2)component);
+    }
+    public override void OnRemove(IComponent component)
+    {
+        if (component is T2)
+            OnRemove((T2)component);
     }
 }
 
@@ -55,11 +68,17 @@ public abstract class ComponentUpdaterBase<T1, T2> : ComponentUpdaterBase<T1>, I
     where T1 : IComponent where T2 : IComponent
 {
     public abstract void Init(T2 component);
+    public abstract void OnRemove(T2 component);
     public override void Init(IComponent component)
     {
         base.Init(component);
         if (component is T2)
             Init((T2)component);
+    }
+    public override void OnRemove(IComponent component)
+    {
+        if (component is T2)
+            OnRemove((T2)component);
     }
     public override void OnUpdate(IComponent component)
     {
@@ -75,11 +94,17 @@ public abstract class ComponentVisualizerBase<T1, T2, T3> : ComponentVisualizerB
     where T1 : IComponent where T2 : IComponent where T3 : IComponent
 {
     public abstract void Init(T3 component);
+    public abstract void OnRemove(T3 component);
     public override void Init(IComponent component)
     {
         base.Init(component);
         if (component is T3)
             Init((T3)component);
+    }
+    public override void OnRemove(IComponent component)
+    {
+        if (component is T3)
+            OnRemove((T3)component);
     }
 }
 
@@ -87,11 +112,17 @@ public abstract class ComponentUpdaterBase<T1, T2, T3> : ComponentUpdaterBase<T1
     where T1 : IComponent where T2 : IComponent where T3 : IComponent
 {
     public abstract void Init(T3 component);
+    public abstract void OnRemove(T3 component);
     public override void Init(IComponent component)
     {
         base.Init(component);
         if (component is T3)
             Init((T3)component);
+    }
+    public override void OnRemove(IComponent component)
+    {
+        if (component is T3)
+            OnRemove((T3)component);
     }
     public override void OnUpdate(IComponent component)
     {

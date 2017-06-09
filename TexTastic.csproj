@@ -228,6 +228,7 @@
   <ItemGroup>
     <Content Include="Assets\framework\.gitignore" />
     <Content Include="Assets\Plugins\BulletSharp.dll" />
+    <Content Include="Assets\Plugins\Couchbase.NetClient.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Source\Implementation\Physics\" />

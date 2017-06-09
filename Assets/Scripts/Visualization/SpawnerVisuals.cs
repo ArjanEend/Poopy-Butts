@@ -13,14 +13,20 @@ public class SpawnerVisuals : ComponentUpdaterBase<SpawnerComponent>
 
     public override void Init(SpawnerComponent component)
     {
+        for (int i = 0; i < indicators.Length; i++)
+        {
+            RocketLog.Log("active: " + (i > component.unitsSpawned));
+            indicators[i].SetActive(component.unitsSpawned > i);
+        }
+    }
+
+    public override void OnRemove(SpawnerComponent component)
+    {
 
     }
 
     public override void OnUpdate(SpawnerComponent component)
     {
-        for(int i = 0; i < indicators.Length; i++)
-        {
-            indicators[i].SetActive(i > component.unitsSpawned);
-        }
+        Init(component);   
     }
 }

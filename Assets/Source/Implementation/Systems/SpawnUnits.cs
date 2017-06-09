@@ -12,7 +12,7 @@ namespace Implementation.Systems
 {
     public class SpawnUnits : SystemBase
     {
-        private const int UNIT_LIMIT = 3;
+        private const int UNIT_LIMIT = 6;
 
         private SocketController socket;
         
@@ -44,7 +44,7 @@ namespace Implementation.Systems
             {
                 SpawnerComponent spawner = spawnerGroup[j].GetComponent<SpawnerComponent>();
                 OwnerComponent owner = spawnerGroup[j].GetComponent<OwnerComponent>();
-                if (owner.playerReference.Entity == null)
+                if (owner.playerReference == null)
                     continue;
                 if (elapsedTime - spawner.lastTime > spawner.interval)
                 {

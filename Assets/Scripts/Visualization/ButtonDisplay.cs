@@ -28,4 +28,8 @@ public class ButtonDisplay : ComponentUpdaterBase<ButtonComponent>
 
         particles.Stop();
     }
+
+    public override void OnRemove(ButtonComponent component)
+    {
+    }
 }

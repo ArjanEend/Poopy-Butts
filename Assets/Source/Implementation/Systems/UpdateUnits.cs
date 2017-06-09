@@ -82,6 +82,10 @@ namespace Implementation.Systems
                                     repulse /= d;
                                     heading += repulse * 2f;
                                 }
+
+                                if (second.HasComponent<MovementComponent>())
+                                    heading += second.GetComponent<MovementComponent>().acceleration.Normalized() * (1 / objects.Count);
+
                             }
                         }
                     }
@@ -102,8 +106,8 @@ namespace Implementation.Systems
                 unitGroup[i].GetComponent<TransformComponent>().position;
 
                 if(unitGroup[i].HasComponent<AttackComponent>())
-                        heading += (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
-                            unitGroup[i].GetComponent<TransformComponent>().position) * 5f;
+                    heading += (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
+                            unitGroup[i].GetComponent<TransformComponent>().position) * 25f;
 
                 heading += new Vector3(random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f);
 

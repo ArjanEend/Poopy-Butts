@@ -54,4 +54,12 @@ public class PlayerIDVisualizer : ComponentUpdaterBase<PlayerIdComponent, OwnerC
     {
         Init(component);
     }
+
+    public override void OnRemove(OwnerComponent component)
+    {
+    }
+
+    public override void OnRemove(PlayerIdComponent component)
+    {
+    }
 }

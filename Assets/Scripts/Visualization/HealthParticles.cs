@@ -14,6 +14,10 @@ public class HealthParticles : ComponentUpdaterBase<HealthComponent> {
         //particles.Play();
     }
 
+    public override void OnRemove(HealthComponent component)
+    {
+    }
+
     public override void OnUpdate(HealthComponent component)
     {
         particles.Play();

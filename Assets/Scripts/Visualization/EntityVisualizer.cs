@@ -13,6 +13,7 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
     private IUpdateComponent[] updates;
 
     private Queue<IComponent> componentQueue;
+    private Queue<IComponent> removeQueue;
     private Queue<Entity> initQueue;
 
     private void Start()
@@ -41,6 +42,7 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
         RocketLog.Log("" + JsonConvert.DeserializeObject<Entity>(ent).CreationIndex);
 
         componentQueue = new Queue<IComponent>();
+        removeQueue = new Queue<IComponent>();
         initQueue = new Queue<Entity>();
 
         visualizers = GetComponentsInChildren<IComponentVisualizer>(true);
@@ -52,7 +54,7 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
         if (updates.Length > 0)
         {
             entity.CompositionChangeEvent += CompositionChanged;
-            entity.CompositionSubtractEvent += CompositionChanged;
+            entity.CompositionSubtractEvent += ComponentRemoved;
         }
     }
 
@@ -64,6 +66,11 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
     public void CompositionChanged(IComponent comp, Entity entity = null)
     {
         componentQueue.Enqueue(comp);
+    }
+
+    public void ComponentRemoved(IComponent comp, Entity entity = null)
+    {
+        removeQueue.Enqueue(comp);
     }
 
     private IEnumerator DestroyMe()
@@ -88,6 +95,14 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
             for (int j = 0; j < updates.Length; j++)
             {
                 updates[j].OnUpdate(comp);
+            }
+        }
+        for (int i = 0; i < removeQueue.Count; i++)
+        {
+            IComponent comp = removeQueue.Dequeue();
+            for (int j = 0; j < updates.Length; j++)
+            {
+                updates[j].OnRemove(comp);
             }
         }
     }
