@@ -28,6 +28,7 @@ namespace RocketWorks.Networking
             this.controller = controller;
             clientButton.onClick.AddListener(Connect);
             serverButton.onClick.AddListener(StartServer);
+            controller.DisconnectEvent += OnDisconnect;
         }
 
         private void Connect()
@@ -35,6 +36,11 @@ namespace RocketWorks.Networking
             controller.SetupSocket(false);
             controller.Connect(ipInput.text, 9001);
             gameObject.SetActive(false);
+        }
+
+        private void OnDisconnect()
+        {
+            gameObject.SetActive(true);
         }
 
         private void Update()

@@ -18,15 +18,11 @@ using Random = System.Random;
 using System;
 
 #if UNITY_EDTIOR || UNITY_5
-
 public class PoopyGame : UnityGameBase {
 
     [RuntimeInitializeOnLoadMethod]
 	private static void Main () {
         PoopyGame game = new PoopyGame();
-#if UNITY_EDITOR
-        //PoopyGameServer server = new PoopyGameServer();
-#endif
     }
 
     private SocketController socket;
@@ -60,6 +56,7 @@ public class PoopyGame : UnityGameBase {
         socket = new SocketController(commander, rocketizer);
         socket.UserConnectedEvent += OnUserConnected;
         socket.UserIDSetEvent += OnUserID;
+        socket.DisconnectEvent += OnDisconnect;
 
         NetworkController networkController = GameObject.FindObjectOfType<NetworkController>();
         networkController.Init(socket);
@@ -70,6 +67,11 @@ public class PoopyGame : UnityGameBase {
         systemManager.AddSystem(messageSystem);
         messageSystem.OnMessageReceived += controller.OnNewMessage;
         controller.Init(contexts.Message.Pool, socket.UserId);
+    }
+
+    private void OnDisconnect()
+    {
+        //contexts.Input.Pool
     }
 
     private void OnUserID(int id)
@@ -87,6 +89,13 @@ public class PoopyGame : UnityGameBase {
         playerDispatch.ComponentUpdated += camera.Initialize;
         playerDispatch.ComponentUpdated += buttonVis.SetPlayer;
         triggerDispatch.ComponentUpdated += buttonVis.SetTrigger;
+
+        playerDispatch.EntityRemoved += OnPlayerDefated;
+    }
+
+    private void OnPlayerDefated(VisualizationComponent obj)
+    {
+        socket.CloseSocket();
     }
 
     public override void UpdateGame(float deltaTime)
@@ -146,11 +155,9 @@ public class PoopyGameServer :
         MessageSystem messageSystem = new MessageSystem();
         systemManager.AddSystem(messageSystem);
         messageSystem.OnNewEntity += OnNewMessage;
-
-        //systemManager.AddSystem(new TilemapCollision());
+        
         systemManager.AddSystem(new MovementSystem());
         systemManager.AddSystem(new PhysicsSystem());
-        //systemManager.AddSystem(new CircleCollisionSystem());
         systemManager.AddSystem(new UpdateInfluence(socket));
         systemManager.AddSystem(new AttackTrigger());
         systemManager.AddSystem(new UpdateUnits());
