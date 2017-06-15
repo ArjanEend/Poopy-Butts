@@ -19,7 +19,7 @@ namespace Implementation.Systems
         {
             base.Initialize(contexts);
             contexts.GetContext<S>().Pool.GetGroup(typeof(PlayerIdComponent), typeof(T)).OnEntityAdded += OnComponentUpdate;
-            contexts.GetContext<S>().Pool.GetGroup(typef(PlayerIdComponent), typeof(T)).OnEntityRemoved += OnEntityRemoved;
+            contexts.GetContext<S>().Pool.GetGroup(typeof(PlayerIdComponent), typeof(T)).OnEntityRemoved += OnEntityRemoved;
         }
 
         private void OnComponentUpdate(Entity obj)

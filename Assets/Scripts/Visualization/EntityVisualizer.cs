@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
 {
     private bool destroy = false;
+    private bool initialized = false;
 
     private IComponentVisualizer[] visualizers;
     private IUpdateComponent[] updates;
@@ -18,6 +19,8 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
 
     private void Start()
     {
+        if (initQueue == null)
+            return;
         for (int i = 0; i < initQueue.Count; i++)
         {
             Entity initEntity = initQueue.Dequeue();
@@ -26,6 +29,7 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
                 visualizers[j].Init(initEntity.Components);
             }
         }
+        initialized = true;
     }
 
     public void DeInit(Entity entity)
@@ -86,7 +90,9 @@ public class EntityVisualizer : MonoBehaviour, IEntityVisualizer
             Destroy(gameObject);
             return;
         }
-        if (updates.Length == 0)
+        if (!initialized)
+            Start();
+        if (updates == null || updates.Length == 0)
             return;
         
         for (int i = 0; i < componentQueue.Count; i++)

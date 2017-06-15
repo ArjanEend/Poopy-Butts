@@ -21,7 +21,7 @@ using System;
 public class PoopyGame : UnityGameBase {
 
     [RuntimeInitializeOnLoadMethod]
-	private static void Main () {
+	public static void Main () {
         PoopyGame game = new PoopyGame();
     }
 
@@ -96,6 +96,7 @@ public class PoopyGame : UnityGameBase {
     private void OnPlayerDefated(VisualizationComponent obj)
     {
         socket.CloseSocket();
+        contexts.ClearPools();
     }
 
     public override void UpdateGame(float deltaTime)

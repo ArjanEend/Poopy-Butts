@@ -74,7 +74,7 @@ public class PingSystem : SystemBase
 
     public override void Execute(float deltaTime)
     {
-        if(socket.UserId != -1)
+        if(socket.UserId != -1 && pingEntity.Alive)
         {
             RocketLog.Log("Update ping");
             pingEntity.GetComponent<PingComponent>().toTicks = (long)(ServerTimeStamp.ServerNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
