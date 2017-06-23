@@ -121,7 +121,6 @@
     <Compile Include="Assets\Source\Implementation\Components\GuardComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\HealthComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
-    <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\OwnerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />

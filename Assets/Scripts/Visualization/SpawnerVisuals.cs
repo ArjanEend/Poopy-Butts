@@ -15,7 +15,6 @@ public class SpawnerVisuals : ComponentUpdaterBase<SpawnerComponent>
     {
         for (int i = 0; i < indicators.Length; i++)
         {
-            RocketLog.Log("active: " + (i > component.unitsSpawned));
             indicators[i].SetActive(component.unitsSpawned > i);
         }
     }

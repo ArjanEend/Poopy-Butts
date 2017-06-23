@@ -61,10 +61,10 @@ namespace Implementation.Systems
                     newEntity.DestroyEvent += OnUnitDestroy;
                     RocketWorks.Vector3 offset = new RocketWorks.Vector3(random.Next(-100, 100) * .001f, .1f, random.Next(-100, 100) * .001f);
                     newEntity.AddComponent<TransformComponent>().position = trans.position + offset.Normalized() * .3f;
-                    newEntity.AddComponent<VisualizationComponent>().resourceId = "Unit";
+                    newEntity.AddComponent<VisualizationComponent>().resourceId = ResourceID.Unit;
                     newEntity.AddComponent<OwnerComponent>().playerReference = owner.playerReference;
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
-                    newEntity.AddComponent<CircleCollider>().radius = .05f;
+                    newEntity.AddComponent(new CircleCollider(.05f));
                     newEntity.AddComponent<HealthComponent>().health = 5f;
                     newEntity.AddComponent<TriggerComponent>().radius = 1.3f;
                     newEntity.AddComponent<LerpToComponent>();

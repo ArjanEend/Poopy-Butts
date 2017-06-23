@@ -11,17 +11,12 @@ class VisualizationSystem : UnitySystemBase
 {
     private Group group;
 
-    private int vId;
-    private int tId;
-
     private int localUser;
 
     public override void Initialize(Contexts contexts)
     {
         EntityPool pool = contexts.Main.Pool;
-        vId = pool.GetIndexOf(typeof(VisualizationComponent));
-        tId = pool.GetIndexOf(typeof(TransformComponent));
-        group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent), typeof(TransformComponent));
+        group = contexts.Main.Pool.GetGroup(typeof(VisualizationComponent));
     }
 
     private void EntityRemoved(Entity obj)
@@ -30,7 +25,6 @@ class VisualizationSystem : UnitySystemBase
 
     public override void Destroy()
     {
-
     }
 
     public override void Execute(float deltaTime)
@@ -38,37 +32,14 @@ class VisualizationSystem : UnitySystemBase
         List<Entity> newEntities = group.NewEntities;
         for (int i = 0; i < newEntities.Count; i++)
         {
-            VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>(vId);
+            VisualizationComponent comp = newEntities[i].GetComponent<VisualizationComponent>();
             TransformComponent trans = newEntities[i].GetComponent<TransformComponent>();
-            comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId));
+            comp.go = Instantiate<GameObject>(Resources.Load<GameObject>(comp.resourceId.ToString()));
             comp.go.name += " Entity: " + newEntities[i].CreationIndex;
             comp.go.transform.position = trans.position;
             IEntityVisualizer[] visualizers = comp.go.GetComponentsInChildren<IEntityVisualizer>(true);
             for (int j = 0; j < visualizers.Length; j++)
                 visualizers[j].Init(newEntities[i]);
-        }
-        for(int i = 0; i < group.Count; i++)
-        {
-            if (!group[i].IsDirty)
-                continue;
-            group[i].IsDirty = false;
-            VisualizationComponent vComp = group[i].GetComponent<VisualizationComponent>(vId);
-            TransformComponent tComp = group[i].GetComponent<TransformComponent>(tId);
-            if (vComp.go != null)
-            {
-                GameObject go = vComp.go;
-                go.transform.position = tComp.position;
-                MovementComponent mov = group[i].GetComponent<MovementComponent>();
-                if (mov == null)
-                    continue;
-                RocketWorks.Vector3 velocity = mov.velocity;
-                Quaternion oldRot = go.transform.rotation;
-                go.transform.eulerAngles = new Vector3(0f, Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg, 0f);
-                //if(velocity != RocketWorks.Vector2.zero)
-                    go.transform.rotation = Quaternion.RotateTowards(oldRot, go.transform.rotation, Time.deltaTime * 180f);
-                if(GetComponentInChildren<Animator>() != null)
-                    go.GetComponentInChildren<Animator>().SetFloat("Speed", velocity.Magnitude());
-            }
         }
     }
 }

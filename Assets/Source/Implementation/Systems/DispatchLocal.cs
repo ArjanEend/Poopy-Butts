@@ -8,6 +8,7 @@ namespace Implementation.Systems
     {
         public Action<T> ComponentUpdated = delegate { };
         public Action<T> EntityRemoved = delegate { };
+        public Action<Entity> EntityAdded = delegate { };
 
         private int localUser;
         public DispatchLocal(int userId)
@@ -24,8 +25,11 @@ namespace Implementation.Systems
 
         private void OnComponentUpdate(Entity obj)
         {
-            if(obj.GetComponent<PlayerIdComponent>().id == localUser)
+            if (obj.GetComponent<PlayerIdComponent>().id == localUser)
+            {
+                EntityAdded(obj);
                 ComponentUpdated(obj.GetComponent<T>());
+            }
         }
 
         private void OnEntityRemoved(Entity obj)
