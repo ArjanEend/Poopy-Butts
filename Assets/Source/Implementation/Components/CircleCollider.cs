@@ -9,6 +9,16 @@ namespace PoopyButts.Components
     {
         public float radius;
 
+        public CircleCollider()
+        {
+
+        }
+
+        public CircleCollider(float radius = .05f)
+        {
+            this.radius = radius;
+        }
+
         private RigidBody rigidBody;
         public RigidBody RigidBody 
         {

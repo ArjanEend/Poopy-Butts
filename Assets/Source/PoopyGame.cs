@@ -179,9 +179,9 @@ public class PoopyGameServer :
             Vector3 pos = new Vector3(random.Next(-100, 100) * .1f, 0f, random.Next(-100, 100) * .1f);
             pos.Normalize();
             spawner.AddComponent<TransformComponent>().position = pos * 10f;
-            spawner.AddComponent<VisualizationComponent>().resourceId = "Turd";
+            spawner.AddComponent<VisualizationComponent>().resourceId = ResourceID.Turd;
             spawner.AddComponent<OwnerComponent>();
-            spawner.AddComponent<CircleCollider>().radius = .25f;
+            spawner.AddComponent(new CircleCollider(.25f));
             spawner.AddComponent<SpawnerComponent>().interval = 5f;
             spawner.AddComponent<TriggerComponent>().radius = 1f;
         }
@@ -209,12 +209,12 @@ public class PoopyGameServer :
         ent.AddComponent<PlayerInfo>().name = "Player " + obj;
 
         Entity playerObj = contexts.Main.Pool.GetObject();
-        playerObj.AddComponent<TransformComponent>().position = new Vector2(0f, 0f);
-        playerObj.AddComponent<MovementComponent>().velocity = new Vector2(0f, 0f);
-        playerObj.AddComponent<VisualizationComponent>().resourceId = "character";
+        playerObj.AddComponent<TransformComponent>().position = new Vector3(-5f + (2f * obj), .5f, 0f);
+        playerObj.AddComponent<MovementComponent>().velocity = new Vector3(0f, 0f);
+        playerObj.AddComponent<VisualizationComponent>().resourceId = ResourceID.character;
         playerObj.AddComponent<PlayerIdComponent>().id = obj;
         playerObj.AddComponent<LerpToComponent>();
-        playerObj.AddComponent<CircleCollider>().radius = .25f;
+        playerObj.AddComponent(new CircleCollider(.25f));
         playerObj.AddComponent<TriggerComponent>().radius = 1f;
         playerObj.AddComponent<HealthComponent>().health = 15f;
 

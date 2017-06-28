@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: 34f3e827074481a4d957c84a0ccba1d6
+timeCreated: 1498200017
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: cornerTile
+    100002: cornerTile1
+    100004: cornerTile2
+    100006: downTile
+    100008: emptyTile
+    100010: leftTile
+    100012: midTile1
+    100014: midTile2
+    100016: midTile3
+    100018: midTile4
+    100020: NWTIle
+    100022: pPlane14
+    100024: rightTile
+    100026: SWTile
+    100028: threewaytile
+    100030: threewaytile1
+    100032: threewaytile2
+    100034: //RootNode
+    100036: transform1
+    100038: transform10
+    100040: transform11
+    100042: transform2
+    100044: transform3
+    100046: transform4
+    100048: transform5
+    100050: transform6
+    100052: transform7
+    100054: transform8
+    100056: transform9
+    100058: twowaytile
+    100060: upTile
+    100062: upTile1
+    100064: upTile2
+    100066: upTile3
+    100068: upTile4
+    100070: upTile5
+    100072: Wall
+    400000: cornerTile
+    400002: cornerTile1
+    400004: cornerTile2
+    400006: downTile
+    400008: emptyTile
+    400010: leftTile
+    400012: midTile1
+    400014: midTile2
+    400016: midTile3
+    400018: midTile4
+    400020: NWTIle
+    400022: pPlane14
+    400024: rightTile
+    400026: SWTile
+    400028: threewaytile
+    400030: threewaytile1
+    400032: threewaytile2
+    400034: //RootNode
+    400036: transform1
+    400038: transform10
+    400040: transform11
+    400042: transform2
+    400044: transform3
+    400046: transform4
+    400048: transform5
+    400050: transform6
+    400052: transform7
+    400054: transform8
+    400056: transform9
+    400058: twowaytile
+    400060: upTile
+    400062: upTile1
+    400064: upTile2
+    400066: upTile3
+    400068: upTile4
+    400070: upTile5
+    400072: Wall
+    2300000: cornerTile2
+    2300002: emptyTile
+    2300004: midTile2
+    2300006: midTile3
+    2300008: midTile4
+    2300010: NWTIle
+    2300012: SWTile
+    2300014: threewaytile2
+    2300016: twowaytile
+    2300018: upTile1
+    2300020: upTile2
+    3300000: cornerTile2
+    3300002: emptyTile
+    3300004: midTile2
+    3300006: midTile3
+    3300008: midTile4
+    3300010: NWTIle
+    3300012: SWTile
+    3300014: threewaytile2
+    3300016: twowaytile
+    3300018: upTile1
+    3300020: upTile2
+    4300000: SWTile
+    4300002: NWTIle
+    4300004: midTile2
+    4300006: midTile3
+    4300008: upTile1
+    4300010: cornerTile2
+    4300012: upTile2
+    4300014: threewaytile2
+    4300016: twowaytile
+    4300018: midTile4
+    4300020: emptyTile
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

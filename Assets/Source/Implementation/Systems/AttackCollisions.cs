@@ -47,27 +47,35 @@ namespace Implementation.Systems
                 HealthComponent healthA = collision.a.Entity.GetComponent<HealthComponent>();
                 HealthComponent healhtB = collision.b.Entity.GetComponent<HealthComponent>();
 
+                OwnerComponent ownerA = collision.a.Entity.GetComponent<OwnerComponent>();
+                OwnerComponent ownerB = collision.b.Entity.GetComponent<OwnerComponent>();
+
                 CircleCollider colliderA = collision.a.Entity.GetComponent<CircleCollider>();
                 CircleCollider colliderB = collision.b.Entity.GetComponent<CircleCollider>();
 
-                if (attackA != null && healhtB != null && collision.b == attackA.target)
+                if (ownerA != null && ownerB != null && ownerA.playerReference != ownerB.playerReference)
                 {
-                    if(time - healhtB.LastDamageTime > .4f)
+                    if (time - healhtB.LastDamageTime > .4f)
                     {
-                        healhtB.LastDamageTime = time;
-                        healhtB.health -= attackA.damage;
-                        socket.WriteSocket(new MainContextUpdateComponentCommand(healhtB, collision.b.creationIndex));
-                        colliderB.RigidBody.ApplyImpulse(colliderB.RigidBody.CenterOfMassPosition - colliderA.RigidBody.CenterOfMassPosition * 50000f, new Vector3());
-                    }
-                }
-                if (attackB != null && healthA != null && collision.a == attackB.target)
-                {
-                    if (time - healthA.LastDamageTime > .4f)
-                    {
-                        healthA.LastDamageTime = time;
-                        healthA.health -= attackB.damage;
-                        socket.WriteSocket(new MainContextUpdateComponentCommand(healthA, collision.a.creationIndex));
-                        colliderA.RigidBody.ApplyImpulse(colliderA.RigidBody.CenterOfMassPosition - colliderB.RigidBody.CenterOfMassPosition * 50000f, new Vector3());
+                        if (attackA != null && healhtB != null)
+                        {
+
+                            healhtB.LastDamageTime = time;
+                            healhtB.health -= attackA.damage;
+                            socket.WriteSocket(new MainContextUpdateComponentCommand(healhtB, collision.b.creationIndex));
+                            colliderB.RigidBody.ApplyImpulse(colliderB.RigidBody.CenterOfMassPosition - colliderA.RigidBody.CenterOfMassPosition * 50000f, new Vector3());
+
+                        }
+                        if (attackB != null && healthA != null)
+                        {
+                            if (time - healthA.LastDamageTime > .4f)
+                            {
+                                healthA.LastDamageTime = time;
+                                healthA.health -= attackB.damage;
+                                socket.WriteSocket(new MainContextUpdateComponentCommand(healthA, collision.a.creationIndex));
+                                colliderA.RigidBody.ApplyImpulse(colliderA.RigidBody.CenterOfMassPosition - colliderB.RigidBody.CenterOfMassPosition * 50000f, new Vector3());
+                            }
+                        }
                     }
                 }
             }

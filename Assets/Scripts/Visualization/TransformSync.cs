@@ -25,6 +25,5 @@ public class TransformSync : ComponentVisualizerBase<TransformComponent>
 	void Update ()
     {
         transform.position = transComp.position;
-        transform.eulerAngles = transComp.rotation;
 	}
 }

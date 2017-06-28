@@ -63,8 +63,7 @@ namespace Implementation.Systems
                         }
 
                         if (attack == null && 
-                            ((secondPoop != null && firstPoop.playerReference != secondPoop.playerReference) ||
-                              playerId != null && ent != firstPoop.playerReference))
+                            ((secondPoop != null && firstPoop.playerReference != secondPoop.playerReference)))
                         {
                             attack = new AttackComponent();
                             attack.damage = 1f;

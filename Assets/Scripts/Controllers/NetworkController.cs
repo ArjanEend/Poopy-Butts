@@ -23,6 +23,8 @@ namespace RocketWorks.Networking
 
         private Vector3 startPos;
 
+        private string lastIp = "127.0.0.1";
+
         public void Init(SocketController controller)
         {
             startPos = transform.position;
@@ -32,10 +34,20 @@ namespace RocketWorks.Networking
             controller.DisconnectEvent += OnDisconnect;
         }
 
+        private void OnEnable()
+        {
+            lastIp = PlayerPrefs.GetString("LAST_IP");
+            if (string.IsNullOrEmpty(lastIp))
+                lastIp = "127.0.0.1";
+            ipInput.text = lastIp;
+        }
+
         private void Connect()
         {
             controller.SetupSocket(false);
             controller.Connect(ipInput.text, 9001);
+            lastIp = ipInput.text;
+            PlayerPrefs.SetString("LAST_IP", lastIp);
             transform.position = new Vector3(0, 1, 0) * Screen.height * 5f;
             disconnected = false;
         }

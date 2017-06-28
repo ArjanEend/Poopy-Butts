@@ -38,8 +38,7 @@ namespace Implementation.Systems
                 OwnerComponent firstPoop = unitGroup[i].GetComponent<OwnerComponent>();
 
                 Vector3 heading = Vector3.zero;
-
-
+                
                 TransformComponent firstTrans = unitGroup[i].GetComponent<TransformComponent>();
                 TriggerComponent trigger = unitGroup[i].GetComponent<TriggerComponent>();
                 if (trigger.GhostObject != null)
@@ -106,15 +105,22 @@ namespace Implementation.Systems
                 unitGroup[i].GetComponent<TransformComponent>().position;
 
                 if(unitGroup[i].HasComponent<AttackComponent>())
-                    heading += (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
-                            unitGroup[i].GetComponent<TransformComponent>().position) * 25f;
+                {
+                    Vector3 diff = (unitGroup[i].GetComponent<AttackComponent>().target.Entity.GetComponent<TransformComponent>().position -
+                            unitGroup[i].GetComponent<TransformComponent>().position);
+                    float attDist = diff.Magnitude();
+                    if (attDist > 3f)
+                        unitGroup[i].RemoveComponent<AttackComponent>();
+                    else
+                        heading += diff * 12f;
+                }
 
                 heading += new Vector3(random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f, random.Next(-50, 50) * .002f);
 
                 if (heading.Magnitude() > 1f)
-                heading = heading.Normalized();
+                    heading = heading.Normalized();
 
-                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * 1100f;
+                unitGroup[i].GetComponent<MovementComponent>().acceleration = heading * firstPoop.Acceleration;
             }
         }
     }

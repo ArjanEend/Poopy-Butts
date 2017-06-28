@@ -23,7 +23,7 @@ public class AttackLine : ComponentUpdaterBase<AttackComponent>
 
     public override void OnUpdate(AttackComponent component)
     {
-        if(component != null)
+        if(component != null && component.target != null)
             target = component.target.Entity.GetComponent<VisualizationComponent>().go.transform;
     }
 

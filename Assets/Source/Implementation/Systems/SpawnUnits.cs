@@ -63,6 +63,7 @@ namespace Implementation.Systems
                     newEntity.AddComponent<TransformComponent>().position = trans.position + offset.Normalized() * .3f;
                     newEntity.AddComponent<VisualizationComponent>().resourceId = ResourceID.Unit;
                     newEntity.AddComponent<OwnerComponent>().playerReference = owner.playerReference;
+                    newEntity.GetComponent<OwnerComponent>().Acceleration += random.Next(-100, 100);
                     newEntity.AddComponent<MovementComponent>().friction = .5f;
                     newEntity.AddComponent(new CircleCollider(.05f));
                     newEntity.AddComponent<HealthComponent>().health = 5f;
