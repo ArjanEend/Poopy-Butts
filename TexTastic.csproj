@@ -134,6 +134,15 @@
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainEntity.cs" />
+    <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContext.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextDestroyEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextRemoveComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextUpdateYourComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageEntity.cs" />
     <Compile Include="Assets\Source\Generated\MetaContext.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextDestroyEntityCommand.cs" />
@@ -177,6 +186,7 @@
     <Compile Include="Assets\Source\Implementation\Components\GuardComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\HealthComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\LerpToComponent.cs" />
+    <Compile Include="Assets\Source\Implementation\Components\MessageComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\MovementComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\OwnerComponent.cs" />
     <Compile Include="Assets\Source\Implementation\Components\PingComponent.cs" />
@@ -196,6 +206,7 @@
     <Compile Include="Assets\Source\Implementation\Systems\DeathSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\DispatchLocal.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\LerpSystem.cs" />
+    <Compile Include="Assets\Source\Implementation\Systems\MessageSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\MovementSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PhysicsSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\PingSystem.cs" />
@@ -204,7 +215,6 @@
     <Compile Include="Assets\Source\Implementation\Systems\SpawnUnits.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SendWorldSystem.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\SpawnTilemap.cs" />
-    <Compile Include="Assets\Source\Implementation\Systems\SpawnUsers.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\TilemapCollision.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\UpdateInfluence.cs" />
     <Compile Include="Assets\Source\Implementation\Systems\UpdateUnits.cs" />

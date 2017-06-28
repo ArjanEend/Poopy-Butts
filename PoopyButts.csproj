@@ -174,6 +174,7 @@
     <Compile Include="Assets\Scripts\Visualization\HealthParticles.cs" />
     <Compile Include="Assets\Scripts\Visualization\IComponentVisualizer.cs" />
     <Compile Include="Assets\Scripts\Visualization\IEntityVisualizer.cs" />
+    <Compile Include="Assets\Scripts\Visualization\MovementVisualization.cs" />
     <Compile Include="Assets\Scripts\Visualization\PlayerIDVisualizer.cs" />
     <Compile Include="Assets\Scripts\Visualization\SpawnerVisuals.cs" />
     <Compile Include="Assets\Scripts\Visualization\TransformSync.cs" />
@@ -210,6 +211,15 @@
     <Compile Include="Assets\Source\Generated\MainContextUpdateComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainContextUpdateYourComponentCommand.cs" />
     <Compile Include="Assets\Source\Generated\MainEntity.cs" />
+    <Compile Include="Assets\Source\Generated\MessageComponent.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContext.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextCreateEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextDestroyEntityCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextEstimateComponentCommmand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextRemoveComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextUpdateComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageContextUpdateYourComponentCommand.cs" />
+    <Compile Include="Assets\Source\Generated\MessageEntity.cs" />
     <Compile Include="Assets\Source\Generated\MetaContext.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextCreateEntityCommand.cs" />
     <Compile Include="Assets\Source\Generated\MetaContextDestroyEntityCommand.cs" />
